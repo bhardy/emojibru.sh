@@ -1,0 +1,26 @@
+.artboard {
+  grid-area: artboard;
+  align-self: center;
+  justify-self: center;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "canvas picker"
+    "resize picker";
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
+}
+
+.canvas {
+  grid-area: canvas;
+}
+
+.picker {
+  grid-area: picker;
+}
+
+.resize {
+  grid-area: resize;
+}
