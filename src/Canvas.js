@@ -1,52 +1,25 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useMouseStatus } from './hooks/useMouseStatus'
 import './styles/Canvas.css'
 
-class Cell extends Component {
-  constructor () {
-    super()
-    this.state = {
-      isMouseDown: false
-    }
-    this.mousedown = () => this.drawLock(true)
-    this.mouseup = () => this.drawLock(false)
-  }
+const Cell = ({ paint, row, col, draw }) => {
+  const isMouseDown = useMouseStatus()
 
-  componentDidMount () {
-    window.addEventListener('mousedown', this.mousedown)
-    window.addEventListener('mouseup', this.mouseup)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('mousedown', this.mousedown)
-    window.removeEventListener('mouseup', this.mouseup)
-  }
-
-  drawLock (mouseDown) {
-    this.setState({
-      isMouseDown: mouseDown
-    })
-  }
-
-  drawCheck (row, col) {
-    if (this.state.isMouseDown) {
-      this.props.draw(row, col)
+  const drawCheck = (row, col) => {
+    if (isMouseDown === 'mousedown') {
+      draw(row, col)
     }
   }
 
-  render () {
-    const paint = this.props.paint
-    const row = this.props.row
-    const col = this.props.col
-    return (
-      <span className="canvas-span"
-        onMouseDown={() => this.props.draw(row, col)}
-        onMouseOver={() => this.drawCheck(row, col)}
-      >
-        {paint}
-      </span>
-    )
-  }
+  return (
+    <span className="canvas-span"
+      onMouseDown={() => draw(row, col)}
+      onMouseOver={() => drawCheck(row, col)}
+    >
+      {paint}
+    </span>
+  )
 }
 
 Cell.propTypes = {
