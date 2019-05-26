@@ -16,10 +16,11 @@ const control = (grid, matchedCells = [], checkedCells = []) => {
 
   // get the value of the matching cell
   const { x, y } = target
+
   const fillTarget = grid[y][x]
 
   // get cells
-  const adjacentCells = getSides(grid, target)
+  const adjacentCells = getAdjacent(grid, target)
   const matchingAdjacentCells = getMatches(grid, fillTarget, adjacentCells)
   const combinedMatchingCells = uniqWith(matchedCells.concat(matchingAdjacentCells), isEqual)
 
@@ -43,81 +44,23 @@ export const getCellToCheck = (matchedCells, checkedCells) => {
 
 export const getAdjacent = (grid, target) => {
   const { x, y } = target;
-  let edges = [ { x, y }];
+  let edges = [ { x, y } ];
   for (let dx = -1; dx <= 1; ++dx) {
     for (let dy = -1; dy <= 1; ++dy) {
-      // 1 direction must not be 0 && the absolute vals remove the corners
+      // the distance must not be 0 && the matched absolute vals remove the corners
       if ((dx !== 0 || dy !== 0 ) && Math.abs(dy) !== Math.abs(dx)) {
         try {
-          if (grid[x + dx][y + dy]) {
+          if (grid[y + dy][x + dx]) {
             edges.push({
               x: x + dx,
               y: y + dy
             })
           }
         } catch {
-          console.log('hit an edge')
+          // 😎 should probably refactor this
         }
       }
     }
-  }
-  return edges
-}
-
-export const getSides = (grid, target) => {
-  const { x, y } = target;
-  let edges = [ { x, y } ] ;
-  // Top
-  try {
-    let dx = 0
-    let dy = -1
-    if (grid[x + dx][y + dy]) {
-      edges.push({
-        x: x + dx,
-        y: y + dy
-      })
-    }
-  } catch {
-    console.log('hit an edge')
-  }
-  // Right
-  try {
-    let dx = 1
-    let dy = 0
-    if (grid[x + dx][y + dy]) {
-      edges.push({
-        x: x + dx,
-        y: y + dy
-      })
-    }
-  } catch {
-    console.log('hit an edge')
-  }
-  // Bottom
-  try {
-    let dx = 0
-    let dy = 1
-    if (grid[x + dx][y + dy]) {
-      edges.push({
-        x: x + dx,
-        y: y + dy
-      })
-    }
-  } catch {
-    console.log('hit an edge')
-  }
-  // left
-  try {
-    let dx = -1
-    let dy = 0
-    if (grid[x + dx][y + dy]) {
-      edges.push({
-        x: x + dx,
-        y: y + dy
-      })
-    }
-  } catch {
-    console.log('hit an edge')
   }
   return edges
 }

@@ -100,12 +100,10 @@ export default class Artboard extends Component {
     const { painting, updatePainting } = this.props
     const grid = cloneDeep(painting.grid)
     const forcedEmojiChar = `${this.state.paint}${String.fromCharCode(65039)}`
-    // cellsToFill(grid, { x: row, y: col }).forEach(({ x, y }) => {
-    //   grid[x][y] = forcedEmojiChar
-    // })
-    console.log('cells to fill')
-    console.log(cellsToFill(grid, { x: col, y: row }));
-    // updatePainting({ grid })
+    cellsToFill(grid, { x: col, y: row }).forEach(({ x, y }) => {
+      grid[y][x] = forcedEmojiChar
+    })
+    updatePainting({ grid })
   }
 
   render () {
