@@ -9,14 +9,6 @@ import 'emoji-mart/css/emoji-mart.css'
 import './styles/Artboard.css'
 
 export default class Artboard extends Component {
-  constructor () {
-    super()
-    this.state = {
-      paint: '😊',
-      tool: 'fill'
-    }
-  }
-
   componentDidMount () {
     const { painting, updatePainting } = this.props
     let grid = new Array(painting.height)
@@ -24,18 +16,6 @@ export default class Artboard extends Component {
       grid[i] = new Array(painting.width).fill('◽️')
     }
     updatePainting({ grid })
-  }
-
-  updatePaint (emoji) {
-    this.setState({
-      paint: emoji.native
-    })
-  }
-
-  updateTool (tool) {
-    this.setState({
-      tool
-    })
   }
 
   resizeCanvas (width, height) {
@@ -75,8 +55,8 @@ export default class Artboard extends Component {
   }
 
   paint (row, col) {
-    const { tool } = this.state;
-    switch (tool) {
+    const { tool } = this.props;
+    switch (tool.type) {
       case 'draw':
         this.draw(row, col);
         break;
@@ -88,27 +68,29 @@ export default class Artboard extends Component {
     }
   }
 
+  emojiChar = () => {
+    const paint = this.props.tool.paint
+    return `${paint}${String.fromCharCode(65039)}`
+  }
+
   draw (row, col) {
     const { painting, updatePainting } = this.props
     const grid = cloneDeep(painting.grid)
-    const forcedEmojiChar = `${this.state.paint}${String.fromCharCode(65039)}`
-    grid[row][col] = forcedEmojiChar
+    grid[row][col] = this.emojiChar()
     updatePainting({ grid })
   }
 
   fill (row, col) {
     const { painting, updatePainting } = this.props
     const grid = cloneDeep(painting.grid)
-    const forcedEmojiChar = `${this.state.paint}${String.fromCharCode(65039)}`
     cellsToFill(grid, { x: col, y: row }).forEach(({ x, y }) => {
-      grid[y][x] = forcedEmojiChar
+      grid[y][x] = this.emojiChar()
     })
     updatePainting({ grid })
   }
 
   render () {
-    const { painting } = this.props;
-    const { tool } = this.state;
+    const { painting, tool, updateTool } = this.props;
 
     return (
       <div className="artboard">
@@ -132,16 +114,17 @@ export default class Artboard extends Component {
             native={true}
             title='Pick your paint…'
             emoji='point_up_2'
-            onSelect={(emoji) => this.updatePaint(emoji)}
+            onSelect={(emoji) => updateTool({ paint: emoji.native })}
           />
         </div>
         <div className="copy">
           <Copy painting={painting} />
         </div>
         <div className="tool">
-          <p>Current: {tool}</p>
-          <button onClick={() => this.updateTool('draw')}>Draw</button>
-          <button onClick={() => this.updateTool('fill')}>Fill</button>
+          <p>Current Tool: {tool.type}</p>
+          <button onClick={() => updateTool({ type: 'draw'})}>Draw</button>
+          <button onClick={() => updateTool({ type: 'fill' })}>Fill</button>
+          <p>Current Paint: {tool.paint}</p>
         </div>
       </div>
     )

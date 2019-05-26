@@ -56,26 +56,19 @@ Cell.propTypes = {
   draw: PropTypes.func.isRequired
 }
 
-class Row extends Component {
-  render () {
-    const row = this.props.row
-    const rowIndex = this.props.rowIndex
-    const draw = this.props.draw
-
-    let cols = row.map(function (cell, colIndex) {
-      return (
-        <Cell
-          row={rowIndex}
-          col={colIndex}
-          paint={cell}
-          draw={draw}
-          key={`${rowIndex}${colIndex}`}
-        />
-      )
-    })
-    return <div>{cols}</div>
-  }
-}
+const Row = ({ row, rowIndex, draw }) => (
+  <div>
+    {row.map((cell, colIndex) => (
+      <Cell
+        row={rowIndex}
+        col={colIndex}
+        paint={cell}
+        draw={draw}
+        key={`${rowIndex}${colIndex}`}
+      />
+    ))}
+  </div>
+)
 
 Row.propTypes = {
   row: PropTypes.array.isRequired,
@@ -83,21 +76,17 @@ Row.propTypes = {
   draw: PropTypes.func.isRequired
 }
 
-export default class Canvas extends Component {
-  render () {
-    const grid = this.props.grid
-    const draw = this.props.draw
-    let rows = grid.map(function (row, rowIndex) {
-      return <Row row={row} rowIndex={rowIndex} draw={draw} key={rowIndex} />
-    })
-
-    return (
-      <div className="canvas-container">{rows}</div>
-    )
-  }
-}
+const Canvas = ({ grid, draw }) => (
+  <div className="canvas-container">
+    {grid.map((row, rowIndex) => (
+      <Row row={row} rowIndex={rowIndex} draw={draw} key={rowIndex} />
+    ))}
+  </div>
+)
 
 Canvas.propTypes = {
   grid: PropTypes.array.isRequired,
   draw: PropTypes.func.isRequired
 }
+
+export default Canvas

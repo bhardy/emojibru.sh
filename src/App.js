@@ -4,24 +4,15 @@ import './styles/App.css';
 
 class App extends Component {
   state = {
-    title: '',
     painting: {
       grid: [],
       width: 10,
       height: 8,
-      text: ''
     },
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Artboard
-          painting={this.state.painting}
-          updatePainting={this.updatePainting}
-        />
-      </div>
-    )
+    tool: {
+      type: 'draw',
+      paint: '😊',
+    }
   }
 
   updatePainting = (painting) => {
@@ -33,10 +24,58 @@ class App extends Component {
     })
   }
 
-  _convertPaintingToText = (grid) => {
-    return grid.map(row => {
-      return row.join('') + '\n'
-    }).join('')
+  updateTool = (tool) => {
+    this.setState({
+      tool: {
+        ...this.state.tool,
+        ...tool
+      }
+    })
+  }
+
+  saveStateToLocalStorage = () => {
+    for (let key in this.state) {
+      localStorage.setItem(key, JSON.stringify(this.state[key]))
+    }
+  }
+
+  hydrateStateWithLocalStorage = () => {
+    for (let key in this.state) {
+      if (localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key)
+
+        try {
+          value = JSON.parse(value)
+          this.setState({ [key]: value })
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value })
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage()
+    window.addEventListener('beforeunload', this.saveStateToLocalStorage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.saveStateToLocalStorage)
+    this.saveStateToLocalStorage()
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Artboard
+          painting={this.state.painting}
+          updatePainting={this.updatePainting}
+          tool={this.state.tool}
+          updateTool={this.updateTool}
+        />
+      </div>
+    )
   }
 }
 
