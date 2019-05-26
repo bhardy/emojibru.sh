@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './styles/Resize.css'

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Artboard from './Artboard'
-import Copy from './Copy'
 import './styles/App.css';
 
 class App extends Component {
@@ -11,7 +10,7 @@ class App extends Component {
       width: 10,
       height: 8,
       text: ''
-    }
+    },
   }
 
   render() {
@@ -21,7 +20,6 @@ class App extends Component {
           painting={this.state.painting}
           updatePainting={this.updatePainting}
         />
-        <Copy painting={this.state.painting} />
       </div>
     )
   }

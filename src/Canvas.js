@@ -35,7 +35,7 @@ class Cell extends Component {
   }
 
   render () {
-    const fill = this.props.fill
+    const paint = this.props.paint
     const row = this.props.row
     const col = this.props.col
     return (
@@ -43,14 +43,14 @@ class Cell extends Component {
         onMouseDown={() => this.props.draw(row, col)}
         onMouseOver={() => this.drawCheck(row, col)}
       >
-        {fill}
+        {paint}
       </span>
     )
   }
 }
 
 Cell.propTypes = {
-  fill: PropTypes.string.isRequired,
+  paint: PropTypes.string.isRequired,
   row: PropTypes.number.isRequired,
   col: PropTypes.number.isRequired,
   draw: PropTypes.func.isRequired
@@ -67,7 +67,7 @@ class Row extends Component {
         <Cell
           row={rowIndex}
           col={colIndex}
-          fill={cell}
+          paint={cell}
           draw={draw}
           key={`${rowIndex}${colIndex}`}
         />
