@@ -1,0 +1,5 @@
+.controls {
+  grid-area: controls;
+  padding: 24px;
+  background-color: hsl(0, 0%, 95%)
+}

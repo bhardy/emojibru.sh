@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { cloneDeep } from 'lodash'
 import Artboard from './Artboard'
-import './styles/App.css';
+import Controls from './Controls'
+import css from './styles/App.module.css';
 
 class App extends Component {
   state = {
@@ -30,6 +32,42 @@ class App extends Component {
         ...this.state.tool,
         ...tool
       }
+    })
+  }
+
+  resizeCanvas = (width, height) => {
+    const { painting } = this.state;
+
+    let grid = cloneDeep(painting.grid)
+    const prevWidth = painting.width
+    const prevHeight = painting.height
+    const widthChange = width - prevWidth
+    const heightChange = height - prevHeight
+
+    if (heightChange > 0) {
+      for (let i = heightChange; i > 0; i--) {
+        grid.push(new Array(width).fill('◽️'))
+      }
+    } else if (heightChange < 0) {
+      grid = grid.slice(0, height)
+    }
+
+    if (widthChange !== 0) {
+      for (let i = 0; i < grid.length; i++) {
+        if (widthChange > 0) {
+          for (let x = 0; x < widthChange; x++) {
+            grid[i].push('◽️')
+          }
+        } else {
+          grid[i] = grid[i].slice(0, width)
+        }
+      }
+    }
+
+    this.updatePainting({
+      grid,
+      width,
+      height
     })
   }
 
@@ -66,12 +104,19 @@ class App extends Component {
   }
 
   render() {
+    const { painting, tool } = this.state;
     return (
-      <div className="App">
+      <div className={css.app}>
         <Artboard
-          painting={this.state.painting}
+          painting={painting}
           updatePainting={this.updatePainting}
-          tool={this.state.tool}
+          tool={tool}
+          updateTool={this.updateTool}
+        />
+        <Controls
+          painting={painting}
+          resizeCanvas={this.resizeCanvas}
+          tool={tool}
           updateTool={this.updateTool}
         />
       </div>

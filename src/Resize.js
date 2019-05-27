@@ -11,21 +11,6 @@ export default class Resize extends Component {
     return (
       <div>
         <label>
-          Height: {this.props.height}
-          <button
-            className="button"
-            onClick={() => this.props.resize(width, height + 1)}
-          >
-            ➕
-          </button>
-          <button
-            className="button"
-            onClick={() => this.props.resize(width, height - 1)}
-          >
-            ➖
-          </button>
-        </label>
-        <label>
           Width: {this.props.width}
           <button
             className="button"
@@ -36,6 +21,21 @@ export default class Resize extends Component {
           <button
             className="button"
             onClick={() => this.props.resize(width - 1, height)}
+          >
+            ➖
+          </button>
+        </label>
+        <label>
+          Height: {this.props.height}
+          <button
+            className="button"
+            onClick={() => this.props.resize(width, height + 1)}
+          >
+            ➕
+          </button>
+          <button
+            className="button"
+            onClick={() => this.props.resize(width, height - 1)}
           >
             ➖
           </button>

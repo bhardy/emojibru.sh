@@ -1,0 +1,11 @@
+.app {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "controls artboard"
+    "controls artboard"
+    "footer footer";
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: auto auto auto;
+  grid-gap: 24px;
+}
