@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "name": "my-react-app",
+  "name": "emojibrush",
+  "alias": ["emojibru.sh", "emojibrush"],
   "builds": [
     {
       "src": "package.json",

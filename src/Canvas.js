@@ -4,10 +4,10 @@ import { useMouseStatus } from './hooks/useMouseStatus'
 import './styles/Canvas.css'
 
 const Cell = ({ paint, row, col, draw }) => {
-  const isMouseDown = useMouseStatus()
+  const mouseStatus = useMouseStatus()
 
   const drawCheck = (row, col) => {
-    if (isMouseDown === 'mousedown') {
+    if (mouseStatus === 'mousedown') {
       draw(row, col)
     }
   }

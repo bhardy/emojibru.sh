@@ -1,6 +1,18 @@
-label {
+.resize {
+
+}
+
+.label {
   display: block;
   margin-bottom: 12px;
+}
+
+.width {
+  font-weight: bold;
+}
+
+.widthAmount {
+  font-style: italic;
 }
 
 .button {

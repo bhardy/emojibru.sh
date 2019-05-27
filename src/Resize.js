@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import './styles/Resize.css'
+import css from './styles/Resize.module.css'
 
 export default class Resize extends Component {
   render () {
@@ -9,9 +9,10 @@ export default class Resize extends Component {
     let height = this.props.height
 
     return (
-      <div>
-        <label>
-          Width: {this.props.width}
+      <div className={css.resize}>
+        <label className={css.label}>
+          <span className={css.width}> Width: </span>
+          <span className={css.widthAmount}>{this.props.width}</span>
           <button
             className="button"
             onClick={() => this.props.resize(width + 1, height)}

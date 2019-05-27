@@ -4,6 +4,7 @@ export default function cellsToFill(grid, target) {
   return control(grid, [target])
 }
 
+// @todo: this is too slow
 const control = (grid, matchedCells = [], checkedCells = []) => {
   // choose a matching cell that hasn't been checked
   const target = getCellToCheck(matchedCells, checkedCells)
@@ -21,7 +22,9 @@ const control = (grid, matchedCells = [], checkedCells = []) => {
 
   // get cells
   const adjacentCells = getAdjacent(grid, target)
-  const matchingAdjacentCells = getMatches(grid, fillTarget, adjacentCells)
+  const uncheckedAdjacentCells = differenceWith(adjacentCells, checkedCells, isEqual)
+
+  const matchingAdjacentCells = getMatches(grid, fillTarget, uncheckedAdjacentCells)
   const combinedMatchingCells = uniqWith(matchedCells.concat(matchingAdjacentCells), isEqual)
 
   // add current target to checked cells
