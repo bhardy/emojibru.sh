@@ -44,7 +44,7 @@ export default class Artboard extends Component {
   fill = (row, col) => {
     const { painting, updatePainting } = this.props
     const grid = cloneDeep(painting.grid)
-    cellsToFill(grid, { x: col, y: row }).forEach(({ x, y }) => {
+    cellsToFill(grid, { x: col, y: row }, this.emojiChar()).forEach(({ x, y }) => {
       grid[y][x] = this.emojiChar()
     })
     updatePainting({ grid })

@@ -1,44 +1,37 @@
 import { uniqWith, differenceWith, isEqual } from 'lodash'
 
-export default function cellsToFill(grid, target) {
-  return control(grid, [target])
+export default function cellsToFill(grid, target, paint) {
+  return control(grid, target, paint)
 }
 
-// @todo: this is too slow
-const control = (grid, matchedCells = [], checkedCells = []) => {
-  // choose a matching cell that hasn't been checked
-  const target = getCellToCheck(matchedCells, checkedCells)
-  // console.log({target})
-
-  // if there are no matching cells that are unchecked return the matching cells
-  if (!target) {
-    return matchedCells;
-  }
-
-  // get the value of the matching cell
+const control = (grid, target, paint) => {
   const { x, y } = target
 
   const fillTarget = grid[y][x]
 
-  // get cells
-  const adjacentCells = getAdjacent(grid, target)
-  const uncheckedAdjacentCells = differenceWith(adjacentCells, checkedCells, isEqual)
-
-  const matchingAdjacentCells = getMatches(grid, fillTarget, uncheckedAdjacentCells)
-  const combinedMatchingCells = uniqWith(matchedCells.concat(matchingAdjacentCells), isEqual)
-
-  // add current target to checked cells
-  const combinedCheckedCells = uniqWith(checkedCells.concat(target), isEqual)
-
-  // get unchecked cells
-  const uncheckedCells = differenceWith(combinedMatchingCells, combinedCheckedCells, isEqual)
-
-  // if there are unchecked cells re-check, otherwise return matching
-  if (uncheckedCells.length > 0) {
-    return control(grid, combinedMatchingCells, combinedCheckedCells)
+  // If no painting needs to be done return
+  if (fillTarget === paint) {
+    return []
   }
 
-  return combinedMatchingCells
+  let matchedCells = []
+  let cellsToCheck = []
+
+  cellsToCheck.push(target)
+
+  while(cellsToCheck.length) {
+    const cell = cellsToCheck.pop()
+    const adjacentCells = getAdjacent(grid, cell)
+    const matchingAdjacentCells = getMatches(grid, fillTarget, adjacentCells)
+    let uncheckedMatchingCells = differenceWith(matchingAdjacentCells, matchedCells, isEqual)
+    uncheckedMatchingCells = differenceWith(uncheckedMatchingCells, [cell], isEqual)
+
+    // differenceWith(uncheckedMatchingCells, [cell], isEqual)
+    cellsToCheck = uniqWith([...cellsToCheck, ...uncheckedMatchingCells], isEqual)
+    matchedCells = uniqWith([...matchedCells, ...matchingAdjacentCells], isEqual)
+  }
+
+  return matchedCells
 }
 
 export const getCellToCheck = (matchedCells, checkedCells) => {
