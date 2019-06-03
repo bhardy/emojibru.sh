@@ -4,9 +4,9 @@ import Copy from './Copy'
 import EmojiPicker from './EmojiPicker'
 import Resize from './Resize.js'
 import Tool from './Tool.js'
-import css from './styles/Controls.module.css'
+import css from './styles/Toolbar.module.css'
 
-const Controls = ({ painting, resizeCanvas, tool, updateTool }) => {
+const Toolbar = ({ painting, resizeCanvas, tool, updateTool }) => {
   return (
     <div className={css.controls}>
       <Resize
@@ -21,9 +21,9 @@ const Controls = ({ painting, resizeCanvas, tool, updateTool }) => {
   )
 }
 
-Controls.propTypes = {
+Toolbar.propTypes = {
   painting: PropTypes.object.isRequired,
   resizeCanvas: PropTypes.func.isRequired
 }
 
-export default Controls
+export default Toolbar

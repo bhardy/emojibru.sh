@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { cloneDeep } from 'lodash'
 import Artboard from './Artboard'
-import Controls from './Controls'
+import Toolbar from './Toolbar'
 import css from './styles/App.module.css';
 
 class App extends Component {
@@ -113,7 +113,7 @@ class App extends Component {
           tool={tool}
           updateTool={this.updateTool}
         />
-        <Controls
+        <Toolbar
           painting={painting}
           resizeCanvas={this.resizeCanvas}
           tool={tool}

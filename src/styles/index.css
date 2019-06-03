@@ -1,3 +1,14 @@
+:root {
+  --black: #1b1b1b;
+  --white: #fefefe;
+
+  --color1: hsla(163, 66%, 75%, 1);
+  --color2: hsla(147, 59%, 63%, 1);
+  --color3: hsla(356, 100%, 82%, 1);
+  --color4: hsla(306, 55%, 29%, 1);
+  --color5: hsla(169, 100%, 93%, 1);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,6 +17,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--white);
+  color: var(--black);
 }
 
 code {
