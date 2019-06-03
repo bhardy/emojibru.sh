@@ -11,7 +11,7 @@ const Copy = ({ painting }) => {
     copyStringToClipboard(output)
   }
   return (
-    <button onClick={copyText}>Copy to clipboard</button>
+    <button className="button" onClick={copyText}>Copy to clipboard</button>
   )
 }
 

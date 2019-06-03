@@ -1,37 +1,73 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
+import css from './styles/Tool.module.css'
+
+const Brush = ({
+  tool,
+  type,
+  updateTool,
+  icon
+}) => {
+  const active = tool.type === type
+  return (
+    <label className={cx(css.label, {
+      [css.activeLabel]: active
+    })}>
+      <input
+        type="radio"
+        name={type}
+        value={type}
+        checked={active}
+        onChange={() => updateTool({ type })}
+        className={cx(css.radio, 'visually-hidden')}
+      />
+      <span className={css.icon}>
+        {icon}
+      </span>
+      <span className={css.title}>
+        {type}
+      </span>
+    </label>
+  )
+}
+
+Brush.propTypes = {
+  tool: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  updateTool: PropTypes.func.isRequired,
+  icon: PropTypes.string.isRequired,
+}
 
 const Tool = ({ tool, updateTool }) => {
   return (
-    <div className="tool">
-      <p>Current Tool: {tool.type}</p>
-      <label>
-        <input
-          type="radio"
-          name="fill"
-          value="fill"
-          checked={tool.type === 'fill'}
-          onChange={() => updateTool({ type: 'fill' })}
-        />
-        Fill
-      </label>
-      <label>
-        <input
-          type="radio"
-          name="draw"
-          value="draw"
-          checked={tool.type   === 'draw'}
-          onChange={() => updateTool({ type: 'draw' })}
-        />
-        Draw
-      </label>
-      <p>Current Paint: {tool.paint}</p>
+    <div className={css.tool}>
+      <span className="visually-hidden">Current Tool: {tool.type}</span>
+      <Brush
+        tool={tool}
+        type="draw"
+        updateTool={updateTool}
+        icon="🖌"
+      />
+      <Brush
+        tool={tool}
+        type="fill"
+        updateTool={updateTool}
+        icon="🌀"
+      />
+      <Brush
+        tool={tool}
+        type="erase"
+        updateTool={updateTool}
+        icon="💨"
+      />
     </div>
   )
 }
 
 Tool.propTypes = {
-  tool: PropTypes.object.isRequired
+  tool: PropTypes.object.isRequired,
+  updateTool: PropTypes.func.isRequired
 }
 
 export default Tool

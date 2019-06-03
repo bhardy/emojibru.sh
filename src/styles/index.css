@@ -1,12 +1,19 @@
 :root {
   --black: #1b1b1b;
   --white: #fefefe;
+  --grey: hsla(0, 0%, 85%, 1);
 
   --color1: hsla(163, 66%, 75%, 1);
   --color2: hsla(147, 59%, 63%, 1);
   --color3: hsla(356, 100%, 82%, 1);
   --color4: hsla(306, 55%, 29%, 1);
   --color5: hsla(169, 100%, 93%, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
@@ -24,4 +31,34 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.visually-hidden { /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.button {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: var(--white);
+  box-shadow: 4px 4px 0px 0px var(--grey);
+  border: 2px solid var(--grey);
+  color: var(--color4);
+  background-color: var(--white);
+}
+
+.button:hover,
+.button:focus {
+  border-color: var(--color3);
+  box-shadow: 4px 4px 0px 0px var(--color1);
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: 0;
+  border-color: var(--color2);
 }

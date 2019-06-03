@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
+import css from './styles/EmojiPicker.module.css'
 
 const EmojiPicker = ({ updateTool }) => {
   return (
-    <div className="picker">
+    <div className={css.picker}>
       <Picker
         native={true}
         title='Pick your paint…'

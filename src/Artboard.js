@@ -16,16 +16,19 @@ export default class Artboard extends Component {
   }
 
   paint = (row, col) => {
-    const { tool } = this.props;
+    const { tool } = this.props
     switch (tool.type) {
       case 'draw':
-        this.draw(row, col);
-        break;
+        this.draw(row, col)
+        break
       case 'fill':
-        this.fill(row, col);
-        break;
+        this.fill(row, col)
+        break
+      case 'erase':
+        this.erase(row, col)
+        break
       default:
-        break;
+        break
     }
   }
 
@@ -50,8 +53,15 @@ export default class Artboard extends Component {
     updatePainting({ grid })
   }
 
+  erase = (row, col) => {
+    const { painting, updatePainting } = this.props
+    const grid = cloneDeep(painting.grid)
+    grid[row][col] = '◽️'
+    updatePainting({ grid })
+  }
+
   render () {
-    const { painting } = this.props;
+    const { painting } = this.props
 
     return (
       <div className={css.artboard}>

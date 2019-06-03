@@ -1,0 +1,39 @@
+.paint {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  margin-bottom: 12px;
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+  font-size: 48px;
+  background-color: var(--white);
+  border: 2px solid var(--grey);
+}
+
+.active {
+  grid-area: 1 / 1 / 3 / 3;
+  z-index: 1;
+  border-color: var(--color2);
+  box-shadow: 4px 4px 0px 0px var(--color1);
+}
+
+.alternate {
+  grid-area: 2 / 2 / 4 / 4;
+}
+
+.alternate:hover,
+.alternate:focus {
+  cursor: pointer;
+  border-color: var(--color3);
+}
+
+.picker {
+  display: inline;
+  position: relative;
+}

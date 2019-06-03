@@ -3,3 +3,8 @@
   padding: 24px;
   background-color: hsl(0, 0%, 95%)
 }
+
+.heading {
+  font-size: 18px;
+  margin-top: 36px;
+}

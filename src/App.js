@@ -14,6 +14,7 @@ class App extends Component {
     tool: {
       type: 'draw',
       paint: '😊',
+      alternatePaint: '😎'
     }
   }
 
@@ -107,6 +108,7 @@ class App extends Component {
     const { painting, tool } = this.state;
     return (
       <div className={css.app}>
+        <h1 className={css.header}>EmojiBrush</h1>
         <Artboard
           painting={painting}
           updatePainting={this.updatePainting}
@@ -119,6 +121,10 @@ class App extends Component {
           tool={tool}
           updateTool={this.updateTool}
         />
+        <div className={css.footer}>
+          <p>Made with <span role="img" aria-label="Love">😍</span> by <a href="https://branthardy.com/" target="_blank" rel="noopener noreferrer">Brant Hardy</a>. Copyright &copy; {new Date().getFullYear()}</p>
+          <p>Thank you to <a href="https://missiveapp.com/">Missive</a> for developing <a href="https://www.npmjs.com/package/emoji-mart" target="_blank" rel="noopener noreferrer">Emoji Mart</a> which EmojiBrush uses for the Emoji Picker</p>
+        </div>
       </div>
     )
   }

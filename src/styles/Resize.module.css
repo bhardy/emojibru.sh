@@ -9,9 +9,8 @@
   grid-template-areas:
   "title title"
   "value controls";
-  grid-template-columns: 1fr minmax(auto, 1fr);
+  grid-template-columns: 1fr 36px;
   grid-gap: 0;
-  margin-bottom: 12px;
   color: var(--color4);
   border: 2px solid var(--color2);
   border-radius: 6px 6px 0 0;
@@ -53,7 +52,7 @@
 }
 
 .button:hover {
-  background-color: var(--color2);
+  background-color: var(--color3);
   cursor: pointer;
 }
 
