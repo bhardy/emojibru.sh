@@ -45,7 +45,7 @@ code {
   padding-top: 6px;
   padding-bottom: 6px;
   background-color: var(--white);
-  box-shadow: 4px 4px 0px 0px var(--grey);
+  box-shadow: 4px 4px 0 0 var(--grey);
   border: 2px solid var(--grey);
   color: var(--color4);
   background-color: var(--white);
@@ -54,7 +54,7 @@ code {
 .button:hover,
 .button:focus {
   border-color: var(--color3);
-  box-shadow: 4px 4px 0px 0px var(--color1);
+  box-shadow: 4px 4px 0 0 var(--color1);
   cursor: pointer;
 }
 

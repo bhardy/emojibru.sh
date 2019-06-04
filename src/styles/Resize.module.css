@@ -13,9 +13,8 @@
   grid-gap: 0;
   color: var(--color4);
   border: 2px solid var(--color2);
-  border-radius: 6px 6px 0 0;
   background-color: var(--white);
-  box-shadow: 4px 4px 0px 0px var(--color1);
+  box-shadow: 4px 4px 0 0 var(--color1);
 }
 
 .title {

@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import { useMouseStatus } from './hooks/useMouseStatus'
-import './styles/Canvas.css'
+import css from './styles/Canvas.module.css'
 
 const Cell = ({ paint, row, col, draw }) => {
   const mouseStatus = useMouseStatus()
@@ -13,7 +14,7 @@ const Cell = ({ paint, row, col, draw }) => {
   }
 
   return (
-    <span className="canvas-span"
+    <span className={css.cell}
       onMouseDown={() => draw(row, col)}
       onMouseOver={() => drawCheck(row, col)}
     >
@@ -30,7 +31,7 @@ Cell.propTypes = {
 }
 
 const Row = ({ row, rowIndex, draw }) => (
-  <div>
+  <div className={css.row}>
     {row.map((cell, colIndex) => (
       <Cell
         row={rowIndex}
@@ -50,7 +51,7 @@ Row.propTypes = {
 }
 
 const Canvas = ({ grid, draw }) => (
-  <div className="canvas-container">
+  <div className={css.canvas}>
     {grid.map((row, rowIndex) => (
       <Row row={row} rowIndex={rowIndex} draw={draw} key={rowIndex} />
     ))}

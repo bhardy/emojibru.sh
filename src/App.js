@@ -15,7 +15,8 @@ class App extends Component {
       type: 'draw',
       paint: '😊',
       alternatePaint: '😎'
-    }
+    },
+    palette: ["😎","🚵","🌁","⛰️","🌳","🌲","👩‍🎤","💣","🐸","🦍","🐝","💎"]
   }
 
   updatePainting = (painting) => {
@@ -33,6 +34,17 @@ class App extends Component {
         ...this.state.tool,
         ...tool
       }
+    })
+  }
+
+  updatePalette = (index) => {
+    const { palette, tool } = this.state;
+    this.setState({
+      palette: [
+        ...palette.slice(0, index),
+        tool.paint,
+        ...palette.slice(index + 1)
+      ]
     })
   }
 
@@ -105,7 +117,7 @@ class App extends Component {
   }
 
   render() {
-    const { painting, tool } = this.state;
+    const { painting, tool, palette } = this.state;
     return (
       <div className={css.app}>
         <h1 className={css.header}>EmojiBrush</h1>
@@ -120,6 +132,8 @@ class App extends Component {
           resizeCanvas={this.resizeCanvas}
           tool={tool}
           updateTool={this.updateTool}
+          palette={palette}
+          updatePalette={this.updatePalette}
         />
         <div className={css.footer}>
           <p>Made with <span role="img" aria-label="Love">😍</span> by <a href="https://branthardy.com/" target="_blank" rel="noopener noreferrer">Brant Hardy</a>. Copyright &copy; {new Date().getFullYear()}</p>
