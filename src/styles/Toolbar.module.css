@@ -1,7 +1,14 @@
-.controls {
-  grid-area: controls;
+.toolbar {
   padding: 24px;
   background-color: hsl(0, 0%, 95%)
+}
+
+.primary {
+  grid-area: primary-tools;
+}
+
+.secondary {
+  grid-area: secondary-tools;
 }
 
 .heading {

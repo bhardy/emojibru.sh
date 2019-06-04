@@ -26,7 +26,7 @@
 .activeLabel:hover,
 .activeLabel:focus {
   border-color: var(--color2);
-  box-shadow: 4px 4px 0px 0px var(--color1);
+  box-shadow: 4px 4px 0 0 var(--color1);
 }
 
 .radio {

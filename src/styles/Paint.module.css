@@ -32,8 +32,3 @@
   cursor: pointer;
   border-color: var(--color3);
 }
-
-.picker {
-  display: inline;
-  position: relative;
-}

@@ -1,5 +1,6 @@
 .picker {
   position: absolute;
-  bottom: 100%;
-  left: 100%;
+  top: 0;
+  transform: translateY(-50%);
+  right: calc(100% + 12px);
 }
