@@ -1,16 +1,20 @@
 import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import useKey from 'react-use/lib/useKey'
 import EmojiPicker from './EmojiPicker'
 import css from './styles/Palette.module.css'
 
 const Palette = ({ palette, updatePalette, updateTool }) => {
-  const [showPicker, setShowPicker] = useState(false);
-  const [editPalette, setEditPalette] = useState(false);
+  const [showPicker, setShowPicker] = useState(false)
+  const [editPalette, setEditPalette] = useState(false)
+
+  useKey('s', () => setShowPicker(!showPicker))
+  useKey('Escape', () => setShowPicker(false))
 
   const handlePaletteClick = (index) => {
     if (editPalette) {
-      updatePalette(index);
+      updatePalette(index)
     } else {
       updateTool({ paint: palette[index] })
     }

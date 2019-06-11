@@ -39,8 +39,8 @@ export const getCellToCheck = (matchedCells, checkedCells) => {
 }
 
 export const getAdjacent = (grid, target) => {
-  const { x, y } = target;
-  let edges = [ { x, y } ];
+  const { x, y } = target
+  let edges = [ { x, y } ]
   for (let dx = -1; dx <= 1; ++dx) {
     for (let dy = -1; dy <= 1; ++dy) {
       // the distance must not be 0 && the matched absolute vals remove the corners

@@ -1,16 +1,36 @@
-# Create React App
+# EmojiBrush
 
-In this example we will be deploying a simple "Hello World" example with Create React App.
+## Development Commands
 
-### Getting started with Create React App
-
-- Start a new Create React App project:
-
+Development:
 ```
-npx create-react-app <project name>
+npm run start
 ```
 
-### Deploy with Now
+Deploying:
+```
+now
+```
+
+Deploying Production:
+```
+now --target production
+```
+
+## TODO
+
+- [ ] switch to context
+- [ ] fix palette ux
+- [ ] fix localstorage update issues
+- [ ] reset tool
+- [ ] eyedropper tool
+- [ ] undo
+- [ ] random palette
+- [ ] cool initial drawing
+- [ ] mobile
+- [ ] PWA
+
+## Deploy with Now
 
 First we need to create a `now.json` configuration file to instruct Now how to build the project.
 

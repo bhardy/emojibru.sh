@@ -58,4 +58,4 @@ Resize.propTypes = {
   resize: PropTypes.func.isRequired
 }
 
-export default Resize;
+export default Resize

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { cloneDeep } from 'lodash'
 import Artboard from './Artboard'
 import Toolbar from './Toolbar'
-import css from './styles/App.module.css';
+import css from './styles/App.module.css'
 
 class App extends Component {
   state = {
@@ -16,7 +16,8 @@ class App extends Component {
       paint: '😊',
       alternatePaint: '😎'
     },
-    palette: ["😎","🚵","🌁","⛰️","🌳","🌲","👩‍🎤","💣","🐸","🦍","🐝","💎"]
+    // palette: ["😎","🚵","🌁","⛰️","🌳","🌲","👩‍🎤","💣","🐸","🦍","🐝","💎"]
+    palette: ['⬜','◻️','◽','▫️','⚪','🔲','🔳','⚫','▪️','◾','◼️','⬛']
   }
 
   updatePainting = (painting) => {
@@ -38,7 +39,7 @@ class App extends Component {
   }
 
   updatePalette = (index) => {
-    const { palette, tool } = this.state;
+    const { palette, tool } = this.state
     this.setState({
       palette: [
         ...palette.slice(0, index),
@@ -49,7 +50,7 @@ class App extends Component {
   }
 
   resizeCanvas = (width, height) => {
-    const { painting } = this.state;
+    const { painting } = this.state
 
     let grid = cloneDeep(painting.grid)
     const prevWidth = painting.width
@@ -117,7 +118,7 @@ class App extends Component {
   }
 
   render() {
-    const { painting, tool, palette } = this.state;
+    const { painting, tool, palette } = this.state
     return (
       <div className={css.app}>
         <h1 className={css.header}>EmojiBrush</h1>
@@ -137,7 +138,7 @@ class App extends Component {
         />
         <div className={css.footer}>
           <p>Made with <span role="img" aria-label="Love">😍</span> by <a href="https://branthardy.com/" target="_blank" rel="noopener noreferrer">Brant Hardy</a>. Copyright &copy; {new Date().getFullYear()}</p>
-          <p>Thank you to <a href="https://missiveapp.com/">Missive</a> for developing <a href="https://www.npmjs.com/package/emoji-mart" target="_blank" rel="noopener noreferrer">Emoji Mart</a> which EmojiBrush uses for the Emoji Picker</p>
+          <p>Thank you to <a href="https://missiveapp.com/">Missive</a> for developing <a href="https://www.npmjs.com/package/emoji-mart" target="_blank" rel="noopener noreferrer">Emoji Mart</a> which EmojiBrush uses for the EmojiPicker</p>
         </div>
       </div>
     )
