@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import useKey from 'react-use/lib/useKey'
 import css from './styles/Tool.module.css'
 
 const Brush = ({
@@ -40,6 +41,9 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
+  useKey('d', () => updateTool({ type: 'draw' }))
+  useKey('f', () => updateTool({ type: 'fill' }))
+  useKey('e', () => updateTool({ type: 'erase' }))
   return (
     <div className={css.tool}>
       <span className="visually-hidden">Current Tool: {tool.type}</span>

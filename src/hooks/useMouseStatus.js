@@ -12,8 +12,8 @@ export const useMouseStatus = () => {
     return () => {
       window.removeEventListener('mousedown', setMouseFromEvent)
       window.removeEventListener('mouseup', setMouseFromEvent)
-    };
+    }
   }, [])
 
   return mouseStatus
-};
+}

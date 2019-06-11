@@ -21,6 +21,11 @@
   justify-content: center;
   font-size: 24px;
   background-color: var(--white);
+  cursor: pointer;
+}
+
+.swatch:hover {
+  outline: 2px solid var(--color3);
 }
 
 .swatch:before {

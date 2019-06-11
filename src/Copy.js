@@ -3,7 +3,7 @@ import copyStringToClipboard from './utils/copyToClipboard'
 
 const Copy = ({ painting }) => {
   const copyText = () => {
-    const { grid } = painting;
+    const { grid } = painting
     let output = ''
     output = grid.map(function (row) {
       return row.join('') + '\n'
