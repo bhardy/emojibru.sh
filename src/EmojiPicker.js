@@ -5,10 +5,10 @@ import 'emoji-mart/css/emoji-mart.css'
 import css from './styles/EmojiPicker.module.css'
 
 const pickerStyles = {
-  outline: '1px solid var(--color3)',
-  borderColor: 'var(--color3)',
+  outline: '1px solid var(--color2)',
+  borderColor: 'var(--color2)',
   borderRadius: 0,
-  boxShadow: '5px 5px 0 0 var(--color1)'
+  boxShadow: '6px 6px 0 0 var(--color1)'
 }
 
 const EmojiPicker = ({ updateTool }) => {

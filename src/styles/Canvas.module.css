@@ -4,8 +4,8 @@
   line-height: 1.4;
   user-select: none;
   background-color: var(--white);
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  box-shadow: 0 0 50px 15px white;
 }
 
 .row {

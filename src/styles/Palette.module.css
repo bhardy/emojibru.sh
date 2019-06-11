@@ -1,5 +1,5 @@
 .palette {
-  --bg: var(--grey);
+  --bg: var(--color2);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 2px;
