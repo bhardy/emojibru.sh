@@ -41,9 +41,9 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
-  useKey('d', () => updateTool({ type: 'draw' }))
-  useKey('f', () => updateTool({ type: 'fill' }))
-  useKey('e', () => updateTool({ type: 'erase' }))
+  useKey('d', () => updateTool({ type: 'draw' }), {}, [tool])
+  useKey('f', () => updateTool({ type: 'fill' }), {}, [tool])
+  useKey('e', () => updateTool({ type: 'erase' }), {}, [tool])
   return (
     <div className={css.tool}>
       <span className="visually-hidden">Current Tool: {tool.type}</span>
