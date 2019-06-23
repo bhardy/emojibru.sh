@@ -19,12 +19,16 @@ now --target production
 
 ## TODO
 
-- [ ] switch to context
+- [x] switch to context
+- [ ] debounce localstorage sync
 - [ ] fix palette ux
 - [ ] fix localstorage update issues
 - [ ] reset tool
 - [ ] eyedropper tool
+- [ ] resize inputs
+- [ ] help
 - [ ] undo
+- [ ] emoji cursor
 - [ ] random palette
 - [ ] cool initial drawing
 - [ ] mobile

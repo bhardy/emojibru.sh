@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import { useMouseStatus } from './hooks/useMouseStatus'
 import css from './styles/Canvas.module.css'
 
