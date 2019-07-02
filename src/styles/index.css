@@ -1,13 +1,15 @@
 :root {
-  --black: #1b1b1b;
-  --white: #fefefe;
+  --black: hsla(0, 0%, 11%, 1);
+  --white: hsla(0, 0%, 98%, 1);
   --grey: hsla(0, 0%, 85%, 1);
+  --dark-grey: hsla(0, 0%, 50%, 1);
 
-  --color1: hsla(163, 66%, 75%, 1);
-  --color2: hsla(147, 59%, 63%, 1);
-  --color3: hsla(356, 100%, 82%, 1);
-  --color4: hsla(306, 55%, 29%, 1);
-  --color5: hsla(169, 100%, 93%, 1);
+  --color-alpha: 1;
+  --color1: hsla(163, 66%, 75%, var(--color-alpha));
+  --color2: hsla(147, 59%, 63%, var(--color-alpha));
+  --color3: hsla(356, 100%, 82%, var(--color-alpha));
+  --color4: hsla(306, 55%, 29%, var(--color-alpha));
+  --color5: hsla(169, 100%, 93%, var(--color-alpha));
 }
 
 html,
@@ -37,23 +39,38 @@ body {
 }
 
 .button {
+  --font-color: var(--color4);
+  --background-color: var(--white);
+  --border-color: var(--grey);
+  --shadow-color: var(--grey);
   padding-top: 6px;
   padding-bottom: 6px;
-  background-color: var(--white);
-  box-shadow: 4px 4px 0 0 var(--grey);
-  border: 2px solid var(--grey);
-  color: var(--color4);
-  background-color: var(--white);
+  border: 2px solid var(--border-color);
+  box-shadow: 4px 4px 0 0 var(--shadow-color);
+  color: var(--font-color);
+  background-color: var(--background-color);
 }
 
 .button:hover,
 .button:focus {
-  border-color: var(--color3);
-  box-shadow: 4px 4px 0 0 var(--color1);
+  --border-color: var(--color3);
+  --shadow-color: var(--color1);
   cursor: pointer;
 }
 
 .button:focus {
+  --border-color: var(--color2);
   outline: 0;
-  border-color: var(--color2);
+}
+
+.button:disabled {
+  --font-color: var(--dark-grey);
+  --border-color: var(--grey);
+  --shadow-color: var(--grey);
+  cursor: default;
+}
+
+.topLayer {
+  transform: translate3d(0, 0, 0);
+  z-index: 100;
 }

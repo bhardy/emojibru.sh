@@ -4,30 +4,38 @@ import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import css from './styles/EmojiPicker.module.css'
 
-const pickerStyles = {
-  outline: '1px solid var(--color2)',
-  borderColor: 'var(--color2)',
-  borderRadius: 0,
-  boxShadow: '6px 6px 0 0 var(--color1)'
-}
+const EmojiPicker = ({ updateTool, edit }) => {
+  const color = edit ? 'var(--color3)' : 'var(--color2)'
 
-const EmojiPicker = ({ updateTool }) => {
+  // @note: Picker doesn't accept a class
+  const picker = {
+    outline: `1px solid ${color}`,
+    borderColor: color,
+    borderRadius: 0,
+    boxShadow: `6px 6px 0 0 var(--color1), 6px 6px 100px 25px ${edit ? 'var(--color4)' : 'var(--color3)'}`
+  }
+
   return (
-    <div className={css.picker}>
+    <div className={css.container}>
       <Picker
         native={true}
         title="Pick your paint…"
         emoji="point_up_2"
         onSelect={(emoji) => updateTool({ paint: emoji.native })}
-        color="var(--color2)"
-        style={pickerStyles}
+        color={color}
+        style={picker}
       />
     </div>
   )
 }
 
 EmojiPicker.propTypes = {
-  updateTool: PropTypes.func.isRequired
+  updateTool: PropTypes.func.isRequired,
+  edit: PropTypes.bool
+}
+
+EmojiPicker.defaultProps = {
+  edit: false
 }
 
 export default EmojiPicker
