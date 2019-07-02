@@ -22,7 +22,7 @@ now --target production
 - [x] switch to context
 - [ ] debounce localstorage sync
 - [ ] fix palette ux
-- [ ] fix localstorage update issues
+- [x] fix localstorage update issues
 - [ ] reset tool
 - [ ] eyedropper tool
 - [ ] resize inputs

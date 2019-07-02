@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useEffect, useRef, useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
@@ -7,15 +7,47 @@ import { useGlobalState, useGlobalDispatch } from './store/context'
 import css from './styles/Palette.module.css'
 
 const Palette = ({ updateTool }) => {
+  const paletteNode = useRef()
+  const pickerNode = useRef()
+  const editButtonNode = useRef()
+  const pickerButtonNode = useRef()
+
   const { tool, palette } = useGlobalState()
   const dispatch = useGlobalDispatch()
 
   const [showPicker, setShowPicker] = useState(false)
   const [editPalette, setEditPalette] = useState(false)
 
-  useKey('s', () => setShowPicker(!showPicker))
-  useKey('Escape', () => setShowPicker(false))
+  const handleHidePicker = () => {
+    setShowPicker(false)
+    setEditPalette(false)
+  }
 
+  const handleClickOutside = e => {
+    if (pickerNode.current.contains(e.target)) return
+    if (pickerButtonNode.current.contains(e.target)) return
+
+    if (editPalette) {
+      if (paletteNode.current.contains(e.target)) return
+      if (editButtonNode.current.contains(e.target)) return
+    }
+    handleHidePicker()
+  };
+
+  useEffect(() => {
+    if (showPicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPicker]);
+
+  useKey('s', () => setShowPicker(true))
+  useKey('Escape', () => handleHidePicker(false))
 
   const updatePalette = (index) => {
     dispatch({
@@ -37,20 +69,39 @@ const Palette = ({ updateTool }) => {
   }
 
   const handleEditClick = () => {
-    if (!showPicker && !editPalette) {
-      setShowPicker(true)
+    if (editPalette) {
+      return handleHidePicker()
     }
-    setEditPalette(!editPalette)
+    setEditPalette(true)
+    setShowPicker(true)
+  }
+
+  const handlePaletteButton = () => {
+    if (!showPicker) {
+      return setShowPicker(true)
+    }
+    handleHidePicker()
   }
 
   return (
     <Fragment>
-      <button className="button" onClick={() => handleEditClick()}>
+      <button
+        ref={editButtonNode}
+        className={cx("button", {
+          [css.editButton]: editPalette,
+          'topLayer': editPalette
+        })}
+        onClick={() => handleEditClick()}
+      >
         {editPalette ? 'Save' : 'Edit'}
       </button>
-      <ul className={cx(css.palette, {
-        [css.edit]: editPalette
-      })}>
+      <ul
+        ref={paletteNode}
+        className={cx(css.palette, {
+          [css.edit]: editPalette,
+          'topLayer': editPalette
+        })}
+      >
         {palette.map((fill, index) => (
           <li
             onClick={() => handlePaletteClick(index)}
@@ -62,16 +113,18 @@ const Palette = ({ updateTool }) => {
         ))}
       </ul>
       <button
+        ref={pickerButtonNode}
         className={cx("button", {
-          [css.showPicker]: showPicker
+          [css.showPicker]: showPicker && !editPalette,
+          'topLayer': showPicker && !editPalette
         })}
-        onClick={() => setShowPicker(!showPicker)}
+        onClick={() => handlePaletteButton()}
       >
         {showPicker ? 'Hide' : 'Show'} EmojiPicker
       </button>
-      <div className={css.picker}>
+      <div ref={pickerNode} className={css.picker}>
         {showPicker &&
-          <EmojiPicker updateTool={updateTool} />
+          <EmojiPicker updateTool={updateTool} edit={editPalette}/>
         }
       </div>
     </Fragment>
