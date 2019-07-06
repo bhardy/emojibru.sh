@@ -42,12 +42,15 @@ const Palette = ({ updateTool }) => {
   useEffect(() => {
     if (showPicker) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside)
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside)
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside)
     };
   }, [showPicker]);
 

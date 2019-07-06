@@ -42,6 +42,7 @@ body {
   --background-color: var(--white);
   --border-color: var(--grey);
   --shadow-color: var(--grey);
+  position: relative;
   padding-top: 6px;
   padding-bottom: 6px;
   border: 2px solid var(--border-color);
@@ -70,6 +71,5 @@ body {
 }
 
 .topLayer {
-  transform: translate3d(0, 0, 0);
   z-index: 100;
 }

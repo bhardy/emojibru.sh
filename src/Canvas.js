@@ -12,10 +12,19 @@ const Cell = ({ paint, row, col, draw }) => {
     }
   }
 
+  const handleClick = event => {
+    // @note: this stops annoying bugs on touch devices but isn't perfect or thorougly tested
+    event.preventDefault()
+    event.stopPropagation()
+    draw(row, col)
+  }
+
   return (
-    <span className={css.cell}
-      onMouseDown={() => draw(row, col)}
+    <span
+      className={css.cell}
+      onMouseUp={(event) => handleClick(event)}
       onMouseOver={() => drawCheck(row, col)}
+      onTouchEnd={(event) => handleClick(event)}
     >
       {paint}
     </span>
