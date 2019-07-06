@@ -9,26 +9,29 @@ const Header = () => {
   useKey('Escape', () => setHelping(false))
   useKey('h', () => setHelping(true))
 
-  const helpNode = useRef();
-  const helpButton = useRef();
+  const helpNode = useRef()
+  const helpButton = useRef()
 
   const handleClickOutside = e => {
     if (helpNode.current.contains(e.target)) return
     if (helpButton.current.contains(e.target)) return
     setHelping(false)
-  };
+  }
 
   useEffect(() => {
     if (isHelping) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("touchstart", handleClickOutside)
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isHelping]);
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
+    }
+  }, [isHelping])
 
   return (
     <header className={css.header}>

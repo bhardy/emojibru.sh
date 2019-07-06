@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {cloneDeep} from 'lodash'
+import { cloneDeep } from 'lodash'
 import { useGlobalState, useGlobalDispatch } from './store/context'
 import Canvas from './Canvas'
 import cellsToFill from './utils/fill'
@@ -20,6 +20,7 @@ const Artboard = () => {
     })
   }
 
+  // @note: this only builds the intital grid if there isn't one
   useEffect(() => {
     if (!painting.grid.length) {
       let grid = new Array(painting.height)

@@ -27,6 +27,7 @@ now --target production
 - [ ] eyedropper tool
 - [ ] resize inputs
 - [x] help
+- [ ] create a reusable click outside hook (currently used in Header / Canvas)
 - [ ] undo
 - [ ] emoji cursor
 - [ ] random palette
