@@ -4,12 +4,11 @@
   --grey: hsla(0, 0%, 85%, 1);
   --dark-grey: hsla(0, 0%, 50%, 1);
 
-  --color-alpha: 1;
-  --color1: hsla(163, 66%, 75%, var(--color-alpha));
-  --color2: hsla(147, 59%, 63%, var(--color-alpha));
-  --color3: hsla(356, 100%, 82%, var(--color-alpha));
-  --color4: hsla(306, 55%, 29%, var(--color-alpha));
-  --color5: hsla(169, 100%, 93%, var(--color-alpha));
+  --color1: hsla(163, 66%, 75%, 1);
+  --color2: hsla(147, 59%, 63%, 1);
+  --color3: hsla(356, 100%, 82%, 1);
+  --color4: hsla(306, 55%, 29%, 1);
+  --color5: hsla(169, 100%, 93%, 1);
 }
 
 html,

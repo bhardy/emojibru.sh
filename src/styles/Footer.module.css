@@ -1,0 +1,8 @@
+.footer {
+  grid-area: footer;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 12px;
+}

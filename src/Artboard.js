@@ -72,7 +72,7 @@ const Artboard = () => {
   }
 
   return (
-    <div className={css.artboard}>
+    <article className={css.artboard}>
       <div className="canvas">
         <Canvas
           grid={painting.grid}
@@ -81,7 +81,7 @@ const Artboard = () => {
           draw={(row, col) => paint(row, col)}
         />
       </div>
-    </div>
+    </article>
   )
 }
 

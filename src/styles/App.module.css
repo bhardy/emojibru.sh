@@ -13,26 +13,3 @@
     linear-gradient(45deg, var(--bg-white) 0%, var(--bg-white) 100%),
     linear-gradient(45deg, var(--color1) 0%, var(--color3) 100%);
 }
-
-.header {
-  grid-area: header;
-  text-align: center;
-  color: var(--color4);
-}
-
-.header:before {
-  content: '😎 ';
-}
-
-.header:after {
-  content: ' 🎨';
-}
-
-.footer {
-  grid-area: footer;
-  text-align: center;
-}
-
-.footer p {
-  font-size: 12px;
-}

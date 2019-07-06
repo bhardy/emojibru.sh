@@ -24,20 +24,20 @@ const Toolbar = () => {
 
   return (
     <Fragment>
-      <div className={cx(css.toolbar, css.primary)}>
+      <aside className={cx(css.toolbar, css.primary)}>
         <h2 className={css.heading}>Size</h2>
         <Resize />
         <h2 className={css.heading}>Tool</h2>
         <Tool tool={tool} updateTool={updateTool} />
         <h2 className={css.heading}>Paint</h2>
         <Paint tool={tool} updateTool={updateTool} />
-      </div>
-      <div className={cx(css.toolbar, css.secondary)}>
+      </aside>
+      <aside className={cx(css.toolbar, css.secondary)}>
         <h2 className={css.heading}>Palette</h2>
         <Palette updateTool={updateTool} />
         <h2 className={css.heading}>Save</h2>
         <Copy />
-      </div>
+      </aside>
     </Fragment>
   )
 }

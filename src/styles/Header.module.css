@@ -1,0 +1,51 @@
+.header {
+  grid-area: header;
+  position: relative;
+  text-align: center;
+}
+
+.heading {
+  color: var(--color4);
+}
+
+.heading:before {
+  content: '😎 ';
+}
+
+.heading:after {
+  content: ' 🎨';
+}
+
+.help {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  font-size: 14px;
+  padding: 5px 10px;
+
+  color: var(--black);
+  background-color: var(--white);
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 2px 2px 0 0 var(--color3);
+
+  /* reset styles */
+  border: none;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.help:before {
+  content: '🙀';
+  margin-right: 5px;
+}
+
+.help:focus,
+.help:hover,
+.help:active {
+  box-shadow: 2px 2px 0 0 var(--color2);
+  outline: none;
+}

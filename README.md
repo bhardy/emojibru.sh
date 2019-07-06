@@ -21,12 +21,12 @@ now --target production
 
 - [x] switch to context
 - [ ] debounce localstorage sync
-- [ ] fix palette ux
+- [x] fix palette ux
 - [x] fix localstorage update issues
 - [ ] reset tool
 - [ ] eyedropper tool
 - [ ] resize inputs
-- [ ] help
+- [x] help
 - [ ] undo
 - [ ] emoji cursor
 - [ ] random palette
