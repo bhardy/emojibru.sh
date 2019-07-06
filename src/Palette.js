@@ -23,6 +23,11 @@ const Palette = ({ updateTool }) => {
     setEditPalette(false)
   }
 
+  const handleEditPalette = () => {
+    setShowPicker(true)
+    setEditPalette(true)
+  }
+
   const handleClickOutside = e => {
     if (pickerNode.current.contains(e.target)) return
     if (pickerButtonNode.current.contains(e.target)) return
@@ -47,6 +52,7 @@ const Palette = ({ updateTool }) => {
   }, [showPicker]);
 
   useKey('s', () => setShowPicker(true))
+  useKey('p', () => handleEditPalette())
   useKey('Escape', () => handleHidePicker(false))
 
   const updatePalette = (index) => {
@@ -72,8 +78,7 @@ const Palette = ({ updateTool }) => {
     if (editPalette) {
       return handleHidePicker()
     }
-    setEditPalette(true)
-    setShowPicker(true)
+    handleEditPalette()
   }
 
   const handlePaletteButton = () => {
