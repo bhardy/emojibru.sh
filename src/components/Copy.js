@@ -1,6 +1,6 @@
 import React from 'react'
-import copyStringToClipboard from './utils/copyToClipboard'
-import { useGlobalState } from './store/context'
+import copyStringToClipboard from '../utils/copyToClipboard'
+import { useGlobalState } from '../store/context'
 
 const Copy = () => {
   const { painting } = useGlobalState()

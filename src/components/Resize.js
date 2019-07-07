@@ -1,7 +1,7 @@
 import React from 'react'
 import { cloneDeep } from 'lodash'
-import { useGlobalState, useGlobalDispatch } from './store/context'
-import css from './styles/Resize.module.css'
+import { useGlobalState, useGlobalDispatch } from '../store/context'
+import css from './Resize.module.css'
 
 const Resizer = ({
   title,

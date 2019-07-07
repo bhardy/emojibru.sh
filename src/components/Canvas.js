@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useMouseStatus } from './hooks/useMouseStatus'
-import css from './styles/Canvas.module.css'
+import { useMouseStatus } from '../hooks/useMouseStatus'
+import css from './Canvas.module.css'
 
 const Cell = ({ paint, row, col, draw }) => {
   const mouseStatus = useMouseStatus()

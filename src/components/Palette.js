@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import EmojiPicker from './EmojiPicker'
-import { useGlobalState, useGlobalDispatch } from './store/context'
-import css from './styles/Palette.module.css'
+import { useGlobalState, useGlobalDispatch } from '../store/context'
+import css from './Palette.module.css'
 
 const Palette = ({ updateTool }) => {
   const paletteNode = useRef()

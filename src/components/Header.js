@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import Help from './Help'
-import css from './styles/Header.module.css'
+import css from './Header.module.css'
 
 const Header = () => {
   const [isHelping, setHelping] = useState(false)
