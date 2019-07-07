@@ -1,6 +1,13 @@
 .toolbar {
-  padding: 24px;
-  background-color: hsla(0, 0%, 100%, 0.25);
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-device-width : 500px) {
+  .toolbar {
+    padding: 24px;
+    background-color: hsla(0, 0%, 100%, 0.25);
+  }
 }
 
 .primary {
@@ -13,5 +20,10 @@
 
 .heading {
   font-size: 18px;
-  margin-top: 36px;
+}
+
+@media (min-device-width : 500px) {
+  .heading {
+    margin-top: 36px;
+  }
 }

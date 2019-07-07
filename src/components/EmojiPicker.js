@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import css from './EmojiPicker.module.css'
@@ -16,7 +17,11 @@ const EmojiPicker = ({ updateTool, edit }) => {
   }
 
   return (
-    <div className={css.container}>
+    <div
+      className={cx(css.container, {
+        [css.edit]: edit,
+      })}
+    >
       <Picker
         native={true}
         title="Pick your paint…"
