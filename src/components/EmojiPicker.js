@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
-import css from './styles/EmojiPicker.module.css'
+import css from './EmojiPicker.module.css'
 
 const EmojiPicker = ({ updateTool, edit }) => {
   const color = edit ? 'var(--color3)' : 'var(--color2)'

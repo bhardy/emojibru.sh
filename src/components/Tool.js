@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
-import css from './styles/Tool.module.css'
+import css from './Tool.module.css'
 
 const Brush = ({
   tool,

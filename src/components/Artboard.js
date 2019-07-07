@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { cloneDeep } from 'lodash'
-import { useGlobalState, useGlobalDispatch } from './store/context'
+import { useGlobalState, useGlobalDispatch } from '../store/context'
 import Canvas from './Canvas'
-import cellsToFill from './utils/fill'
+import cellsToFill from '../utils/fill'
 import 'emoji-mart/css/emoji-mart.css'
-import css from './styles/Artboard.module.css'
+import css from './Artboard.module.css'
 
 const Artboard = () => {
   const { painting, tool } = useGlobalState()

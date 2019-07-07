@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import { useGlobalState, useGlobalDispatch } from './store/context'
+import { useGlobalState, useGlobalDispatch } from '../store/context'
 import Copy from './Copy'
 import Resize from './Resize'
 import Tool from './Tool'
 import Paint from './Paint'
 import Palette from './Palette'
-import css from './styles/Toolbar.module.css'
+import css from './Toolbar.module.css'
 
 const Toolbar = () => {
   const { tool } = useGlobalState()

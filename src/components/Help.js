@@ -1,5 +1,5 @@
 import React from 'react'
-import css from './styles/Help.module.css'
+import css from './Help.module.css'
 
 const Help = ({forwardedRef}) => (
   <div ref={forwardedRef} className={css.container}>
