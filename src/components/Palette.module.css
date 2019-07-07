@@ -2,7 +2,7 @@
   --bg: var(--color2);
   --hover: var(--color3);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 2px;
   margin-top: 12px;
   margin-bottom: 12px;
@@ -12,9 +12,16 @@
   border: 2px solid var(--bg);
 }
 
+@media (min-device-width : 500px) {
+  .palette {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 .edit {
   --bg: var(--color3);
   --hover: var(--color2);
+  position: relative;
 }
 
 button.editButton {

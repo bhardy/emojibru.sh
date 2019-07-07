@@ -1,8 +1,16 @@
 .footer {
   grid-area: footer;
+  padding: 24px;
   text-align: center;
 }
 
 .footer p {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (min-device-width : 500px) {
+  .footer p {
+    font-size: 12px;
+  }
 }

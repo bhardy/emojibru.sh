@@ -1,7 +1,26 @@
 .container {
-  position: absolute;
-  top: 0;
-  transform: translateY(-50%);
-  right: calc(100% + 12px);
-  z-index: 10;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  z-index: 99;
+  transform: translateX(-50%);
+}
+
+@media (max-device-width: 499px) {
+  .edit {
+    position: absolute;
+    top: auto;
+    bottom: 235px;
+  }
+}
+
+@media (min-device-width : 500px) {
+  .container {
+    position: absolute;
+    top: 0;
+    right: calc(100% + 12px);
+    left: auto;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
 }

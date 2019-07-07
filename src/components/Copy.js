@@ -1,5 +1,5 @@
 import React from 'react'
-import copyStringToClipboard from '../utils/copyToClipboard'
+import copy from 'copy-to-clipboard';
 import { useGlobalState } from '../store/context'
 
 const Copy = () => {
@@ -10,7 +10,7 @@ const Copy = () => {
     output = grid.map(function (row) {
       return row.join('') + '\n'
     }).join('')
-    copyStringToClipboard(output)
+    copy(output)
   }
   return (
     <button className="button" onClick={copyText}>Copy to clipboard</button>

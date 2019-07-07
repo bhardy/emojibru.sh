@@ -50,13 +50,13 @@ const Palette = ({ updateTool }) => {
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
     };
   }, [showPicker]);
 
   useKey('s', () => setShowPicker(true))
   useKey('p', () => handleEditPalette())
-  useKey('Escape', () => handleHidePicker(false))
+  useKey('Escape', () => handleHidePicker())
 
   const updatePalette = (index) => {
     dispatch({

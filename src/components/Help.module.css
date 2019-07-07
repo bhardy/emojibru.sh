@@ -1,10 +1,10 @@
 .container {
   position: fixed;
-  top: 100px;
-  left: 260px;
-  right: 260px;
+  top: 60px;
+  left: 0;
+  right: 0;
   z-index: 10;
-  padding: 24px 36px;
+  padding: 12px 24px;
   margin-right: 12px;
   margin-left: 12px;
   display: flex;
@@ -16,10 +16,26 @@
   box-shadow: 0 0 100px 50px var(--color1);
 }
 
+@media (min-device-width : 500px) {
+  .container {
+    top: 100px;
+    left: 260px;
+    right: 260px;
+    z-index: 10;
+    padding: 24px 36px;
+  }
+}
+
 .help {
-  max-width: 500px;
-  width: 50%;
-  min-width: 200px;
+  width: 100%;
+}
+
+@media (min-device-width : 500px) {
+  .help {
+    max-width: 500px;
+    width: 50%;
+    min-width: 200px;
+  }
 }
 
 .heading {

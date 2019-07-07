@@ -20,6 +20,7 @@
   position: absolute;
   top: 28px;
   right: 0;
+
   font-size: 14px;
   padding: 5px 10px;
 
@@ -37,6 +38,16 @@
   line-height: normal;
   cursor: pointer;
 }
+
+@media (max-device-width : 499px) {
+  /* Help currently just lists shortcuts which are useless on mobile */
+  .help {
+    display: none;
+    top: 5px;
+    right: 5px;
+  }
+}
+
 
 .help:before {
   content: '🙀';

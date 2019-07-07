@@ -19,21 +19,23 @@ now --target production
 
 ## TODO
 
-- [x] switch to context
-- [ ] debounce localstorage sync
-- [x] fix palette ux
 - [x] fix localstorage update issues
-- [ ] reset tool
-- [ ] eyedropper tool
-- [ ] resize inputs
+- [x] fix palette ux
 - [x] help
-- [ ] create a reusable click outside hook (currently used in Header / Canvas)
-- [ ] undo
+- [x] mobile
+- [x] switch to context
+- [ ] tablet styling
 - [ ] emoji cursor
-- [ ] random palette
+- [ ] eyedropper tool
+- [ ] reset tool
+- [ ] resize inputs
+- [ ] undo tool
+- [ ] create a reusable click outside hook (currently used in Header / Canvas and the touch events are buggy)
+- [ ] add 'drag' to mobile
 - [ ] cool initial drawing
-- [ ] mobile
+- [ ] debounce localstorage sync
 - [ ] PWA
+- [ ] random palette
 
 ## Deploy with Now
 
