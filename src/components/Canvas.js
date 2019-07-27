@@ -22,7 +22,7 @@ const Cell = ({ paint, row, col, draw }) => {
   return (
     <span
       className={css.cell}
-      onMouseUp={(event) => handleClick(event)}
+      onMouseDown={() => draw(row, col)}
       onMouseOver={() => drawCheck(row, col)}
       onTouchEnd={(event) => handleClick(event)}
     >

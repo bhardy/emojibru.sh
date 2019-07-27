@@ -24,6 +24,8 @@ now --target production
 - [x] help
 - [x] mobile
 - [x] switch to context
+- [ ] add prettier
+- [ ] add CI (now / tests)
 - [ ] tablet styling
 - [ ] emoji cursor
 - [ ] eyedropper tool
