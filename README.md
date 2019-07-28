@@ -36,7 +36,7 @@ now --target production
 - [ ] add 'drag' to mobile
 - [ ] cool initial drawing
 - [ ] debounce localstorage sync
-- [ ] PWA
+- [x] PWA
 - [ ] random palette
 
 ## Deploy with Now
