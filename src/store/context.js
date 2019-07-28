@@ -8,10 +8,10 @@ const initialState = {
   },
   tool: {
     type: 'draw',
-    paint: '😊',
-    alternatePaint: '😎'
+    paint: '👾',
+    alternatePaint: '🦄'
   },
-  palette: ['⬜','◻️','◽','▫️','⚪','🔲','🔳','⚫','▪️','◾','◼️','⬛']
+  palette: ['🙈','😭','😕','🤠','😌','🧞','😂','🤬','😝','💩','🤢','😫']
 }
 
 const hydrateFromLocalStorage = (key) => {

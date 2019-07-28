@@ -10,13 +10,9 @@
   grid-template-rows: auto;
   width: 100%;
   min-height: 100%;
-  --bg-white: hsla(0, 0%, 100%, 0.75);
-  background:
-    linear-gradient(45deg, var(--bg-white) 0%, var(--bg-white) 100%),
-    linear-gradient(45deg, var(--color1) 0%, var(--color3) 100%);
 }
 
-@media (min-device-width : 500px) {
+@media (min-width: 500px) {
   .app {
     grid-template-areas:
       "primary-tools header secondary-tools"

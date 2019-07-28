@@ -1,19 +1,21 @@
 .header {
   grid-area: header;
   position: relative;
+  padding-top: env(safe-area-inset-top);
   text-align: center;
 }
 
 .heading {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   color: var(--color4);
 }
 
-.heading:before {
-  content: '😎 ';
-}
-
-.heading:after {
-  content: ' 🎨';
+.logo {
+  width: 32px;
+  height: auto;
+  margin-right: 12px;
 }
 
 .help {
@@ -39,7 +41,7 @@
   cursor: pointer;
 }
 
-@media (max-device-width : 499px) {
+@media (max-width : 499px) {
   /* Help currently just lists shortcuts which are useless on mobile */
   .help {
     display: none;

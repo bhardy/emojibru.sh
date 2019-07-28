@@ -9,7 +9,7 @@
   line-height: 1.5;
 }
 
-@media (min-device-width : 500px) {
+@media (min-width: 500px) {
   .footer p {
     font-size: 12px;
   }
