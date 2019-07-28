@@ -6,7 +6,7 @@
     "classnames": "^2.2.6",
     "copy-to-clipboard": "^3.2.0",
     "emoji-mart": "^2.11.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.1",
@@ -30,6 +30,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "jest-extended": "^0.11.1"
+    "jest-extended": "^0.11.2"
+  },
+  "engines": {
+    "node": "10.15",
+    "npm": "6.5"
   }
 }

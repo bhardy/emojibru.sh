@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import Help from './Help'
+import logo from '../images/logo.svg'
 import css from './Header.module.css'
 
 const Header = () => {
@@ -35,7 +36,10 @@ const Header = () => {
 
   return (
     <header className={css.header}>
-      <h1 className={css.heading}>EmojiBrush</h1>
+      <h1 className={css.heading}>
+        <img className={css.logo} src={logo} alt="EmojiBrush Logo" />
+        EmojiBrush
+      </h1>
       <button
         ref={helpButton}
         className={cx(css.help, {

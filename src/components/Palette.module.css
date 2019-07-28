@@ -12,7 +12,7 @@
   border: 2px solid var(--bg);
 }
 
-@media (min-device-width : 500px) {
+@media (min-width: 500px) {
   .palette {
     grid-template-columns: repeat(4, 1fr);
   }

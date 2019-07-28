@@ -3,7 +3,7 @@
   padding-right: 24px;
 }
 
-@media (min-device-width : 500px) {
+@media (min-width: 500px) {
   .toolbar {
     padding: 24px;
     background-color: hsla(0, 0%, 100%, 0.25);
@@ -22,7 +22,7 @@
   font-size: 18px;
 }
 
-@media (min-device-width : 500px) {
+@media (min-width: 500px) {
   .heading {
     margin-top: 36px;
   }
