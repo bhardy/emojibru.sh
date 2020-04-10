@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, Fragment } from 'react'
+import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
@@ -28,7 +28,7 @@ const Palette = ({ updateTool }) => {
     setEditPalette(true)
   }
 
-  const handleClickOutside = e => {
+  const handleClickOutside = useCallback((e) => {
     if (pickerNode.current.contains(e.target)) return
     if (pickerButtonNode.current.contains(e.target)) return
 
@@ -37,7 +37,7 @@ const Palette = ({ updateTool }) => {
       if (editButtonNode.current.contains(e.target)) return
     }
     handleHidePicker()
-  };
+  }, [editPalette]);
 
   useEffect(() => {
     if (showPicker) {
@@ -52,7 +52,7 @@ const Palette = ({ updateTool }) => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside)
     };
-  }, [showPicker]);
+  }, [showPicker, handleClickOutside]);
 
   useKey('s', () => setShowPicker(true))
   useKey('p', () => handleEditPalette())
