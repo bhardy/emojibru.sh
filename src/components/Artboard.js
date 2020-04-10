@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { cloneDeep } from 'lodash'
 import { useGlobalState, useGlobalDispatch } from '../store/context'
 import Canvas from './Canvas'
@@ -10,7 +10,7 @@ const Artboard = () => {
   const { painting, tool } = useGlobalState()
   const dispatch = useGlobalDispatch()
 
-  const updatePainting = (update) => {
+  const updatePainting = useCallback((update) => {
     dispatch({
       type: 'UPDATE_PAINTING',
       payload: {
@@ -18,7 +18,7 @@ const Artboard = () => {
         ...update
       }
     })
-  }
+  }, [painting, dispatch]);
 
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {
@@ -29,7 +29,7 @@ const Artboard = () => {
       }
       updatePainting({ grid })
     }
-  }, [])
+  }, [painting, updatePainting])
 
   const paint = (row, col) => {
     switch (tool.type) {
