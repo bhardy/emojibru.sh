@@ -1,6 +1,7 @@
 .toolbar {
   padding-left: 24px;
   padding-right: 24px;
+  z-index: 1;
 }
 
 @media (min-width: 500px) {
