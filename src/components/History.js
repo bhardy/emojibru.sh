@@ -44,22 +44,26 @@ const Undo = () => {
         onClick={handleUndo}
         className={css.button}
       >
-        <span className={css.icon} role="img" aria-label="Undo">
-          🤭
-        </span>
-        <span className={css.title}>
-          Undo
+        <span className={css.buttonLayout}>
+          <span className={css.icon} role="img" aria-label="Undo">
+            🤭
+          </span>
+          <span className={css.title}>
+            Undo
+          </span>
         </span>
       </button>
       <button
         onClick={handleClear}
         className={css.button}
       >
-        <span className={css.icon} role="img" aria-label="Clear">
-          🧨
-        </span>
-        <span className={css.title}>
-          Clear
+        <span className={css.buttonLayout}>
+          <span className={css.icon} role="img" aria-label="Clear">
+            🧨
+          </span>
+          <span className={css.title}>
+            Clear
+          </span>
         </span>
       </button>
     </div>
