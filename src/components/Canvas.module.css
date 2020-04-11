@@ -1,38 +1,7 @@
-.canvas {
-  padding: 15px;
-  font-size: 26px;
-  line-height: 1.4;
-  user-select: none;
-  background-color: var(--white);
-  border-radius: 12px;
-  box-shadow: 0 0 50px 15px white;
-}
-
-.row {
-  display: flex;
-}
-
-.cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1.25em;
-  width: 1.15em;
-  padding: 0 0.05em;
-  cursor: crosshair;
-}
-
-/* new */
-
 .wrapper {
   padding: 15px;
   user-select: none;
   background-color: var(--white);
   border-radius: 12px;
   box-shadow: 0 0 50px 15px white;
-}
-
-.controls {
-  position: absolute;
-  bottom: 0;
 }

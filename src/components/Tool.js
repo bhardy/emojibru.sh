@@ -23,7 +23,7 @@ const Brush = ({
         onChange={() => updateTool({ type })}
         className={cx(css.radio, 'visually-hidden')}
       />
-      <span className={css.icon}>
+      <span className={css.icon} role="img" aria-label={type}>
         {icon}
       </span>
       <span className={css.title}>

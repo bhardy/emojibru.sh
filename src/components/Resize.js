@@ -33,7 +33,7 @@ const Resizer = ({
 
 const Resize = () => {
   const dispatch = useGlobalDispatch()
-  const { painting } = useGlobalState()
+  const { painting, history } = useGlobalState()
   const { width, height } = painting
 
   const resize = (width, height) => {
@@ -70,6 +70,18 @@ const Resize = () => {
         width,
         height
       }
+    })
+
+    dispatch({
+      type: 'UPDATE_HISTORY',
+      payload: [
+        ...history,
+        {
+          grid,
+          width,
+          height
+        }
+      ]
     })
   }
   return (
