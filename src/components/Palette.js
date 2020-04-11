@@ -37,22 +37,22 @@ const Palette = ({ updateTool }) => {
       if (editButtonNode.current.contains(e.target)) return
     }
     handleHidePicker()
-  }, [editPalette]);
+  }, [editPalette])
 
   useEffect(() => {
     if (showPicker) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside)
       document.addEventListener("touchstart", handleClickOutside)
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside)
       document.removeEventListener("touchstart", handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside)
       document.removeEventListener("touchstart", handleClickOutside)
-    };
-  }, [showPicker, handleClickOutside]);
+    }
+  }, [showPicker, handleClickOutside])
 
   useKey('s', () => setShowPicker(true))
   useKey('p', () => handleEditPalette())

@@ -68,6 +68,7 @@ const Canvas = ({ grid, draw, width, height }) => {
   return (
     <div className={css.wrapper}>
       <canvas
+        id="emojibrush-canvas"
         ref={canvasRef}
         width={width * MP}
         height={height * MP}

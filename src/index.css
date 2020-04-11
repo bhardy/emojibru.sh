@@ -67,6 +67,7 @@ a {
   border: 2px solid var(--border-color);
   box-shadow: 4px 4px 0 0 var(--shadow-color);
   color: var(--font-color);
+  text-align: center;
   background-color: var(--background-color);
 }
 
@@ -87,6 +88,10 @@ a {
   --border-color: var(--grey);
   --shadow-color: var(--grey);
   cursor: default;
+}
+
+a.button {
+  text-decoration: none;
 }
 
 .topLayer {

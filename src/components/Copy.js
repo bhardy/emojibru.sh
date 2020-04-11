@@ -1,5 +1,5 @@
 import React from 'react'
-import copy from 'copy-to-clipboard';
+import copy from 'copy-to-clipboard'
 import { useGlobalState } from '../store/context'
 
 const Copy = () => {

@@ -7,7 +7,7 @@ const Undo = () => {
   const { painting, history } = useGlobalState()
 
   const handleUndo = () => {
-    if (history.length <= 1) return null;
+    if (history.length <= 1) return null
 
     const updatedHistory = history.slice(0, -1)
 
