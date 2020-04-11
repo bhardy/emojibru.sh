@@ -22,11 +22,14 @@
   cursor: crosshair;
 }
 
-.realCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* z-index: 100; */
+/* new */
+
+.wrapper {
+  padding: 15px;
+  user-select: none;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 0 50px 15px white;
 }
 
 .controls {
