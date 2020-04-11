@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
+import { useGlobalState } from '../store/context'
 import css from './Tool.module.css'
 
 const Brush = ({
@@ -41,9 +42,10 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
-  useKey('d', () => updateTool({ type: 'draw' }), {}, [tool])
-  useKey('f', () => updateTool({ type: 'fill' }), {}, [tool])
-  useKey('e', () => updateTool({ type: 'erase' }), {}, [tool])
+  const { allowShortcuts: AS } = useGlobalState()
+  useKey('d', () => AS && updateTool({ type: 'draw' }), {}, [tool, AS])
+  useKey('f', () => AS && updateTool({ type: 'fill' }), {}, [tool, AS])
+  useKey('e', () => AS && updateTool({ type: 'erase' }), {}, [tool, AS])
   return (
     <div className={css.tool}>
       <span className="visually-hidden">Current Tool: {tool.type}</span>

@@ -12,7 +12,8 @@ const initialState = {
     paint: '👾',
     alternatePaint: '🦄'
   },
-  palette: ['🙈','😭','😕','🤠','😌','🧞','😂','🤬','😝','💩','🤢','😫']
+  palette: ['🙈','😭','😕','🤠','😌','🧞','😂','🤬','😝','💩','🤢','😫'],
+  allowShortcuts: true,
 }
 
 const hydrateFromLocalStorage = (key) => {
@@ -28,12 +29,14 @@ const buildInitialState = () => {
   const history = hydrateFromLocalStorage('history')
   const tool = hydrateFromLocalStorage('tool')
   const palette = hydrateFromLocalStorage('palette')
+  const allowShortcuts = true
 
   return {
     painting,
     history,
     palette,
-    tool
+    tool,
+    allowShortcuts,
   }
 }
 
@@ -67,6 +70,11 @@ const reducer = (state, action) => {
         ...state,
         history: action.payload.history,
         painting: action.payload.painting
+      }
+    case 'UPDATE_ALLOW_SHORTCUTS':
+      return {
+        ...state,
+        allowShortcuts: action.payload
       }
     default:
       throw new Error()
