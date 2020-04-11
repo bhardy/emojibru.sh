@@ -4,6 +4,7 @@ import { useGlobalState, useGlobalDispatch } from '../store/context'
 import Copy from './Copy'
 import Resize from './Resize'
 import Tool from './Tool'
+import History from './History'
 import Paint from './Paint'
 import Palette from './Palette'
 import css from './Toolbar.module.css'
@@ -31,6 +32,8 @@ const Toolbar = () => {
         <Paint tool={tool} updateTool={updateTool} />
         <h2 className={css.heading}>Size</h2>
         <Resize />
+        <h2 className={css.heading}>History</h2>
+        <History />
       </aside>
       <aside className={cx(css.toolbar, css.secondary)}>
         <h2 className={css.heading}>Palette</h2>

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, debounce} from 'lodash'
 import { useGlobalState, useGlobalDispatch } from '../store/context'
 import Canvas from './Canvas'
 import cellsToFill from '../utils/fill'
@@ -7,8 +7,9 @@ import 'emoji-mart/css/emoji-mart.css'
 import css from './Artboard.module.css'
 
 const Artboard = () => {
-  const { painting, tool } = useGlobalState()
+  const { painting, history, tool } = useGlobalState()
   const dispatch = useGlobalDispatch()
+  const delayedDispatch = useCallback(debounce(d => dispatch(d), 500), [])
 
   const updatePainting = useCallback((update) => {
     dispatch({
@@ -18,7 +19,17 @@ const Artboard = () => {
         ...update
       }
     })
-  }, [painting, dispatch]);
+    delayedDispatch({
+      type: 'UPDATE_HISTORY',
+      payload: [
+        ...history,
+        {
+          ...painting,
+          ...update,
+        }
+      ]
+    })
+  }, [painting, history, dispatch, delayedDispatch])
 
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { useMouseStatus } from '../hooks/useMouseStatus'
 import css from './Canvas.module.css'
 
-// multiplier -- cell size / offset -- buffer
+// multiplier -- cell size
 const MP = 32
+// offset -- buffer
 const OS = 4
 
 const drawing = (canvasRef, grid) => {
@@ -12,7 +13,7 @@ const drawing = (canvasRef, grid) => {
   const ctx = canvas.getContext('2d')  
   ctx.font = "26px sans-serif"
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.save()
   ctx.translate(OS,OS)
   ctx.textBaseline = 'top' 
@@ -63,32 +64,18 @@ const Canvas = ({ grid, draw, width, height }) => {
   useEffect(() => {
     drawing(canvasRef, grid)
   }, [width, height, grid])
-  
-  function handleClear() {
-    // setLocations([])
-  }
-
-  function handleUndo() {
-    // setLocations(locations.slice(0, -1))
-  }
 
   return (
-    <>
-      <div className={css.controls}>
-        <button onClick={handleClear}>Clear</button>
-        <button onClick={handleUndo}>Undo</button>
-      </div>
-      <div className={css.wrapper}>
-        <canvas
-          ref={canvasRef}
-          width={width * MP}
-          height={height * MP}
-          onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
-          onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
-          onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, mouseStatus)}
-        />
-      </div>
-    </>
+    <div className={css.wrapper}>
+      <canvas
+        ref={canvasRef}
+        width={width * MP}
+        height={height * MP}
+        onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
+        onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
+        onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, mouseStatus)}
+      />
+    </div>
   )
 }
 

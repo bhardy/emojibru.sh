@@ -6,6 +6,7 @@ const initialState = {
     width: 10,
     height: 8,
   },
+  history: [],
   tool: {
     type: 'draw',
     paint: '👾',
@@ -24,11 +25,13 @@ const hydrateFromLocalStorage = (key) => {
 
 const buildInitialState = () => {
   const painting = hydrateFromLocalStorage('painting')
+  const history = hydrateFromLocalStorage('history')
   const tool = hydrateFromLocalStorage('tool')
   const palette = hydrateFromLocalStorage('palette')
 
   return {
     painting,
+    history,
     palette,
     tool
   }
@@ -54,6 +57,17 @@ const reducer = (state, action) => {
         ...state,
         painting: action.payload
       }
+    case 'UPDATE_HISTORY':
+      return {
+        ...state,
+        history: action.payload
+      }
+    case 'POP_HISTORY':
+      return {
+        ...state,
+        history: action.payload.history,
+        painting: action.payload.painting
+      }
     default:
       throw new Error()
   }
@@ -61,15 +75,17 @@ const reducer = (state, action) => {
 
 const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, buildInitialState())
-  const { painting, palette, tool } = state
+  const { painting, history, palette, tool } = state
+
   useEffect(() => {
     const saveContextToLocalStorage = () => {
       localStorage.setItem('painting', JSON.stringify(painting))
+      localStorage.setItem('history', JSON.stringify(history))
       localStorage.setItem('palette', JSON.stringify(palette))
       localStorage.setItem('tool', JSON.stringify(tool))
     }
     saveContextToLocalStorage()
-  }, [painting, palette, tool])
+  }, [painting, history, palette, tool])
 
   return (
     <StateContext.Provider value={state}>
@@ -83,7 +99,7 @@ const Provider = ({ children }) => {
 const useGlobalState = () => {
   const context = React.useContext(StateContext)
   if (context === undefined) {
-    throw new Error('useGlobalState must be used within a CountProvider')
+    throw new Error('useGlobalState must be used within a StateContext')
   }
   return context
 }
@@ -91,7 +107,7 @@ const useGlobalState = () => {
 const useGlobalDispatch = () => {
   const context = React.useContext(DispatchContext)
   if (context === undefined) {
-    throw new Error('useCountDispatch must be used within a CountProvider')
+    throw new Error('useCountDispatch must be used within a StateContext')
   }
   return context
 }
