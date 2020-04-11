@@ -12,19 +12,31 @@ const Palette = ({ updateTool }) => {
   const editButtonNode = useRef()
   const pickerButtonNode = useRef()
 
-  const { tool, palette } = useGlobalState()
+  const { tool, palette, allowShortcuts: AS } = useGlobalState()
   const dispatch = useGlobalDispatch()
 
   const [showPicker, setShowPicker] = useState(false)
   const [editPalette, setEditPalette] = useState(false)
 
-  const handleHidePicker = () => {
+  const handleShowPicker = useCallback(() => {
+    setShowPicker(true)
+    dispatch({
+      type: 'UPDATE_ALLOW_SHORTCUTS',
+      payload: false
+    })
+  }, [dispatch])
+
+  const handleHidePicker = useCallback(() => {
     setShowPicker(false)
     setEditPalette(false)
-  }
+    dispatch({
+      type: 'UPDATE_ALLOW_SHORTCUTS',
+      payload: true
+    })
+  }, [dispatch])
 
   const handleEditPalette = () => {
-    setShowPicker(true)
+    handleShowPicker()
     setEditPalette(true)
   }
 
@@ -37,7 +49,7 @@ const Palette = ({ updateTool }) => {
       if (editButtonNode.current.contains(e.target)) return
     }
     handleHidePicker()
-  }, [editPalette])
+  }, [editPalette, handleHidePicker])
 
   useEffect(() => {
     if (showPicker) {
@@ -54,8 +66,8 @@ const Palette = ({ updateTool }) => {
     }
   }, [showPicker, handleClickOutside])
 
-  useKey('s', () => setShowPicker(true))
-  useKey('p', () => handleEditPalette())
+  useKey('s', () => AS && handleShowPicker(), {}, [AS])
+  useKey('p', () => AS && handleEditPalette(), {}, [AS])
   useKey('Escape', () => handleHidePicker())
 
   const updatePalette = (index) => {
@@ -86,7 +98,7 @@ const Palette = ({ updateTool }) => {
 
   const handlePaletteButton = () => {
     if (!showPicker) {
-      return setShowPicker(true)
+      return handleShowPicker()
     }
     handleHidePicker()
   }
