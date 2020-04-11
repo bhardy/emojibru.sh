@@ -7,15 +7,18 @@
 }
 
 .button {
-  display: grid;
-  grid-template-areas: "icon title";
-  grid-template-columns: minmax(45px, auto) 1fr;
-  align-items: center;
   padding: 0;
   color: var(--color4);
   text-align: left;
   border: 2px solid var(--grey);
   background-color: var(--white);
+}
+
+.buttonLayout {
+  display: grid;
+  grid-template-areas: "icon title";
+  grid-template-columns: minmax(45px, auto) 1fr;
+  align-items: center;
 }
 
 .button:hover {
