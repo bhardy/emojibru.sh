@@ -29,13 +29,13 @@ now --target production
 - [ ] tablet styling
 - [ ] emoji cursor
 - [ ] eyedropper tool
-- [ ] reset tool
+- [x] reset tool
 - [ ] resize inputs
-- [ ] undo tool
+- [x] undo tool
 - [ ] create a reusable click outside hook (currently used in Header / Canvas and the touch events are buggy)
 - [ ] add 'drag' to mobile
 - [ ] cool initial drawing
-- [ ] debounce localstorage sync
+- [x] debounce localstorage sync
 - [x] PWA
 - [ ] random palette
 
