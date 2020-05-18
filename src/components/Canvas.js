@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 import { useMouseStatus } from '../hooks/useMouseStatus'
 import css from './Canvas.module.css'
 
+// retina -- times 2
+const R = 2
 // multiplier -- cell size
-const MP = 32
+const MP = 32 * R
 // offset -- buffer
-const OS = 4
+const OS = 4 * R
 
 const drawing = (canvasRef, grid) => {
   const canvas = canvasRef.current
-  const ctx = canvas.getContext('2d')  
-  ctx.font = "26px sans-serif"
+  const ctx = canvas.getContext('2d')
 
+  ctx.font = `${26 * R}px sans-serif`
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.save()
   ctx.translate(OS,OS)
@@ -37,8 +39,8 @@ const getRelativePosition = (canvasRef, e) => {
   const y = e.clientY - rect.top
 
   // clicked cell (zero-indexed)
-  const cx = Math.ceil(x / MP) - 1
-  const cy = Math.ceil(y / MP) - 1
+  const cx = Math.ceil(x / MP * R) - 1
+  const cy = Math.ceil(y / MP * R) - 1
 
   return { cx, cy }
 }
@@ -65,13 +67,20 @@ const Canvas = ({ grid, draw, width, height }) => {
     drawing(canvasRef, grid)
   }, [width, height, grid])
 
+  // @note: the style is 1/2 the width & height for retina
+  const pixelSize = {
+    width: width * MP,
+    height: height * MP
+  }
+
   return (
     <div className={css.wrapper}>
       <canvas
         id="emojibrush-canvas"
         ref={canvasRef}
-        width={width * MP}
-        height={height * MP}
+        width={pixelSize.width}
+        height={pixelSize.height}
+        style={{ width: pixelSize.width / 2, height: pixelSize.height / 2 }}
         onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
         onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
         onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, mouseStatus)}
