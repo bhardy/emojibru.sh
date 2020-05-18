@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import EmojiPicker from './EmojiPicker'
-import { useGlobalState, useGlobalDispatch } from '../store/context'
+import { allowShortcutsState, paletteState, toolState } from '../store/store'
 import css from './Palette.module.css'
 
 const Palette = ({ updateTool }) => {
@@ -12,28 +13,23 @@ const Palette = ({ updateTool }) => {
   const editButtonNode = useRef()
   const pickerButtonNode = useRef()
 
-  const { tool, palette, allowShortcuts: AS } = useGlobalState()
-  const dispatch = useGlobalDispatch()
+  const [ allowShortcut, setAS] = useRecoilState(allowShortcutsState)
+  const [ palette, setPalette ] = useRecoilState(paletteState)
+  const tool = useRecoilValue(toolState)
 
   const [showPicker, setShowPicker] = useState(false)
   const [editPalette, setEditPalette] = useState(false)
 
   const handleShowPicker = useCallback(() => {
     setShowPicker(true)
-    dispatch({
-      type: 'UPDATE_ALLOW_SHORTCUTS',
-      payload: false
-    })
-  }, [dispatch])
+    setAS(false)
+  }, [setAS])
 
   const handleHidePicker = useCallback(() => {
     setShowPicker(false)
     setEditPalette(false)
-    dispatch({
-      type: 'UPDATE_ALLOW_SHORTCUTS',
-      payload: true
-    })
-  }, [dispatch])
+    setAS(true)
+  }, [setAS])
 
   const handleEditPalette = () => {
     handleShowPicker()
@@ -66,17 +62,16 @@ const Palette = ({ updateTool }) => {
     }
   }, [showPicker, handleClickOutside])
 
-  useKey('s', () => AS && handleShowPicker(), {}, [AS])
-  useKey('p', () => AS && handleEditPalette(), {}, [AS])
+  useKey('s', () => allowShortcut && handleShowPicker(), {}, [allowShortcut])
+  useKey('p', () => allowShortcut && handleEditPalette(), {}, [allowShortcut])
   useKey('Escape', () => handleHidePicker())
 
   const updatePalette = (index) => {
-    dispatch({
-      type: 'UPDATE_PALETTE',
-      payload: [
-        ...palette.slice(0, index),
+    setPalette((oldPalette) => {
+      return  [
+        ...oldPalette.slice(0, index),
         tool.paint,
-        ...palette.slice(index + 1)
+        ...oldPalette.slice(index + 1)
       ]
     })
   }

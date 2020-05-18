@@ -1,35 +1,35 @@
 import React, { useEffect, useCallback } from 'react'
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
 import { cloneDeep, debounce} from 'lodash'
-import { useGlobalState, useGlobalDispatch } from '../store/context'
+import { paintingState, historyState, toolState } from '../store/store'
 import Canvas from './Canvas'
 import cellsToFill from '../utils/fill'
 import 'emoji-mart/css/emoji-mart.css'
 import css from './Artboard.module.css'
 
 const Artboard = () => {
-  const { painting, history, tool } = useGlobalState()
-  const dispatch = useGlobalDispatch()
-  const delayedDispatch = useCallback(debounce(d => dispatch(d), 500), [])
+  const [painting, setPainting] = useRecoilState(paintingState)
+  const setHistory = useSetRecoilState(historyState)
+  const tool = useRecoilValue(toolState)
+  const setHistoryDelayed = useCallback(debounce(d => setHistory(d), 500), [])
 
   const updatePainting = useCallback((update) => {
-    dispatch({
-      type: 'UPDATE_PAINTING',
-      payload: {
-        ...painting,
+    setPainting((oldPainting) => {
+      return {
+        ...oldPainting,
         ...update
       }
     })
-    delayedDispatch({
-      type: 'UPDATE_HISTORY',
-      payload: [
-        ...history,
+    setHistoryDelayed((oldHistory) => {
+      return [
+        ...oldHistory,
         {
           ...painting,
           ...update,
         }
       ]
     })
-  }, [painting, history, dispatch, delayedDispatch])
+  }, [painting, setHistoryDelayed, setPainting])
 
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {

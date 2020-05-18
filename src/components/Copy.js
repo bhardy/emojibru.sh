@@ -1,9 +1,10 @@
 import React from 'react'
 import copy from 'copy-to-clipboard'
-import { useGlobalState } from '../store/context'
+import { useRecoilValue } from 'recoil'
+import { paintingState } from '../store/store'
 
 const Copy = () => {
-  const { painting } = useGlobalState()
+  const painting = useRecoilValue(paintingState)
   const copyText = () => {
     const { grid } = painting
     let output = ''

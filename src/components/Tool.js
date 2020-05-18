@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useRecoilValue } from 'recoil'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
-import { useGlobalState } from '../store/context'
+import { allowShortcutsState } from '../store/store'
 import css from './Tool.module.css'
 
 const Brush = ({
@@ -42,7 +43,7 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
-  const { allowShortcuts: AS } = useGlobalState()
+  const AS = useRecoilValue(allowShortcutsState)
   useKey('d', () => AS && updateTool({ type: 'draw' }), {}, [tool, AS])
   useKey('f', () => AS && updateTool({ type: 'fill' }), {}, [tool, AS])
   useKey('e', () => AS && updateTool({ type: 'erase' }), {}, [tool, AS])

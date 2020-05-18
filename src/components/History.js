@@ -1,41 +1,41 @@
 import React from 'react'
-import { useGlobalState, useGlobalDispatch } from '../store/context'
+import {
+  useRecoilState,
+  useSetRecoilState,
+  useTransactionObservation_UNSTABLE
+} from 'recoil'
+import { paintingState, historyState } from '../store/store'
 import css from './History.module.css'
 
 const Undo = () => {
-  const dispatch = useGlobalDispatch()
-  const { painting, history } = useGlobalState()
+  const setPainting = useSetRecoilState(paintingState)
+  const [oldHistory, setHistory] = useRecoilState(historyState)
 
   const handleUndo = () => {
-    if (history.length <= 1) return null
+    if (!oldHistory || oldHistory.length <= 1) return null
 
-    const updatedHistory = history.slice(0, -1)
+    const updatedHistory = oldHistory.slice(0, -1)
 
-    dispatch({
-      type: 'POP_HISTORY',
-      payload: {
-        history: updatedHistory,
-        painting: updatedHistory.slice(-1)[0]
-      }
-    })
+    setHistory(updatedHistory)
+    setPainting(updatedHistory.slice(-1)[0])
   }
 
   const handleClear = () => {
-    let grid = []
-    const width = painting.width
-    const height = painting.height
+    // @note: there's actually a bug here where you can't 'undo' to the last state before clearing
+    setPainting((oldPainting => {
+      let grid = []
+      const width = oldPainting.width
+      const height = oldPainting.height
 
-    for (let i = height; i > 0; i--) {
-      grid.push(new Array(width).fill('◽️'))
-    }
-
-    dispatch({
-      type: 'UPDATE_PAINTING',
-      payload: {
-        ...painting,
-        grid,
+      for (let i = height; i > 0; i--) {
+        grid.push(new Array(width).fill('◽️'))
       }
-    })
+
+      return {
+        ...oldPainting,
+        grid
+      }
+    }))
   }
 
   return (
@@ -70,4 +70,16 @@ const Undo = () => {
   )
 }
 
-export default Undo
+const History = () => {
+  useTransactionObservation_UNSTABLE(({
+    atomValues,
+    modifiedAtoms,
+  }) => {
+    for (const modifiedAtom of modifiedAtoms) {
+      localStorage.setItem(modifiedAtom, JSON.stringify({ value: atomValues.get(modifiedAtom) }))
+    }
+  })
+  return (<Undo />)
+}
+
+export default History
