@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { allowShortcutsState } from '../store/store'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
-import { useGlobalState } from '../store/context'
 import Help from './Help'
 import logo from '../images/logo.svg'
 import css from './Header.module.css'
 
 const Header = () => {
-  const { allowShortcuts: AS } = useGlobalState()
+  const AS = useRecoilValue(allowShortcutsState)
   const [isHelping, setHelping] = useState(false)
   useKey('Escape', () => setHelping(false))
   useKey('h', () => AS && setHelping(true), {}, [AS])

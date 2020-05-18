@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import { useGlobalState, useGlobalDispatch } from '../store/context'
+import { useRecoilState } from 'recoil'
+import { toolState } from '../store/store'
 import Resize from './Resize'
 import Tool from './Tool'
 import History from './History'
@@ -10,14 +11,12 @@ import Share from './Share'
 import css from './Toolbar.module.css'
 
 const Toolbar = () => {
-  const { tool } = useGlobalState()
-  const dispatch = useGlobalDispatch()
+  const [tool, setTool] = useRecoilState(toolState)
 
   const updateTool = (update) => {
-    dispatch({
-      type: 'UPDATE_TOOL',
-      payload: {
-        ...tool,
+    setTool((oldTool) => {
+      return {
+        ...oldTool,
         ...update
       }
     })

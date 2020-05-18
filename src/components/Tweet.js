@@ -1,8 +1,9 @@
 import React from 'react'
-import { useGlobalState } from '../store/context'
+import { useRecoilValue } from 'recoil'
+import { paintingState } from '../store/store'
 
 const Tweet = () => {
-  const { painting } = useGlobalState()
+  const painting = useRecoilValue(paintingState)
   const { grid } = painting
   const output = grid.map(function (row) {
     return row.join('') + '\n'

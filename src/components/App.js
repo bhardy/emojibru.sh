@@ -1,5 +1,6 @@
 import React from 'react'
-import { Provider } from '../store/context'
+import { RecoilRoot } from 'recoil'
+import { initializeState } from '../store/store'
 import Header from './Header'
 import Artboard from './Artboard'
 import Toolbar from './Toolbar'
@@ -8,14 +9,14 @@ import css from './App.module.css'
 
 const App = () => {
   return (
-    <Provider>
+    <RecoilRoot initializeState={initializeState}>
       <main className={css.app}>
         <Header />
         <Artboard />
         <Toolbar />
         <Footer />
       </main>
-    </Provider>
+    </RecoilRoot>
   )
 }
 

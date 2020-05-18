@@ -1,6 +1,7 @@
 import React from 'react'
+import { useRecoilState } from 'recoil'
 import { cloneDeep } from 'lodash'
-import { useGlobalState, useGlobalDispatch } from '../store/context'
+import { paintingState, historyState } from '../store/store'
 import css from './Resize.module.css'
 
 const Resizer = ({
@@ -32,8 +33,8 @@ const Resizer = ({
 }
 
 const Resize = () => {
-  const dispatch = useGlobalDispatch()
-  const { painting, history } = useGlobalState()
+  const [ painting, setPainting ] = useRecoilState(paintingState)
+  const [ history, setHistory ] = useRecoilState(historyState)
   const { width, height } = painting
 
   const resize = (width, height) => {
@@ -63,27 +64,20 @@ const Resize = () => {
       }
     }
 
-    dispatch({
-      type: 'UPDATE_PAINTING',
-      payload: {
-        grid,
-        width,
-        height
-      }
-    })
+    const newPainting = {
+      grid,
+      width,
+      height
+    }
 
-    dispatch({
-      type: 'UPDATE_HISTORY',
-      payload: [
-        ...history,
-        {
-          grid,
-          width,
-          height
-        }
-      ]
-    })
+    setPainting(newPainting)
+
+    setHistory([
+      ...history,
+      newPainting
+    ])
   }
+
   return (
     <div className={css.resize}>
       <Resizer
