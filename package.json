@@ -6,12 +6,12 @@
     "classnames": "^2.2.6",
     "copy-to-clipboard": "^3.3.1",
     "emoji-mart": "^3.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.1",
     "react-use": "^14.3.0",
-    "recoil": "^0.0.7"
+    "recoil": "^0.0.10"
   },
   "scripts": {
     "start": "react-scripts start",
