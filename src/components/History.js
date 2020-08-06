@@ -1,48 +1,68 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
-  useRecoilState,
-  useSetRecoilState,
-  useTransactionObservation_UNSTABLE
+  useResetRecoilState,
+  useRecoilCallback,
+  useTransactionObservation_UNSTABLE,
+  useRecoilTransactionObserver_UNSTABLE,
+  useGotoRecoilSnapshot
 } from 'recoil'
-import { paintingState, historyState } from '../store/store'
+import { isEqual } from 'lodash'
+import { paintingState } from '../store/store'
 import css from './History.module.css'
 
+function DebugObserver() {
+  useRecoilTransactionObserver_UNSTABLE(({snapshot}) => {
+    console.log(snapshot.getLoadable(paintingState).contents);
+    window.myDebugState = {
+      paintingState: snapshot.getLoadable(paintingState).contents,
+    };
+  });
+  return null;
+}
+
 const Undo = () => {
-  const setPainting = useSetRecoilState(paintingState)
-  const [oldHistory, setHistory] = useRecoilState(historyState)
+  // const [paintingSnapshots, setPaintingSnapshots] = useState([])
+  // const lastPaintingSnapshot = paintingSnapshots[paintingSnapshots.length - 2]
 
-  const handleUndo = () => {
-    if (!oldHistory || oldHistory.length <= 1) return null
+  // useRecoilTransactionObserver_UNSTABLE(({snapshot}) => {
+  //   const snapshotPainting = snapshot.getLoadable(paintingState).contents
+  //   if (!isEqual(lastPaintingSnapshot, snapshotPainting)) {
+  //     setPaintingSnapshots([...paintingSnapshots, snapshotPainting])
+  //   }
+  // })
 
-    const updatedHistory = oldHistory.slice(0, -1)
+  const [snapshots, setSnapshots] = useState([])
+  
+  useRecoilTransactionObserver_UNSTABLE(({snapshot}) => {
+    const currentSnapshot = snapshots[snapshots.length - 1]
+    const currentSnapshotPainting = currentSnapshot ? currentSnapshot.getLoadable(paintingState).contents : undefined
+    const snapshotPainting = snapshot.getLoadable(paintingState).contents
+    if (!isEqual(currentSnapshotPainting, snapshotPainting)) {
+      setSnapshots([...snapshots, snapshot])
+    }
+  });
 
-    setHistory(updatedHistory)
-    setPainting(updatedHistory.slice(-1)[0])
-  }
+  const handleUndo = useGotoRecoilSnapshot()
+  const handleClear = useResetRecoilState(paintingState)
 
-  const handleClear = () => {
-    // @note: there's actually a bug here where you can't 'undo' to the last state before clearing
-    setPainting((oldPainting => {
-      let grid = []
-      const width = oldPainting.width
-      const height = oldPainting.height
-
-      for (let i = height; i > 0; i--) {
-        grid.push(new Array(width).fill('◽️'))
-      }
-
-      return {
-        ...oldPainting,
-        grid
-      }
-    }))
-  }
+  const lastSnapshot = snapshots[snapshots.length - 2]
 
   return (
     <div className={css.tool}>
+      {/* <ol>
+        {snapshots.map((snapshot, i) => (
+          <li key={i}>
+            Snapshot {i}
+            <button onClick={() => handleUndo(snapshot)}>
+              Restore
+            </button>
+          </li>
+        ))}
+      </ol> */}
       <button
-        onClick={handleUndo}
+        onClick={() => handleUndo(lastSnapshot)}
         className={css.button}
+        disabled={!lastSnapshot}
       >
         <span className={css.buttonLayout}>
           <span className={css.icon} role="img" aria-label="Undo">
@@ -66,6 +86,7 @@ const Undo = () => {
           </span>
         </span>
       </button>
+      {/* <DebugObserver/> */}
     </div>
   )
 }
@@ -82,4 +103,4 @@ const History = () => {
   return (<Undo />)
 }
 
-export default History
+export default Undo

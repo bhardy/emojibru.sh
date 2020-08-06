@@ -14,23 +14,23 @@
   background-color: var(--white);
 }
 
+.button:hover:not(:disabled) {
+  border-color: var(--color3);
+  cursor: pointer;
+}
+
+.button:focus:not(:disabled) {
+  outline: 0;
+  border-color: var(--color4);
+  color: var(--white);
+  cursor: pointer;
+}
+
 .buttonLayout {
   display: grid;
   grid-template-areas: "icon title";
   grid-template-columns: minmax(45px, auto) 1fr;
   align-items: center;
-}
-
-.button:hover {
-  border-color: var(--color3);
-  cursor: pointer;
-}
-
-.button:focus {
-  outline: 0;
-  border-color: var(--color4);
-  color: var(--white);
-  cursor: pointer;
 }
 
 .icon {

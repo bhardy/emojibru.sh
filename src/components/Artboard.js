@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
-import { cloneDeep, debounce} from 'lodash'
-import { paintingState, historyState, toolState } from '../store/store'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { cloneDeep} from 'lodash'
+import { paintingState, toolState } from '../store/store'
 import Canvas from './Canvas'
 import cellsToFill from '../utils/fill'
 import 'emoji-mart/css/emoji-mart.css'
@@ -9,9 +9,7 @@ import css from './Artboard.module.css'
 
 const Artboard = () => {
   const [painting, setPainting] = useRecoilState(paintingState)
-  const setHistory = useSetRecoilState(historyState)
   const tool = useRecoilValue(toolState)
-  const setHistoryDelayed = useCallback(debounce(d => setHistory(d), 500), [])
 
   const updatePainting = useCallback((update) => {
     setPainting((oldPainting) => {
@@ -20,16 +18,7 @@ const Artboard = () => {
         ...update
       }
     })
-    setHistoryDelayed((oldHistory) => {
-      return [
-        ...oldHistory,
-        {
-          ...painting,
-          ...update,
-        }
-      ]
-    })
-  }, [painting, setHistoryDelayed, setPainting])
+  }, [setPainting])
 
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {
