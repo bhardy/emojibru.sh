@@ -11,7 +11,7 @@ const Artboard = () => {
   const [painting, setPainting] = useRecoilState(paintingState)
   const setHistory = useSetRecoilState(historyState)
   const tool = useRecoilValue(toolState)
-  const setHistoryDelayed = useCallback(debounce(d => setHistory(d), 500), [])
+  const setHistoryDelayed = useCallback(debounce(d => setHistory(d), 250), [])
 
   const updatePainting = useCallback((update) => {
     setPainting((oldPainting) => {
@@ -20,7 +20,7 @@ const Artboard = () => {
         ...update
       }
     })
-    setHistoryDelayed((oldHistory) => {
+    setHistoryDelayed((oldHistory = []) => {
       return [
         ...oldHistory,
         {

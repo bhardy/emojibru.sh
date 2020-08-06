@@ -14,13 +14,6 @@
   background-color: var(--white);
 }
 
-.buttonLayout {
-  display: grid;
-  grid-template-areas: "icon title";
-  grid-template-columns: minmax(45px, auto) 1fr;
-  align-items: center;
-}
-
 .button:hover {
   border-color: var(--color3);
   cursor: pointer;
@@ -29,8 +22,24 @@
 .button:focus {
   outline: 0;
   border-color: var(--color4);
-  color: var(--white);
   cursor: pointer;
+}
+
+.button:disabled {
+  color: var(--dark-grey);
+  border-color: var(--grey);
+  cursor: default;
+}
+
+.button:disabled .icon {
+  filter: grayscale(100%);
+}
+
+.buttonLayout {
+  display: grid;
+  grid-template-areas: "icon title";
+  grid-template-columns: minmax(45px, auto) 1fr;
+  align-items: center;
 }
 
 .icon {
