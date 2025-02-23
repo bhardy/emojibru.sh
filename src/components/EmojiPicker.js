@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import cx from 'classnames'
-import { Picker } from 'emoji-mart'
-import 'emoji-mart/css/emoji-mart.css'
-import css from './EmojiPicker.module.css'
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
+import css from "./EmojiPicker.module.css";
 
 const EmojiPicker = ({ updateTool, edit }) => {
-  const color = edit ? 'var(--color3)' : 'var(--color2)'
+  const color = edit ? "var(--color3)" : "var(--color2)";
 
   // @note: Picker doesn't accept a class
   const picker = {
     outline: `1px solid ${color}`,
     borderColor: color,
     borderRadius: 0,
-    boxShadow: `6px 6px 0 0 var(--color1), 6px 6px 100px 25px ${edit ? 'var(--color4)' : 'var(--color3)'}`
-  }
+    boxShadow: `6px 6px 0 0 var(--color1), 6px 6px 100px 25px ${edit ? "var(--color4)" : "var(--color3)"}`,
+  };
 
   return (
     <div
@@ -23,6 +23,7 @@ const EmojiPicker = ({ updateTool, edit }) => {
       })}
     >
       <Picker
+        data={data}
         native={true}
         title="Pick your paint…"
         emoji="point_up_2"
@@ -31,16 +32,16 @@ const EmojiPicker = ({ updateTool, edit }) => {
         style={picker}
       />
     </div>
-  )
-}
+  );
+};
 
 EmojiPicker.propTypes = {
   updateTool: PropTypes.func.isRequired,
-  edit: PropTypes.bool
-}
+  edit: PropTypes.bool,
+};
 
 EmojiPicker.defaultProps = {
-  edit: false
-}
+  edit: false,
+};
 
-export default EmojiPicker
+export default EmojiPicker;
