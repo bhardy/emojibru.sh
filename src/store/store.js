@@ -1,82 +1,55 @@
-import { atom, selector } from 'recoil'
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-const initialState = {
-  paintingState: {
-    grid: [],
-    width: 10,
-    height: 8,
-  },
-  historyState: [],
-  toolState: {
-    type: 'draw',
-    paint: '👾',
-    alternatePaint: '🦄'
-  },
-  paletteState: ['🙈', '😭', '😕', '🤠', '😌', '🧞', '😂', '🤬', '😝', '💩', '🤢', '😫'],
-  allowShortcutsState: true,
-}
+// @note: may want to rename this after we sync to local storage
+const initialPainting = {
+  width: 10,
+  height: 10,
+  grid: [],
+};
 
-export const paintingState = atom({
-  key: 'paintingState',
-  default: initialState.paintingState,
-  persistence_UNSTABLE: {
-    type: 'url'
-  },
-})
+const useStore = create(
+  devtools((set) => ({
+    // Painting state
+    painting: initialPainting,
+    setPainting: (update) => {
+      set((state) => {
+        const newPainting = {
+          ...state.painting,
+          ...update,
+        };
+        return { painting: newPainting };
+      });
+    },
+    resetPainting: () => {
+      set({ painting: initialPainting })
+    },
 
-export const historyState = atom({
-  key: 'historyState',
-  default: initialState.history,
-  persistence_UNSTABLE: {
-    type: 'url'
-  },
-})
+    // Tool state
+    tool: {
+      type: "draw",
+      paint: "🧞",
+      alternatePaint: "👾",
+    },
+    setTool: (update) => set((state) => ({ 
+      tool: {
+        ...state.tool,
+        ...update
+      }
+    })),
 
-export const toolState = atom({
-  key: 'toolState',
-  default: initialState.toolState,
-  persistence_UNSTABLE: {
-    type: 'url'
-  },
-})
+   // Palette state
+    palette: ['🙈', '😭', '😕', '🤠', '😌', '🧞', '😂', '🤬', '😝', '💩', '🤢', '😫'],
+    setPalette: (index, paint) => set((state) => {
+      const newPalette = [...state.palette];
+      newPalette[index] = paint;
+      return { palette: newPalette };
+    }),
 
-export const paletteState = atom({
-  key: 'paletteState',
-  default: initialState.paletteState,
-  persistence_UNSTABLE: {
-    type: 'url'
-  },
-})
+    // Allow shortcuts state
+    allowShortcuts: true,
+    setAllowShortcuts: (allowShortcuts) => set({ allowShortcuts }),
+  })),
+);
 
-export const allowShortcutsState = atom({
-  key: 'allowShortcutsState',
-  default: initialState.allowShortcutsState
-})
-
-export const appState = selector({
-  key: 'appState',
-  get: ({ get }) => {
-    const painting = get(paintingState)
-    const history = get(historyState)
-    const palette = get(paletteState)
-    const tool = get(toolState)
-
-    return {
-      painting,
-      history,
-      palette,
-      tool
-    }
-  }
-})
-
-export const initializeState = ({ set }) => {
-  const keys = ['paintingState', 'historyState', 'paletteState', 'toolState']
-  keys.forEach((key) => {
-    const item = localStorage.getItem(key)
-    const parsed = JSON.parse(item)
-    if (parsed) {
-      set({ key }, parsed.value)
-    }
-  })
-}
+export default useStore;

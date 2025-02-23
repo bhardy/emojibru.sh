@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useRecoilValue } from 'recoil'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
-import { allowShortcutsState } from '../store/store'
+import useStore from "../store/store";
 import css from './Tool.module.css'
 
 const Brush = ({
@@ -43,10 +42,10 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
-  const AS = useRecoilValue(allowShortcutsState)
-  useKey('d', () => AS && updateTool({ type: 'draw' }), {}, [tool, AS])
-  useKey('f', () => AS && updateTool({ type: 'fill' }), {}, [tool, AS])
-  useKey('e', () => AS && updateTool({ type: 'erase' }), {}, [tool, AS])
+  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
+  useKey('d', () => shortcutsEnabled && updateTool({ type: 'draw' }), {}, [tool, shortcutsEnabled])
+  useKey('f', () => shortcutsEnabled && updateTool({ type: 'fill' }), {}, [tool, shortcutsEnabled])
+  useKey('e', () => shortcutsEnabled && updateTool({ type: 'erase' }), {}, [tool, shortcutsEnabled])
   return (
     <div className={css.tool}>
       <span className="visually-hidden">Current Tool: {tool.type}</span>

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { allowShortcutsState } from '../store/store'
+import useStore from "../store/store";
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import Help from './Help'
@@ -8,10 +7,10 @@ import logo from '../images/logo.svg'
 import css from './Header.module.css'
 
 const Header = () => {
-  const AS = useRecoilValue(allowShortcutsState)
+  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
   const [isHelping, setHelping] = useState(false)
   useKey('Escape', () => setHelping(false))
-  useKey('h', () => AS && setHelping(true), {}, [AS])
+  useKey('h', () => shortcutsEnabled && setHelping(true), {}, [shortcutsEnabled])
 
   const helpNode = useRef()
   const helpButton = useRef()

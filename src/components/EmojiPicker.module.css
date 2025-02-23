@@ -4,6 +4,25 @@
   left: 50%;
   z-index: 99;
   transform: translateX(-50%);
+  z-index: 101; /* this has to be above topLayer */
+}
+
+em-emoji-picker {
+  --font-size: 16px;
+  --rgb-background: 255, 255, 255;
+
+  /* active tab icon */
+  --rgb-accent: 115, 33, 106;
+  /* other tab icons and headings*/
+  --rgb-color: 115, 33, 106;
+
+  /* input unfocused */
+  --color-border: rgba(149, 233, 209, 0.2);
+  /* input focused */
+  --rgb-input: 255, 235, 235;
+
+  --border-radius: 0;
+  --shadow: 6px 6px 0 0 var(--color1), 6px 6px 100px 25px var(--color3);
 }
 
 @media (max-width: 499px) {
