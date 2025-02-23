@@ -1,7 +1,6 @@
 import React from 'react'
-import { useRecoilState } from 'recoil'
 import { cloneDeep } from 'lodash'
-import { paintingState, historyState } from '../store/store'
+import useStore from "../store/store";
 import css from './Resize.module.css'
 
 const Resizer = ({
@@ -33,8 +32,8 @@ const Resizer = ({
 }
 
 const Resize = () => {
-  const [ painting, setPainting ] = useRecoilState(paintingState)
-  const [ history, setHistory ] = useRecoilState(historyState)
+  const painting = useStore((state) => state.painting);
+  const setPainting = useStore((state) => state.setPainting);
   const { width, height } = painting
 
   const resize = (width, height) => {
@@ -71,11 +70,6 @@ const Resize = () => {
     }
 
     setPainting(newPainting)
-
-    setHistory([
-      ...history,
-      newPainting
-    ])
   }
 
   return (

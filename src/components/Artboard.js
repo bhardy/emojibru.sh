@@ -1,40 +1,18 @@
-import React, { useEffect, useCallback } from "react";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
-import { cloneDeep, debounce } from "lodash";
-import { paintingState, historyState, toolState } from "../store/store";
+import React, { useEffect } from "react";
+import { cloneDeep } from "lodash";
+import useStore from "../store/store";
 import Canvas from "./Canvas";
 import cellsToFill from "../utils/fill";
 import css from "./Artboard.module.css";
 
 const Artboard = () => {
-  const [painting, setPainting] = useRecoilState(paintingState);
-  const setHistory = useSetRecoilState(historyState);
-  const tool = useRecoilValue(toolState);
-  const setHistoryDelayed = useCallback(
-    debounce((d) => setHistory(d), 250),
-    [],
-  );
+  const painting = useStore((state) => state.painting);
+  const setPainting = useStore((state) => state.setPainting);
+  const tool = useStore((state) => state.tool);
 
-  const updatePainting = useCallback(
-    (update) => {
-      setPainting((oldPainting) => {
-        return {
-          ...oldPainting,
-          ...update,
-        };
-      });
-      setHistoryDelayed((oldHistory = []) => {
-        return [
-          ...oldHistory,
-          {
-            ...painting,
-            ...update,
-          },
-        ];
-      });
-    },
-    [painting, setHistoryDelayed, setPainting],
-  );
+  const handleUpdatePainting = (update) => {
+    setPainting(update);
+  };
 
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {
@@ -43,9 +21,9 @@ const Artboard = () => {
       for (let i = 0; i < painting.height; i++) {
         grid[i] = new Array(painting.width).fill("◽️");
       }
-      updatePainting({ grid });
+      setPainting({ grid });
     }
-  }, [painting, updatePainting]);
+  }, [painting, setPainting]);
 
   const paint = (row, col) => {
     switch (tool.type) {
@@ -71,7 +49,7 @@ const Artboard = () => {
   const draw = (row, col) => {
     const grid = cloneDeep(painting.grid);
     grid[row][col] = emojiChar();
-    updatePainting({ grid });
+    handleUpdatePainting({ grid });
   };
 
   const fill = (row, col) => {
@@ -79,13 +57,13 @@ const Artboard = () => {
     cellsToFill(grid, { x: col, y: row }, emojiChar()).forEach(({ x, y }) => {
       grid[y][x] = emojiChar();
     });
-    updatePainting({ grid });
+    handleUpdatePainting({ grid });
   };
 
   const erase = (row, col) => {
     const grid = cloneDeep(painting.grid);
     grid[row][col] = "◽️";
-    updatePainting({ grid });
+    handleUpdatePainting({ grid });
   };
 
   return (

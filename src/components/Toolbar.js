@@ -1,26 +1,17 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import { useRecoilState } from 'recoil'
-import { toolState } from '../store/store'
+import useStore from "../store/store"
 import Resize from './Resize'
 import Tool from './Tool'
-import History from './History'
+import Clear from './History'
 import Paint from './Paint'
 import Palette from './Palette'
 import Share from './Share'
 import css from './Toolbar.module.css'
 
 const Toolbar = () => {
-  const [tool, setTool] = useRecoilState(toolState)
-
-  const updateTool = (update) => {
-    setTool((oldTool) => {
-      return {
-        ...oldTool,
-        ...update
-      }
-    })
-  }
+  const tool = useStore((state) => state.tool)
+  const updateTool = useStore((state) => state.setTool)
 
   return (
     <Fragment>
@@ -32,7 +23,7 @@ const Toolbar = () => {
         <h2 className={css.heading}>Size</h2>
         <Resize />
         <h2 className={css.heading}>History</h2>
-        <History />
+        <Clear />
       </aside>
       <aside className={cx(css.toolbar, css.secondary)}>
         <h2 className={css.heading}>Palette</h2>

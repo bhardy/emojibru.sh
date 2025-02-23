@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import useStore from "../store/store";
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import EmojiPicker from './EmojiPicker'
-import { allowShortcutsState, paletteState, toolState } from '../store/store'
 import css from './Palette.module.css'
 
 const Palette = ({ updateTool }) => {
@@ -13,23 +12,25 @@ const Palette = ({ updateTool }) => {
   const editButtonNode = useRef()
   const pickerButtonNode = useRef()
 
-  const [ allowShortcut, setAS] = useRecoilState(allowShortcutsState)
-  const [ palette, setPalette ] = useRecoilState(paletteState)
-  const tool = useRecoilValue(toolState)
+  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
+  const setShortcutsEnabled = useStore((state) => state.setAllowShortcuts)
+  const palette = useStore((state) => state.palette)
+  const setPalette = useStore((state) => state.setPalette)
+  const tool = useStore((state) => state.tool)
 
   const [showPicker, setShowPicker] = useState(false)
   const [editPalette, setEditPalette] = useState(false)
 
   const handleShowPicker = useCallback(() => {
     setShowPicker(true)
-    setAS(false)
-  }, [setAS])
+    setShortcutsEnabled(false)
+  }, [setShortcutsEnabled])
 
   const handleHidePicker = useCallback(() => {
     setShowPicker(false)
     setEditPalette(false)
-    setAS(true)
-  }, [setAS])
+    setShortcutsEnabled(true)
+  }, [setShortcutsEnabled])
 
   const handleEditPalette = () => {
     handleShowPicker()
@@ -62,18 +63,12 @@ const Palette = ({ updateTool }) => {
     }
   }, [showPicker, handleClickOutside])
 
-  useKey('s', () => allowShortcut && handleShowPicker(), {}, [allowShortcut])
-  useKey('p', () => allowShortcut && handleEditPalette(), {}, [allowShortcut])
+  useKey('s', () => shortcutsEnabled && handleShowPicker(), {}, [shortcutsEnabled])
+  useKey('p', () => shortcutsEnabled && handleEditPalette(), {}, [shortcutsEnabled])
   useKey('Escape', () => handleHidePicker())
 
   const updatePalette = (index) => {
-    setPalette((oldPalette) => {
-      return  [
-        ...oldPalette.slice(0, index),
-        tool.paint,
-        ...oldPalette.slice(index + 1)
-      ]
-    })
+    setPalette(index, tool.paint)
   }
 
   const handlePaletteClick = (index) => {

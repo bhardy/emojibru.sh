@@ -31,6 +31,7 @@ body {
 /* PWA rules */
 @media all and (display-mode: standalone) {
   body {
+    user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
