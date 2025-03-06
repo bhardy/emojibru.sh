@@ -7,7 +7,7 @@ const Clear = () => {
 
   return (
     <div className={css.tool}>
-      <button onClick={handleClear} className={css.button}>
+      <button type="button" onClick={handleClear} className={css.button}>
         <span className={css.buttonLayout}>
           <span className={css.icon} role="img" aria-label="Clear">
             🧨

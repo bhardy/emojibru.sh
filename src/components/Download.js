@@ -15,7 +15,7 @@ const handleDownload = () => {
 
 const Download = () => {
   return (
-    <button className="button" onClick={handleDownload}>Download PNG</button>
+    <button type="button" className="button" onClick={handleDownload}>Download PNG</button>
   )
 }
 

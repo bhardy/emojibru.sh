@@ -13,7 +13,7 @@ const Copy = () => {
     copy(output)
   }
   return (
-    <button className="button" onClick={copyText}>Copy to clipboard</button>
+    <button type="button" className="button" onClick={copyText}>Copy to clipboard</button>
   )
 }
 

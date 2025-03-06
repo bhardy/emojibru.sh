@@ -96,6 +96,7 @@ const Palette = ({ updateTool }) => {
   return (
     <Fragment>
       <button
+        type="button"
         ref={editButtonNode}
         className={cx("button", {
           [css.editButton]: editPalette,
@@ -103,7 +104,7 @@ const Palette = ({ updateTool }) => {
         })}
         onClick={() => handleEditClick()}
       >
-        {editPalette ? 'Save' : 'Edit'}
+        {editPalette ? 'Save Palette' : 'Edit Palette'}
       </button>
       <ul
         ref={paletteNode}
@@ -123,6 +124,7 @@ const Palette = ({ updateTool }) => {
         ))}
       </ul>
       <button
+        type="button"
         ref={pickerButtonNode}
         className={cx("button", {
           [css.showPicker]: showPicker && !editPalette,
