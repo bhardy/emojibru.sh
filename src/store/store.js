@@ -49,9 +49,28 @@ const useStore = create(
           return { palette: newPalette }
         }),
 
-      // Allow shortcuts state
-      allowShortcuts: true,
-      setAllowShortcuts: (allowShortcuts) => set({ allowShortcuts }),
+      // EmojiPicker state
+      showPicker: false,
+      setShowPicker: (show) => {
+        set((state) => ({
+          showPicker: show,
+          // disable shortcuts when picker is shown
+          allowShortcuts: !show,
+          // only show picker or edit pallette, not both
+          editPaletteMode: show ? false : state.editPaletteMode
+        }))
+      },
+      // Edit Plalette state
+      editPaletteMode: false,
+      setEditPaletteMode: (edit) => {
+        set((state) => ({
+          editPaletteMode: edit,
+          // disable shortcuts in the edit palette state
+          allowShortcuts: !edit,
+          // only show picker or edit pallette, not both
+          showPicker: edit ? false : state.showPicker
+        }))
+      },
     }), {
       // Cycles to local storage
       name: "emoji-brush",

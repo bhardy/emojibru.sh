@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react'
+import React, { useCallback, useRef, Fragment } from 'react'
 import useStore from "../store/store";
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -8,71 +8,48 @@ import css from './Palette.module.css'
 
 const Palette = ({ updateTool }) => {
   const paletteNode = useRef()
-  const pickerNode = useRef()
   const editButtonNode = useRef()
-  const pickerButtonNode = useRef()
 
-  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
-  const setShortcutsEnabled = useStore((state) => state.setAllowShortcuts)
   const palette = useStore((state) => state.palette)
   const setPalette = useStore((state) => state.setPalette)
   const tool = useStore((state) => state.tool)
-
-  const [showPicker, setShowPicker] = useState(false)
-  const [editPalette, setEditPalette] = useState(false)
-
-  const handleShowPicker = useCallback(() => {
-    setShowPicker(true)
-    setShortcutsEnabled(false)
-  }, [setShortcutsEnabled])
-
-  const handleHidePicker = useCallback(() => {
-    setShowPicker(false)
-    setEditPalette(false)
-    setShortcutsEnabled(true)
-  }, [setShortcutsEnabled])
+  const editPaletteMode = useStore((state) => state.editPaletteMode)
+  const setEditPaletteMode = useStore((state) => state.setEditPaletteMode)
 
   const handleEditPalette = () => {
-    handleShowPicker()
-    setEditPalette(true)
+    setEditPaletteMode(true)
   }
 
   const handleClickOutside = useCallback((e) => {
-    if (pickerNode.current.contains(e.target)) return
-    if (pickerButtonNode.current.contains(e.target)) return
+    // don't close picker if clicked edit button
+    if (editButtonNode.current?.contains(e.target)) return
+    
+    // @note: this is can't be checked with contains (like above) because the
+    // node being clicked on has been updated before this function is called
+    const hasMatchingChild = Array.from(e.target.classList).some(className => 
+      paletteNode.current?.querySelector(`.${className}`) !== null
+    )
+    
+    // don't close the picker if we clicked on a palette swatch
+    if (hasMatchingChild) return
+    
+    setEditPaletteMode(false)
+  }, [setEditPaletteMode])
 
-    if (editPalette) {
-      if (paletteNode.current.contains(e.target)) return
-      if (editButtonNode.current.contains(e.target)) return
+  // @todo: check if we need the shortcut checks
+  useKey('p', () => handleEditPalette(), {}, [])
+  useKey('Escape', () => {
+    if (editPaletteMode) {
+      setEditPaletteMode(false)
     }
-    handleHidePicker()
-  }, [editPalette, handleHidePicker])
-
-  useEffect(() => {
-    if (showPicker) {
-      document.addEventListener("mousedown", handleClickOutside)
-      document.addEventListener("touchstart", handleClickOutside)
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
-    }
-  }, [showPicker, handleClickOutside])
-
-  useKey('s', () => shortcutsEnabled && handleShowPicker(), {}, [shortcutsEnabled])
-  useKey('p', () => shortcutsEnabled && handleEditPalette(), {}, [shortcutsEnabled])
-  useKey('Escape', () => handleHidePicker())
+  }, {}, [editPaletteMode])
 
   const updatePalette = (index) => {
     setPalette(index, tool.paint)
   }
 
   const handlePaletteClick = (index) => {
-    if (editPalette) {
+    if (editPaletteMode) {
       updatePalette(index)
     } else {
       updateTool({ paint: palette[index] })
@@ -80,37 +57,19 @@ const Palette = ({ updateTool }) => {
   }
 
   const handleEditClick = () => {
-    if (editPalette) {
-      return handleHidePicker()
+    if (editPaletteMode) {
+      return setEditPaletteMode(false)
     }
     handleEditPalette()
   }
 
-  const handlePaletteButton = () => {
-    if (!showPicker) {
-      return handleShowPicker()
-    }
-    handleHidePicker()
-  }
-
   return (
     <Fragment>
-      <button
-        type="button"
-        ref={editButtonNode}
-        className={cx("button", {
-          [css.editButton]: editPalette,
-          'topLayer': editPalette
-        })}
-        onClick={() => handleEditClick()}
-      >
-        {editPalette ? 'Save Palette' : 'Edit Palette'}
-      </button>
       <ul
         ref={paletteNode}
         className={cx(css.palette, {
-          [css.edit]: editPalette,
-          'topLayer': editPalette
+          [css.edit]: editPaletteMode,
+          'topLayer': editPaletteMode
         })}
       >
         {palette.map((fill, index) => (
@@ -125,20 +84,20 @@ const Palette = ({ updateTool }) => {
       </ul>
       <button
         type="button"
-        ref={pickerButtonNode}
+        ref={editButtonNode}
         className={cx("button", {
-          [css.showPicker]: showPicker && !editPalette,
-          'topLayer': showPicker && !editPalette
+          [css.editButton]: editPaletteMode,
+          'topLayer': editPaletteMode
         })}
-        onClick={() => handlePaletteButton()}
+        onClick={() => handleEditClick()}
       >
-        {showPicker ? 'Hide' : 'Show'} EmojiPicker
+        {editPaletteMode ? 'Save Palette' : 'Edit Palette'}
       </button>
-      <div ref={pickerNode} className={css.picker}>
-        {showPicker &&
-          <EmojiPicker updateTool={updateTool} edit={editPalette}/>
-        }
-      </div>
+      {editPaletteMode && (
+        <div className={css.picker}>
+          <EmojiPicker handleEmojiSelect={updateTool} handleClickOutside={handleClickOutside} edit/>
+        </div>
+      )}
     </Fragment>
   )
 }

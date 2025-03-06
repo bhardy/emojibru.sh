@@ -33,3 +33,13 @@
   cursor: pointer;
   border-color: var(--color3);
 }
+
+.picker {
+  position: relative;
+  display: inline-block;
+  --highlight: var(--color3);
+}
+
+button.showPicker {
+  border-color: var(--color2);
+}

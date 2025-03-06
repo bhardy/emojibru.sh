@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import useStore from "../store/store";
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import Help from './Help'
@@ -7,10 +6,9 @@ import logo from '../images/logo.svg'
 import css from './Header.module.css'
 
 const Header = () => {
-  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
   const [isHelping, setHelping] = useState(false)
   useKey('Escape', () => setHelping(false))
-  useKey('h', () => shortcutsEnabled && setHelping(true), {}, [shortcutsEnabled])
+  useKey('h', () => setHelping(true), {}, [])
 
   const helpNode = useRef()
   const helpButton = useRef()
