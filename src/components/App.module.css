@@ -15,6 +15,19 @@
 @media (min-width: 500px) {
   .app {
     grid-template-areas:
+      ". header header ."
+      ". artboard artboard ."
+      ". primary-tools secondary-tools ."
+      ". footer footer .";
+    grid-template-columns: 1fr repeat(2, 240px) 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    grid-gap: 8px;
+  }
+}
+
+@media (min-width: 900px) {
+  .app {
+    grid-template-areas:
       "primary-tools header secondary-tools"
       "primary-tools artboard secondary-tools"
       "primary-tools footer secondary-tools";

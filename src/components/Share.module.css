@@ -2,6 +2,5 @@
   display: inline-grid;
   grid-template-columns: auto;
   grid-gap: 12px;
-  margin: 12px 0;
   padding: 0;
 }

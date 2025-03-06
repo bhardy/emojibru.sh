@@ -7,8 +7,8 @@
 .label {
   display: inline-grid;
   grid-template-areas:
-  "title title"
-  "value controls";
+    "title title"
+    "value controls";
   grid-template-columns: 1fr 36px;
   grid-gap: 0;
   color: var(--color4);
@@ -28,6 +28,8 @@
   grid-area: value;
   display: flex;
   height: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
   align-items: center;
   justify-content: center;
   font-size: 24px;
