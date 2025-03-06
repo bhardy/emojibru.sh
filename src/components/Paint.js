@@ -39,14 +39,16 @@ const Paint = ({ tool, updateTool }) => {
 
   return (
     <Fragment>
-      <div className={css.paint} ref={paintButtons}>
-        <div className={cx(css.swatch, css.active)}>{tool.paint}</div>
-        <div
-          className={cx(css.swatch, css.alternate)}
-          onClick={() => handleSwap()}
-          role="button"
-        >
-          {tool.alternatePaint}
+      <div>
+        <div className={css.paint} ref={paintButtons}>
+          <div className={cx(css.swatch, css.active)}>{tool.paint}</div>
+          <div
+            className={cx(css.swatch, css.alternate)}
+            onClick={() => handleSwap()}
+            role="button"
+          >
+            {tool.alternatePaint}
+          </div>
         </div>
       </div>
       <button

@@ -49,7 +49,7 @@ button.editButton {
 
 .picker {
   position: relative;
-  --highlight: var(--color4);
+  --highlight: var(--color2);
 }
 
 button.showPicker {
