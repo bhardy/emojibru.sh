@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useMouseStatus } from '../hooks/useMouseStatus'
+import { useDrawingStatus } from '../hooks/useDrawingStatus'
 import css from './Canvas.module.css'
 
 // retina -- times 2
@@ -34,13 +34,13 @@ const getRelativePosition = (canvasRef, e) => {
   const canvas = canvasRef.current
   const rect = canvas.getBoundingClientRect()
 
-  // get grid position
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
+  // grab either the touch events (if they exist) or the mouse events
+  const x = e.touches ? e.touches[0]?.clientX || e.changedTouches[0]?.clientX : e.clientX
+  const y = e.touches ? e.touches[0]?.clientY || e.changedTouches[0]?.clientY : e.clientY
 
   // clicked cell (zero-indexed)
-  const cx = Math.ceil(x / MP * R) - 1
-  const cy = Math.ceil(y / MP * R) - 1
+  const cx = Math.ceil((x - rect.left) / MP * R) - 1
+  const cy = Math.ceil((y - rect.top) / MP * R) - 1
 
   return { cx, cy }
 }
@@ -51,17 +51,17 @@ const handleCanvasClick = (canvasRef, e, draw) => {
   draw(cy, cx)
 }
 
-const handleCanvasDrag = (canvasRef, e, draw, mouseStatus) => {
+const handleCanvasDrag = (canvasRef, e, draw, isDrawing) => {
   const {cx, cy} = getRelativePosition(canvasRef, e)
 
-  if (mouseStatus === 'mousedown') {
+  if (isDrawing) {
     draw(cy, cx)
   }
 }
 
 const Canvas = ({ grid, draw, width, height }) => {
   const canvasRef = useRef(null)
-  const mouseStatus = useMouseStatus()
+  const isDrawing = useDrawingStatus(canvasRef)
 
   useEffect(() => {
     drawing(canvasRef, grid)
@@ -83,7 +83,8 @@ const Canvas = ({ grid, draw, width, height }) => {
         style={{ width: pixelSize.width / 2, height: pixelSize.height / 2 }}
         onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
         onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
-        onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, mouseStatus)}
+        onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
+        onTouchMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
       />
     </div>
   )
