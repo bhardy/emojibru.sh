@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { cloneDeep } from "lodash";
+import { cloneDeep, inRange } from "lodash";
 import useStore from "../store/store";
 import Canvas from "./Canvas";
 import cellsToFill from "../utils/fill";
@@ -47,6 +47,11 @@ const Artboard = () => {
   };
 
   const draw = (row, col) => {
+    // @note: sometimes touch/drag events finish outside the grid, so we want to
+    // check if the draw coordinates are within grid boundaries
+    if (!inRange(row, 0, painting.grid.length) || !inRange(col, 0, painting.grid[0].length)) {
+      return;
+    }
     const grid = cloneDeep(painting.grid);
     grid[row][col] = emojiChar();
     handleUpdatePainting({ grid });
