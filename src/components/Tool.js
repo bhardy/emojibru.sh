@@ -42,10 +42,10 @@ Brush.propTypes = {
 }
 
 const Tool = ({ tool, updateTool }) => {
-  const shortcutsEnabled = useStore((state) => state.allowShortcuts)
-  useKey('d', () => shortcutsEnabled && updateTool({ type: 'draw' }), {}, [tool, shortcutsEnabled])
-  useKey('f', () => shortcutsEnabled && updateTool({ type: 'fill' }), {}, [tool, shortcutsEnabled])
-  useKey('e', () => shortcutsEnabled && updateTool({ type: 'erase' }), {}, [tool, shortcutsEnabled])
+  useKey('d', () => updateTool({ type: 'draw' }), {}, [tool])
+  useKey('f', () => updateTool({ type: 'fill' }), {}, [tool])
+  useKey('e', () => updateTool({ type: 'erase' }), {}, [tool])
+  
   return (
     <div className={css.tool}>
       <span className="visually-hidden">Current Tool: {tool.type}</span>

@@ -5,7 +5,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import css from "./EmojiPicker.module.css";
 
-const EmojiPicker = ({ updateTool, edit }) => {
+const EmojiPicker = ({ handleEmojiSelect, handleClickOutside, edit }) => {
   return (
     <div
       className={cx(css.container, {
@@ -15,21 +15,21 @@ const EmojiPicker = ({ updateTool, edit }) => {
       <Picker
         data={data}
         set="native"
+        // @todo find out what this prop is now
         title="Pick your paint…"
         previewEmoji="point_up_2"
-        onEmojiSelect={(emoji) => updateTool({ paint: emoji.native })}
+        onEmojiSelect={(emoji) => handleEmojiSelect?.({ paint: emoji.native })}
+        onClickOutside={handleClickOutside}
         emojiButtonColors={['var(--color2)']}
         theme="light"
-        style={{
-          "--border-radius": 0,
-        }}
       />
     </div>
   );
 };
 
 EmojiPicker.propTypes = {
-  updateTool: PropTypes.func.isRequired,
+  handleEmojiSelect: PropTypes.func,
+  handleClickOutside: PropTypes.func,
   edit: PropTypes.bool,
 };
 
