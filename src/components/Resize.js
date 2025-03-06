@@ -15,12 +15,14 @@ const Resizer = ({
       <span className={css.value}>{value}</span>
       <nav className={css.controls}>
         <button
+          type="button"
           className={css.button}
           onClick={increase}
         >
           +
         </button>
         <button
+          type="button"
           className={css.button}
           onClick={decrease}
         >

@@ -43,6 +43,7 @@ const Header = () => {
         EmojiBrush
       </h1>
       <button
+        type="button"
         ref={helpButton}
         className={cx(css.help, {
           [css.helping]: isHelping,
