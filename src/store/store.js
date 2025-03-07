@@ -1,7 +1,6 @@
 import { create } from "zustand"
 import { devtools, persist } from "zustand/middleware"
 
-// @note: may want to rename this after we sync to local storage
 const initialPainting = {
   width: 10,
   height: 10,
@@ -25,7 +24,6 @@ const useStore = create(
       resetPainting: () => {
         set({ painting: initialPainting })
       },
-
       // Tool state
       tool: {
         type: "draw",
@@ -39,7 +37,6 @@ const useStore = create(
             ...update,
           },
         })),
-
       // Palette state
       palette: ["🙈", "😭", "😕", "🤠", "😌", "🧞", "😂", "🤬", "😝", "💩", "🤢", "😫"],
       setPalette: (index, paint) =>
@@ -48,14 +45,11 @@ const useStore = create(
           newPalette[index] = paint
           return { palette: newPalette }
         }),
-
       // EmojiPicker state
       showPicker: false,
       setShowPicker: (show) => {
         set((state) => ({
           showPicker: show,
-          // disable shortcuts when picker is shown
-          allowShortcuts: !show,
           // only show picker or edit pallette, not both
           editPaletteMode: show ? false : state.editPaletteMode
         }))
@@ -65,11 +59,14 @@ const useStore = create(
       setEditPaletteMode: (edit) => {
         set((state) => ({
           editPaletteMode: edit,
-          // disable shortcuts in the edit palette state
-          allowShortcuts: !edit,
           // only show picker or edit pallette, not both
           showPicker: edit ? false : state.showPicker
         }))
+      },
+      // Small screen toolbar state
+      showExpandedToolbar: false,
+      setShowExpandedToolbar: (show) => {
+        set({ showExpandedToolbar: show })
       },
     }), {
       // Cycles to local storage

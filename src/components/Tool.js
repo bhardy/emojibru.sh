@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
-import useStore from "../store/store";
 import css from './Tool.module.css'
 
 const Brush = ({
@@ -48,7 +47,9 @@ const Tool = ({ tool, updateTool }) => {
   
   return (
     <div className={css.tool}>
-      <span className="visually-hidden">Current Tool: {tool.type}</span>
+      <span className="visually-hidden" aria-label={`Current Tool: ${tool.type}`}>
+        Current Tool: {tool.type}
+      </span>
       <Brush
         tool={tool}
         type="draw"
