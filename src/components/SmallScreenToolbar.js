@@ -12,12 +12,14 @@ const Tool = ({ tool, type, icon, title, updateTool }) => {
       aria-label={title}
       onClick={() => updateTool({ type })}
     >
-      <span className={css.icon} role="img" aria-label={type}>
-        {icon}
-      </span>
-      <span className={css.title}>
-        {title}
-      </span>
+      <div className={css.buttonFlexContainer}>
+        <span className={css.icon} role="img" aria-label={type}>
+          {icon}
+        </span>
+        <span className={css.title}>
+          {title}
+        </span>
+      </div>
     </button>
 )}
 
@@ -52,12 +54,14 @@ const SmallScreenToolbar = () => {
           aria-label="Show More"
           onClick={() => setShowExpandedToolbar(true)}
         >
-          <span className={css.icon} role="img" aria-label="Hamburger Menu Icon">
-            🍔
-          </span>
-          <span className={css.title}>
-            Menu
-          </span>
+          <div className={css.buttonFlexContainer}>
+            <span className={css.icon} role="img" aria-label="Hamburger Menu Icon">
+              🍔
+            </span>
+            <span className={css.title}>
+              Menu
+            </span>
+          </div>
         </button>
       </nav>
       {/* @todo: this is a bit gross, move it */}
@@ -68,12 +72,14 @@ const SmallScreenToolbar = () => {
           aria-label="Show More"
           onClick={() => setShowExpandedToolbar(false)}
         >
-          <span className={css.icon} role="img" aria-label="Close Menu Icon">
-            🙅
-          </span>
-          <span className={css.title}>
-            Close
-          </span>
+          <div className={css.buttonFlexContainer}>
+            <span className={css.icon} role="img" aria-label="Close Menu Icon">
+              🙅
+            </span>
+            <span className={css.title}>
+              Close
+            </span>
+          </div>
         </button>
       )}
     </>

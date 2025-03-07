@@ -32,9 +32,6 @@
 
 .toolButton {
   color: var(--color4);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
   background-color: var(--white);
   border: none;
   font-weight: bold;
@@ -43,6 +40,13 @@
   border: 2px solid var(--grey);
   filter: grayscale(75%);
   transition: filter 0.2s ease-in-out;
+}
+
+.buttonFlexContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
 }
 
 .icon {
@@ -59,9 +63,6 @@
 
 .menuButton {
   color: var(--color4);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
   background-color: var(--white);
   border: none;
   font-weight: bold;
@@ -75,7 +76,7 @@
   position: fixed;
   top: 8px;
   right: 10px;
-  z-index: 1;
+  z-index: 2;
   font-size: 12px;
 }
 
