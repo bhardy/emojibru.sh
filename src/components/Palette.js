@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, Fragment } from 'react'
+import React, { useCallback, useRef } from 'react'
 import useStore from "../store/store";
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -64,7 +64,7 @@ const Palette = ({ updateTool }) => {
   }
 
   return (
-    <Fragment>
+    <>
       <ul
         ref={paletteNode}
         className={cx(css.palette, {
@@ -98,7 +98,7 @@ const Palette = ({ updateTool }) => {
           <EmojiPicker handleEmojiSelect={updateTool} handleClickOutside={handleClickOutside} edit/>
         </div>
       )}
-    </Fragment>
+    </>
   )
 }
 

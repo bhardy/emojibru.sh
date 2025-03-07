@@ -3,11 +3,10 @@
   grid-template-areas:
     "header"
     "artboard"
-    "primary-tools"
-    "secondary-tools"
+    "tools"
     "footer";
   grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-rows: auto 1fr auto;
   width: 100%;
   min-height: 100%;
 }

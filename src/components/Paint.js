@@ -1,9 +1,10 @@
-import React, { Fragment, useRef, useCallback } from 'react'
+import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import useStore from "../store/store";
 import EmojiPicker from './EmojiPicker'
+import ColorPicker from './ColorPicker'
 import css from './Paint.module.css'
 
 const Paint = ({ tool, updateTool }) => {
@@ -14,13 +15,6 @@ const Paint = ({ tool, updateTool }) => {
   const showPicker = useStore((state) => state.showPicker)
   const setShowPicker = useStore((state) => state.setShowPicker)
 
-  const handleSwap = () => {
-    updateTool({
-      paint: tool.alternatePaint,
-      alternatePaint: tool.paint
-    })
-  }
-
   const handleClickOutside = useCallback((e) => {
     if (paintButtons.current.contains(e.target)) return
     if (pickerButtonNode.current.contains(e.target)) return
@@ -30,7 +24,6 @@ const Paint = ({ tool, updateTool }) => {
 
   
   useKey('s', () => setShowPicker(true), {}, [])
-  useKey('x', handleSwap, {}, [tool])
   useKey('Escape', () => {
     if (showPicker) {
       setShowPicker(false)
@@ -38,23 +31,14 @@ const Paint = ({ tool, updateTool }) => {
   }, {}, [showPicker])
 
   return (
-    <Fragment>
-      <div>
-        <div className={css.paint} ref={paintButtons}>
-          <div className={cx(css.swatch, css.active)}>{tool.paint}</div>
-          <div
-            className={cx(css.swatch, css.alternate)}
-            onClick={() => handleSwap()}
-            role="button"
-          >
-            {tool.alternatePaint}
-          </div>
-        </div>
+    <>
+      <div className={css.paint}>
+        <ColorPicker tool={tool} updateTool={updateTool} ref={paintButtons} />
       </div>
       <button
         type="button"
         ref={pickerButtonNode}
-        className={cx("button", {
+        className={cx("button", css.button, {
           [css.showPicker]: showPicker,
           'topLayer': showPicker
         })}
@@ -67,7 +51,7 @@ const Paint = ({ tool, updateTool }) => {
           <EmojiPicker handleEmojiSelect={updateTool} handleClickOutside={handleClickOutside} />
         }
       </div>
-    </Fragment>
+    </>
   )
 }
 
