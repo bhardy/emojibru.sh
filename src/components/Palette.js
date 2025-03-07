@@ -26,9 +26,15 @@ const Palette = ({ updateTool }) => {
     
     // @note: this is can't be checked with contains (like above) because the
     // node being clicked on has been updated before this function is called
-    const hasMatchingChild = Array.from(e.target.classList).some(className => 
-      paletteNode.current?.querySelector(`.${className}`) !== null
-    )
+    // We need to escape special characters in class names for CSS selectors
+    const hasMatchingChild = Array.from(e.target.classList).some(className => {
+      try {
+        const escapedClassName = CSS.escape(className);
+        return paletteNode.current?.querySelector(`.${escapedClassName}`) !== null;
+      } catch (err) {
+        return false;
+      }
+    });
     
     // don't close the picker if we clicked on a palette swatch
     if (hasMatchingChild) return
