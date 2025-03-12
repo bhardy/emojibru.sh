@@ -1,6 +1,6 @@
 import { useEffect, useState, RefObject } from 'react'
 
-export const useMouseStatus = (containerRef: RefObject<HTMLElement>) => {
+export const useMouseStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
   const [mouseStatus, setMouseStatus] = useState<'mouseup' | 'mousedown'>('mouseup')
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const useMouseStatus = (containerRef: RefObject<HTMLElement>) => {
   return mouseStatus
 }
 
-export const useTouchStatus = (containerRef: RefObject<HTMLElement>) => {
+export const useTouchStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
   const [touchStatus, setTouchStatus] = useState<'touchstart' | 'touchend' | 'touchcancel'>('touchend')
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export const useTouchStatus = (containerRef: RefObject<HTMLElement>) => {
   return touchStatus
 }
 
-export const useDrawingStatus = (containerRef: RefObject<HTMLElement>) => {
+export const useDrawingStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
   const [isDrawing, setIsDrawing] = useState(false)
 
   const mouseStatus = useMouseStatus(containerRef)

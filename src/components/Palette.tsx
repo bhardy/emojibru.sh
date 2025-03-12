@@ -35,7 +35,7 @@ const Palette = ({ updateTool }: PaletteProps) => {
       try {
         const escapedClassName = CSS.escape(className)
         return paletteNode.current?.querySelector(`.${escapedClassName}`) !== null
-      } catch (err) {
+      } catch {
         return false
       }
     })

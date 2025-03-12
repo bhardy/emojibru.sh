@@ -45,7 +45,7 @@ interface ToolProps {
   updateTool: (update: Partial<ToolType>) => void
 }
 
-const Tool: React.FC<ToolProps> = ({ tool, updateTool }) => {
+const Tool = ({ tool, updateTool }: ToolProps) => {
   useKey('d', () => updateTool({ type: 'draw' }), {}, [tool])
   useKey('f', () => updateTool({ type: 'fill' }), {}, [tool])
   useKey('e', () => updateTool({ type: 'erase' }), {}, [tool])

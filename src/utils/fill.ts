@@ -46,7 +46,7 @@ export const getCellToCheck = (matchedCells: Point[], checkedCells: Point[]): Po
 
 export const getAdjacent = (grid: Painting['grid'], target: Point): Point[] => {
   const { x, y } = target
-  let edges: Point[] = [ { x, y } ]
+  const edges: Point[] = [ { x, y } ]
   for (let dx = -1; dx <= 1; ++dx) {
     for (let dy = -1; dy <= 1; ++dy) {
       // the distance must not be 0 && the matched absolute vals remove the corners

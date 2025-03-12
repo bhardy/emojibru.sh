@@ -13,7 +13,7 @@ interface EmojiPickerProps {
 
 interface EmojiObject {
   native: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 const EmojiPicker = ({ handleEmojiSelect, handleClickOutside, edit = false }: EmojiPickerProps) => {
