@@ -1,6 +1,0 @@
-.share {
-  display: inline-grid;
-  grid-template-columns: auto;
-  grid-gap: 12px;
-  padding: 0;
-}

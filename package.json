@@ -1,51 +1,25 @@
 {
-  "name": "emojibrush-3",
-  "version": "0.1.1",
+  "name": "emojibru.sh",
+  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@emoji-mart/data": "^1.2.1",
-    "@emoji-mart/react": "^1.1.1",
-    "classnames": "^2.3.2",
-    "copy-to-clipboard": "^3.3.3",
-    "emoji-mart": "^5.5.2",
-    "lodash": "^4.17.21",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "react-use": "^17.4.0",
-    "zustand": "^5.0.3"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all",
-      "last 2 chrome version",
-      "last 2 firefox version",
-      "last 2 safari version",
-      "last 2 edge version"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-      "last 1 edge version"
-    ]
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.2.2"
   },
   "devDependencies": {
-    "jest-extended": "^4.0.1"
-  },
-  "engines": {
-    "node": "18.17.1",
-    "npm": "9.6.7"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.2",
+    "@eslint/eslintrc": "^3"
   }
 }
