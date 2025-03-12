@@ -1,0 +1,61 @@
+.toolbar {
+  display: none;
+}
+
+@media (max-width: 499px) {
+  .toolbar.visible {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    grid-template-areas:
+      'primary-tools'
+      'secondary-tools';
+    background: linear-gradient(45deg, var(--bg-white) 0%, var(--bg-white) 100%),
+    linear-gradient(45deg, var(--color1) 0%, var(--color3) 100%);
+    z-index: 1;
+    padding-bottom: 48px;
+  }
+}
+
+@media (min-width: 500px) {
+  .toolbar {
+    display: contents;
+  }
+}
+
+.panel {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+@media (min-width: 500px) {
+  .panel {
+    background-color: hsla(0, 0%, 100%, 0.25);
+  }
+}
+
+@media (min-width: 900px) {
+  .panel {
+    padding: 24px;
+  }
+}
+
+.primary {
+  grid-area: primary-tools;
+}
+
+.secondary {
+  grid-area: secondary-tools;
+}
+
+.heading {
+  font-size: 18px;
+  margin-top: 24px;
+}
+
+@media (min-width: 500px) {
+  .heading {
+    margin-top: 36px;
+  }
+}

@@ -1,0 +1,15 @@
+.footer {
+  grid-area: footer;
+  padding: 16px;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 12px;
+}
+
+@media (min-width: 500px) {
+  .footer {
+    padding: 24px;
+  }
+}
