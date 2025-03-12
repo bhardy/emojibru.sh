@@ -34,7 +34,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - [ ] random palette
 - [x] switch to ts
 - [x] convert to next app
-- [x] add next analytics
+- [x] add vercel analytics
+- [ ] add vercel speed insights
 - [ ] replace emoji-mart or update it once it supports react 19
 
 ## Getting Started
