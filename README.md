@@ -1,103 +1,36 @@
-# EmojiBrush
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-🌤️ 🌨️ ☁️ 🐝 🗻 ❄️ ❄️ ⛈️ 🦅 🌩️\
-☁️ 🦋 🌈 ⛰️ ⛰️ 🚠 ⛰️ 🌨️ 🌨️ 🌩️\
-🌨️ 🌈 ⛰️ 🌲 ⛰️ ⛰️ ⛰️ ⛰️ ⛰️ 🌨️\
-⛰️ ⛰️ 🐒 ⛰️ ⛰️ ⛰️ ⛰️ 🧗‍♂️ ⛰️ 🦉\
-🌴 🌴 🌴 ⛰️ ⛰️ ⛰️ 🌴 ⛰️ ⛰️ ⛰️\
-🌊 🌊 🌊 ⛵️ 🏝️ 🏝️ 🌊 🌊 🏊 🌊\
-🌊 🦈 🌊 🌊 🌊 🌊 🌊 🐳 🌊 🌊\
-🌊 🌊 🌊 🌊 🚤 🌊 🌊 🌊 🌊 🌊
+## Getting Started
 
-## Development Commands
+First, run the development server:
 
-Development:
-```
-npm run start
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Deploying:
-```
-now
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Deploying Production:
-```
-now --target production
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## TODO
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- [x] fix localstorage update issues
-- [x] fix palette ux
-- [x] help
-- [x] mobile
-- [x] switch to context
-- [ ] add prettier
-- [ ] add CI (now / tests)
-- [ ] tablet styling
-- [ ] emoji cursor
-- [ ] eyedropper tool
-- [x] reset tool
-- [ ] resize inputs
-- [x] undo tool
-- [ ] create a reusable click outside hook (currently used in Header / Canvas and the touch events are buggy)
-- [ ] add 'drag' to mobile
-- [ ] cool initial drawing
-- [x] debounce localstorage sync
-- [x] PWA
-- [ ] random palette
+## Learn More
 
-## Deploy with Now
+To learn more about Next.js, take a look at the following resources:
 
-First we need to create a `now.json` configuration file to instruct Now how to build the project.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-For this example we will be using our newest version [Now 2.0](https://zeit.co/now).
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-By adding the `version` key to the `now.json` file, we can specify which Now Platform version to use.
+## Deploy on Vercel
 
-We also need to define each builders we would like to use. [Builders](https://zeit.co/docs/v2/deployments/builders/overview/) are modules that take a deployment's source and return an output, consisting of [either static files or dynamic Lambdas](https://zeit.co/docs/v2/deployments/builds/#sources-and-outputs).
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Then we need to add a `now.json` file to specify we want to use our Platform V2.
-
-In this case we are going to use `@now/static-build` to build and deploy our React application selecting the `package.json` as our entry point. We will also define a name for our project (optional).
-
-```json
-{
-    "version": 2,
-    "name": "my-react-app",
-    "builds": [
-        { "src": "package.json", "use": "@now/static-build", "config": { "distDir": "build" } }
-    ],
-    "routes": [
-      { "src": "/static/(.*)", "headers": { "cache-control": "s-maxage=31536000,immutable" }, "dest": "/static/$1" },
-      { "src": "/favicon.ico", "dest": "/favicon.ico" },
-      { "src": "/asset-manifest.json", "dest": "/asset-manifest.json" },
-      { "src": "/manifest.json", "dest": "/manifest.json" },
-      { "src": "/precache-manifest.(.*)", "dest": "/precache-manifest.$1" },
-      { "src": "/service-worker.js", "headers": { "cache-control": "s-maxage=0" }, "dest": "/service-worker.js" },
-      { "src": "/(.*)", "headers": {"cache-control": "s-maxage=0"}, "dest": "/index.html" }
-    ]
-}
-```
-
-Visit our [documentation](https://zeit.co/docs/v2/deployments/configuration) for more information on the `now.json` configuration file.
-
-We also need to include a script in `package.json` named `"now-build"` that specifies what command Now will run on the server to "build" your application. By default, Create React App will output the build to the `build` directory, which is configured in the above `now.json` file.
-
-```json
-{
-    "scripts": {
-        ...
-        "now-build": "react-scripts build"
-    }
-}
-```
-
-We are now ready to deploy the app.
-
-```
-now
-```
-
-For more information on deploying a CRA generated React project on Now, [read our Guide](https://zeit.co/guides/deploying-react-with-now-cra).
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
