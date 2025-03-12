@@ -1,0 +1,87 @@
+.smallScreenToolbar {
+  grid-area: tools;
+  position: sticky;
+  bottom: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 12px;
+}
+
+@media (min-width: 500px) {
+  .smallScreenToolbar {
+    display: none;
+  }
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: none;
+  padding: 4px 6px 6px 4px;
+  margin: 0;
+  gap: 6px;
+  border: 1px dashed var(--color2);
+}
+
+.tools > li {
+  display: contents;
+}
+
+.toolButton {
+  color: var(--color4);
+  background-color: var(--white);
+  border: none;
+  font-weight: bold;
+  padding: 4px;
+  user-select: none;
+  border: 2px solid var(--grey);
+  filter: grayscale(75%);
+  transition: filter 0.2s ease-in-out;
+}
+
+.buttonFlexContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.activeTool {
+  background-color: var(--white);
+  color: var(--color4);
+  border-color: var(--color2);
+  box-shadow: 4px 4px 0 0 var(--color1);
+  filter: grayscale(0%);
+}
+
+.menuButton {
+  color: var(--color4);
+  background-color: var(--white);
+  border: none;
+  font-weight: bold;
+  padding: 4px;
+  user-select: none;
+  border: 2px solid var(--color3);
+  box-shadow: 4px 4px 0 0 var(--color4);
+}
+
+.closeMenuButton {
+  position: fixed;
+  top: 8px;
+  right: 10px;
+  z-index: 2;
+  font-size: 12px;
+}
+
+@media (min-width: 500px) {
+  .closeMenuButton {
+    display: none;
+  }
+}

@@ -1,0 +1,54 @@
+.tool {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.button {
+  padding: 0;
+  color: var(--color4);
+  text-align: left;
+  border: 2px solid var(--grey);
+  background-color: var(--white);
+}
+
+.button:hover {
+  border-color: var(--color3);
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: 0;
+  border-color: var(--color4);
+  cursor: pointer;
+}
+
+.button:disabled {
+  color: var(--dark-grey);
+  border-color: var(--grey);
+  cursor: default;
+}
+
+.button:disabled .icon {
+  filter: grayscale(100%);
+}
+
+.buttonLayout {
+  display: grid;
+  grid-template-areas: "icon title";
+  grid-template-columns: minmax(45px, auto) 1fr;
+  align-items: center;
+}
+
+.icon {
+  grid-area: icon;
+  padding: 6px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.title {
+  grid-area: title;
+}
