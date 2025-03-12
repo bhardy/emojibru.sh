@@ -18,7 +18,7 @@ const Artboard = () => {
   // @note: this only builds the intital grid if there isn't one
   useEffect(() => {
     if (!painting.grid.length) {
-      let grid = new Array(painting.height);
+      const grid = new Array(painting.height);
       for (let i = 0; i < painting.height; i++) {
         grid[i] = new Array(painting.width).fill("◽️");
       }
