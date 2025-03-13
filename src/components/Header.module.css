@@ -42,7 +42,7 @@
   cursor: pointer;
 }
 
-@media (max-width : 499px) {
+@media (max-width: 499px) {
   /* Help currently just lists shortcuts which are useless on mobile */
   .help {
     display: none;
@@ -50,7 +50,6 @@
     right: 5px;
   }
 }
-
 
 .help:before {
   content: '🙀';

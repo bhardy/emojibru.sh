@@ -1,7 +1,11 @@
 import { RefObject } from 'react'
 import css from './Help.module.css'
 
-const Help = ({forwardedRef}: {forwardedRef: RefObject<HTMLDivElement | null>}) => (
+const Help = ({
+  forwardedRef,
+}: {
+  forwardedRef: RefObject<HTMLDivElement | null>
+}) => (
   <div ref={forwardedRef} className={css.container}>
     <article className={css.help}>
       <h2 className={css.heading}>Shortcuts</h2>

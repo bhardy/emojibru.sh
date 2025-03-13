@@ -1,6 +1,6 @@
-import React from "react";
-import useStore from "../store/store";
-import css from "./History.module.css";
+import React from 'react'
+import useStore from '../store/store'
+import css from './History.module.css'
 
 const Clear = () => {
   const handleClear = useStore((state) => state.resetPainting)
@@ -16,7 +16,7 @@ const Clear = () => {
         </span>
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Clear;
+export default Clear

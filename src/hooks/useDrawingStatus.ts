@@ -1,13 +1,18 @@
 import { useEffect, useState, RefObject } from 'react'
 
-export const useMouseStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
-  const [mouseStatus, setMouseStatus] = useState<'mouseup' | 'mousedown'>('mouseup')
+export const useMouseStatus = <T extends HTMLElement>(
+  containerRef: RefObject<T | null>,
+) => {
+  const [mouseStatus, setMouseStatus] = useState<'mouseup' | 'mousedown'>(
+    'mouseup',
+  )
 
   useEffect(() => {
     const container = containerRef?.current
     if (!container) return
 
-    const setMouseFromEvent = (event: MouseEvent) => setMouseStatus(event.type as 'mouseup' | 'mousedown')
+    const setMouseFromEvent = (event: MouseEvent) =>
+      setMouseStatus(event.type as 'mouseup' | 'mousedown')
 
     container.addEventListener('mousedown', setMouseFromEvent)
     container.addEventListener('mouseup', setMouseFromEvent)
@@ -21,8 +26,12 @@ export const useMouseStatus = <T extends HTMLElement>(containerRef: RefObject<T 
   return mouseStatus
 }
 
-export const useTouchStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
-  const [touchStatus, setTouchStatus] = useState<'touchstart' | 'touchend' | 'touchcancel'>('touchend')
+export const useTouchStatus = <T extends HTMLElement>(
+  containerRef: RefObject<T | null>,
+) => {
+  const [touchStatus, setTouchStatus] = useState<
+    'touchstart' | 'touchend' | 'touchcancel'
+  >('touchend')
 
   useEffect(() => {
     const container = containerRef?.current
@@ -34,7 +43,9 @@ export const useTouchStatus = <T extends HTMLElement>(containerRef: RefObject<T 
       setTouchStatus(event.type as 'touchstart' | 'touchend' | 'touchcancel')
     }
 
-    container.addEventListener('touchstart', setTouchFromEvent, { passive: false })
+    container.addEventListener('touchstart', setTouchFromEvent, {
+      passive: false,
+    })
     container.addEventListener('touchend', setTouchFromEvent)
     container.addEventListener('touchcancel', setTouchFromEvent)
 
@@ -48,17 +59,16 @@ export const useTouchStatus = <T extends HTMLElement>(containerRef: RefObject<T 
   return touchStatus
 }
 
-export const useDrawingStatus = <T extends HTMLElement>(containerRef: RefObject<T | null>) => {
+export const useDrawingStatus = <T extends HTMLElement>(
+  containerRef: RefObject<T | null>,
+) => {
   const [isDrawing, setIsDrawing] = useState(false)
 
   const mouseStatus = useMouseStatus(containerRef)
   const touchStatus = useTouchStatus(containerRef)
 
   useEffect(() => {
-    setIsDrawing(
-      mouseStatus === 'mousedown' || 
-      touchStatus === 'touchstart'
-    )
+    setIsDrawing(mouseStatus === 'mousedown' || touchStatus === 'touchstart')
   }, [mouseStatus, touchStatus])
 
   return isDrawing

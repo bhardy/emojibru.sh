@@ -5,7 +5,7 @@ export interface Painting {
 }
 
 export interface Tool {
-  type: "draw" | "fill" | "erase"
+  type: 'draw' | 'fill' | 'erase'
   paint: string
   alternatePaint: string
 }

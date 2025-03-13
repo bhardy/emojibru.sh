@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import useStore from "../store/store";
+import useStore from '../store/store'
 import cx from 'classnames'
 import useKey from 'react-use/lib/useKey'
 import { Tool } from '@/types'
@@ -24,35 +24,48 @@ const Palette = ({ updateTool }: PaletteProps) => {
     setEditPaletteMode(true)
   }
 
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    // don't close picker if clicked edit button
-    if (editButtonNode.current?.contains(e.target as Node)) return
-    
-    // @note: this is can't be checked with contains (like above) because the
-    // node being clicked on has been updated before this function is called
-    // We need to escape special characters in class names for CSS selectors
-    const hasMatchingChild = Array.from((e.target as Element).classList).some(className => {
-      try {
-        const escapedClassName = CSS.escape(className)
-        return paletteNode.current?.querySelector(`.${escapedClassName}`) !== null
-      } catch {
-        return false
-      }
-    })
-    
-    // don't close the picker if we clicked on a palette swatch
-    if (hasMatchingChild) return
-    
-    setEditPaletteMode(false)
-  }, [setEditPaletteMode])
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      // don't close picker if clicked edit button
+      if (editButtonNode.current?.contains(e.target as Node)) return
+
+      // @note: this is can't be checked with contains (like above) because the
+      // node being clicked on has been updated before this function is called
+      // We need to escape special characters in class names for CSS selectors
+      const hasMatchingChild = Array.from((e.target as Element).classList).some(
+        (className) => {
+          try {
+            const escapedClassName = CSS.escape(className)
+            return (
+              paletteNode.current?.querySelector(`.${escapedClassName}`) !==
+              null
+            )
+          } catch {
+            return false
+          }
+        },
+      )
+
+      // don't close the picker if we clicked on a palette swatch
+      if (hasMatchingChild) return
+
+      setEditPaletteMode(false)
+    },
+    [setEditPaletteMode],
+  )
 
   // @todo: check if we need the shortcut checks
   useKey('p', () => handleEditPalette(), {}, [])
-  useKey('Escape', () => {
-    if (editPaletteMode) {
-      setEditPaletteMode(false)
-    }
-  }, {}, [editPaletteMode])
+  useKey(
+    'Escape',
+    () => {
+      if (editPaletteMode) {
+        setEditPaletteMode(false)
+      }
+    },
+    {},
+    [editPaletteMode],
+  )
 
   const updatePalette = (index: number) => {
     setPalette(index, tool.paint)
@@ -79,7 +92,7 @@ const Palette = ({ updateTool }: PaletteProps) => {
         ref={paletteNode}
         className={cx(css.palette, {
           [css.edit]: editPaletteMode,
-          'topLayer': editPaletteMode
+          topLayer: editPaletteMode,
         })}
       >
         {palette.map((fill, index) => (
@@ -95,9 +108,9 @@ const Palette = ({ updateTool }: PaletteProps) => {
       <button
         type="button"
         ref={editButtonNode}
-        className={cx("button", {
+        className={cx('button', {
           [css.editButton]: editPaletteMode,
-          'topLayer': editPaletteMode
+          topLayer: editPaletteMode,
         })}
         onClick={() => handleEditClick()}
       >
@@ -105,7 +118,11 @@ const Palette = ({ updateTool }: PaletteProps) => {
       </button>
       {editPaletteMode && (
         <div className={css.picker}>
-          <EmojiPicker handleEmojiSelect={updateTool} handleClickOutside={handleClickOutside} edit/>
+          <EmojiPicker
+            handleEmojiSelect={updateTool}
+            handleClickOutside={handleClickOutside}
+            edit
+          />
         </div>
       )}
     </>
