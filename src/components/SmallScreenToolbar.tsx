@@ -1,8 +1,8 @@
-import cx from "classnames"
-import useStore from "../store/store"
+import cx from 'classnames'
+import useStore from '../store/store'
 import { Tool as ToolType } from '@/types'
-import ColorPicker from "./ColorPicker"
-import css from "./SmallScreenToolbar.module.css"
+import ColorPicker from './ColorPicker'
+import css from './SmallScreenToolbar.module.css'
 
 interface ToolProps {
   currentTool: ToolType
@@ -25,18 +25,17 @@ const Tool = ({ currentTool, type, icon, title, updateTool }: ToolProps) => {
         <span className={css.icon} role="img" aria-label={type}>
           {icon}
         </span>
-        <span className={css.title}>
-          {title}
-        </span>
+        <span className={css.title}>{title}</span>
       </div>
     </button>
-)}
+  )
+}
 
 const SmallScreenToolbar = () => {
   const tool = useStore((state) => state.tool)
   const updateTool = useStore((state) => state.setTool)
   const setShowExpandedToolbar = useStore(
-    (state) => state.setShowExpandedToolbar
+    (state) => state.setShowExpandedToolbar,
   )
   const showExpandedToolbar = useStore((state) => state.showExpandedToolbar)
   return (
@@ -47,16 +46,34 @@ const SmallScreenToolbar = () => {
       >
         <ul className={css.tools}>
           <li>
-            <Tool type="draw" icon="🖌️" title="Draw" currentTool={tool} updateTool={updateTool} />
+            <Tool
+              type="draw"
+              icon="🖌️"
+              title="Draw"
+              currentTool={tool}
+              updateTool={updateTool}
+            />
           </li>
           <li>
-            <Tool type="fill" icon="🌀" title="Fill" currentTool={tool} updateTool={updateTool} />
+            <Tool
+              type="fill"
+              icon="🌀"
+              title="Fill"
+              currentTool={tool}
+              updateTool={updateTool}
+            />
           </li>
           <li>
-            <Tool type="erase" icon="💨" title="Erase" currentTool={tool} updateTool={updateTool} />
+            <Tool
+              type="erase"
+              icon="💨"
+              title="Erase"
+              currentTool={tool}
+              updateTool={updateTool}
+            />
           </li>
         </ul>
-        <ColorPicker tool={tool} updateTool={updateTool} mini/>
+        <ColorPicker tool={tool} updateTool={updateTool} mini />
         <button
           className={css.menuButton}
           type="button"
@@ -64,12 +81,14 @@ const SmallScreenToolbar = () => {
           onClick={() => setShowExpandedToolbar(true)}
         >
           <div className={css.buttonFlexContainer}>
-            <span className={css.icon} role="img" aria-label="Hamburger Menu Icon">
+            <span
+              className={css.icon}
+              role="img"
+              aria-label="Hamburger Menu Icon"
+            >
               🍔
             </span>
-            <span className={css.title}>
-              Menu
-            </span>
+            <span className={css.title}>Menu</span>
           </div>
         </button>
       </nav>
@@ -85,9 +104,7 @@ const SmallScreenToolbar = () => {
             <span className={css.icon} role="img" aria-label="Close Menu Icon">
               🙅
             </span>
-            <span className={css.title}>
-              Close
-            </span>
+            <span className={css.title}>Close</span>
           </div>
         </button>
       )}

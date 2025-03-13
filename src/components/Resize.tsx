@@ -1,36 +1,28 @@
 import React from 'react'
 import { cloneDeep } from 'lodash'
-import useStore from "../store/store";
+import useStore from '../store/store'
 import css from './Resize.module.css'
 
 const Resizer = ({
   title,
   value,
   increase,
-  decrease
+  decrease,
 }: {
-  title: string;
-  value: number;
-  increase: () => void;
-  decrease: () => void;
+  title: string
+  value: number
+  increase: () => void
+  decrease: () => void
 }) => {
   return (
     <div className={css.label}>
       <span className={css.title}>{title}</span>
       <span className={css.value}>{value}</span>
       <nav className={css.controls}>
-        <button
-          type="button"
-          className={css.button}
-          onClick={increase}
-        >
+        <button type="button" className={css.button} onClick={increase}>
           +
         </button>
-        <button
-          type="button"
-          className={css.button}
-          onClick={decrease}
-        >
+        <button type="button" className={css.button} onClick={decrease}>
           -
         </button>
       </nav>
@@ -39,11 +31,11 @@ const Resizer = ({
 }
 
 const Resize = () => {
-  const painting = useStore((state) => state.painting);
-  const setPainting = useStore((state) => state.setPainting);
+  const painting = useStore((state) => state.painting)
+  const setPainting = useStore((state) => state.setPainting)
   const { width, height } = painting
 
-  const resize = (width: number, height: number ) => {
+  const resize = (width: number, height: number) => {
     let grid = cloneDeep(painting.grid)
     const prevWidth = painting.width
     const prevHeight = painting.height
@@ -73,7 +65,7 @@ const Resize = () => {
     const newPainting = {
       grid,
       width,
-      height
+      height,
     }
 
     setPainting(newPainting)

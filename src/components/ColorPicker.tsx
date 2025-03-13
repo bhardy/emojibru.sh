@@ -1,8 +1,8 @@
-import React, { forwardRef } from "react"
-import cx from "classnames"
-import useKey from "react-use/lib/useKey"
-import { Tool } from "@/types"
-import css from "./ColorPicker.module.css"
+import React, { forwardRef } from 'react'
+import cx from 'classnames'
+import useKey from 'react-use/lib/useKey'
+import { Tool } from '@/types'
+import css from './ColorPicker.module.css'
 
 interface ColorPickerProps {
   tool: Tool
@@ -19,7 +19,7 @@ const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
       })
     }
 
-    useKey("x", handleSwap, {}, [tool])
+    useKey('x', handleSwap, {}, [tool])
 
     return (
       <div className={cx(css.colorPicker, { [css.mini]: mini })} ref={ref}>
@@ -33,9 +33,9 @@ const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
         </div>
       </div>
     )
-  }
+  },
 )
 
-ColorPicker.displayName = "ColorPicker"
+ColorPicker.displayName = 'ColorPicker'
 
 export default ColorPicker

@@ -22,23 +22,29 @@ const Header = () => {
 
   useEffect(() => {
     if (isHelping) {
-      document.addEventListener("mousedown", handleClickOutside)
-      document.addEventListener("touchstart", handleClickOutside)
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
     } else {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
     }
   }, [isHelping])
 
   return (
     <header className={css.header}>
       <h1 className={css.heading}>
-        <Image className={css.logo} src="./EmojiBrush.svg" width={32} height={38} alt="EmojiBrush Logo" />
+        <Image
+          className={css.logo}
+          src="./EmojiBrush.svg"
+          width={32}
+          height={38}
+          alt="EmojiBrush Logo"
+        />
         EmojiBrush
       </h1>
       <button
@@ -46,11 +52,11 @@ const Header = () => {
         ref={helpButton}
         className={cx(css.help, {
           [css.helping]: isHelping,
-          'topLayer': isHelping,
+          topLayer: isHelping,
         })}
         onClick={() => setHelping(!isHelping)}
       >
-        { isHelping ? `I'm okay` : `Help` }
+        {isHelping ? `I'm okay` : `Help`}
       </button>
       {isHelping && <Help forwardedRef={helpNode} />}
     </header>

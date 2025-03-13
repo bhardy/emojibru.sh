@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import useStore from "../store/store"
+import useStore from '../store/store'
 import Resize from './Resize'
 import Tool from './Tool'
 import Clear from './History'
@@ -18,8 +18,16 @@ const Toolbar = () => {
   return (
     <>
       <SmallScreenToolbar />
-      <nav className={cx(css.toolbar, { [css.visible]: showExpandedToolbar })} role="toolbar" aria-label="Drawing tools and controls">
-        <aside className={cx(css.panel, css.primary)} role="toolbar" aria-label="Primary drawing tools">
+      <nav
+        className={cx(css.toolbar, { [css.visible]: showExpandedToolbar })}
+        role="toolbar"
+        aria-label="Drawing tools and controls"
+      >
+        <aside
+          className={cx(css.panel, css.primary)}
+          role="toolbar"
+          aria-label="Primary drawing tools"
+        >
           <h2 className={css.heading}>Tool</h2>
           <Tool tool={tool} updateTool={updateTool} />
           <h2 className={css.heading}>Paint</h2>
@@ -29,7 +37,11 @@ const Toolbar = () => {
           <h2 className={css.heading}>History</h2>
           <Clear />
         </aside>
-        <aside className={cx(css.panel, css.secondary)} role="toolbar" aria-label="Secondary drawing tools">
+        <aside
+          className={cx(css.panel, css.secondary)}
+          role="toolbar"
+          aria-label="Secondary drawing tools"
+        >
           <h2 className={css.heading}>Palette</h2>
           <Palette updateTool={updateTool} />
           <h2 className={css.heading}>Share</h2>

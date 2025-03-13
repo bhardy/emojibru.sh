@@ -8,4 +8,4 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
-}; 
+}

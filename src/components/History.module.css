@@ -37,7 +37,7 @@
 
 .buttonLayout {
   display: grid;
-  grid-template-areas: "icon title";
+  grid-template-areas: 'icon title';
   grid-template-columns: minmax(45px, auto) 1fr;
   align-items: center;
 }
