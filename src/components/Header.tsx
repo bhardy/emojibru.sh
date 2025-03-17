@@ -40,7 +40,7 @@ const Header = () => {
       <h1 className={css.heading}>
         <Image
           className={css.logo}
-          src="./EmojiBrush.svg"
+          src="./logo.svg"
           width={32}
           height={38}
           alt="EmojiBrush Logo"
