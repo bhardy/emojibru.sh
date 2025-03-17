@@ -47,9 +47,14 @@ const Artboard = () => {
     return `${paint}${String.fromCharCode(65039)}`
   }
 
-  const draw = (row: number, col: number) => {
+  // @note: draw & erase are almost identical
+  const pixel = (row: number, col: number, char: string) => {
     // @note: sometimes touch/drag events finish outside the grid, so we want to
     // check if the draw coordinates are within grid boundaries
+    //
+    // @note: after adding the mouseleave event to the useDrawingStatus hook,
+    // this condition is no longer needed for mouse users but I need to confirm
+    // the bugs can't be recreated on touch devices before removing this guard.
     if (
       !inRange(row, 0, painting.grid.length) ||
       !inRange(col, 0, painting.grid[0].length)
@@ -57,8 +62,16 @@ const Artboard = () => {
       return
     }
     const grid = cloneDeep(painting.grid)
-    grid[row][col] = emojiChar()
+    grid[row][col] = char
     handleUpdatePainting({ grid })
+  }
+
+  const draw = (row: number, col: number) => {
+    pixel(row, col, emojiChar())
+  }
+
+  const erase = (row: number, col: number) => {
+    pixel(row, col, '◽️')
   }
 
   const fill = (row: number, col: number) => {
@@ -66,12 +79,6 @@ const Artboard = () => {
     cellsToFill(grid, { x: col, y: row }, emojiChar()).forEach(({ x, y }) => {
       grid[y][x] = emojiChar()
     })
-    handleUpdatePainting({ grid })
-  }
-
-  const erase = (row: number, col: number) => {
-    const grid = cloneDeep(painting.grid)
-    grid[row][col] = '◽️'
     handleUpdatePainting({ grid })
   }
 

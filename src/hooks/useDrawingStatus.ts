@@ -14,12 +14,16 @@ export const useMouseStatus = <T extends HTMLElement>(
     const setMouseFromEvent = (event: MouseEvent) =>
       setMouseStatus(event.type as 'mouseup' | 'mousedown')
 
+    const handleMouseLeave = () => setMouseStatus('mouseup')
+
     container.addEventListener('mousedown', setMouseFromEvent)
     container.addEventListener('mouseup', setMouseFromEvent)
+    container.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
       container.removeEventListener('mousedown', setMouseFromEvent)
       container.removeEventListener('mouseup', setMouseFromEvent)
+      container.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [containerRef])
 
