@@ -18,10 +18,14 @@ const nextConfig: NextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=0',
+          },
         ],
       },
       {
-        source: '/sw.js',
+        source: '/serviceWorker.js',
         headers: [
           {
             key: 'Content-Type',
