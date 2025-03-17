@@ -1,7 +1,18 @@
-export function unregister() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then((registration) => {
-      registration.unregister()
+self.addEventListener('install', function () {
+  self.skipWaiting()
+})
+
+self.addEventListener('activate', function () {
+  self.registration
+    .unregister()
+    .then(function () {
+      return self.clients.matchAll()
     })
-  }
-}
+    .then(function (clients) {
+      clients.forEach((client) => {
+        if (client instanceof WindowClient) {
+          client.navigate(client.url)
+        }
+      })
+    })
+})
