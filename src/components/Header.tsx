@@ -50,7 +50,7 @@ const Header = () => {
       <button
         type="button"
         ref={helpButton}
-        className={cx(css.help, {
+        className={cx(css.help, 'button', {
           [css.helping]: isHelping,
           topLayer: isHelping,
         })}

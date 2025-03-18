@@ -15,7 +15,7 @@
   .app {
     grid-template-areas:
       '. header header .'
-      '. artboard artboard .'
+      'artboard artboard artboard artboard'
       '. primary-tools secondary-tools .'
       '. footer footer .';
     grid-template-columns: 1fr repeat(2, 240px) 1fr;
@@ -32,6 +32,6 @@
       'primary-tools footer secondary-tools';
     grid-template-columns: 260px 1fr 260px;
     grid-template-rows: auto 1fr auto;
-    grid-gap: 24px;
+    grid-gap: 0;
   }
 }

@@ -16,7 +16,7 @@ const Tool = ({ currentTool, type, icon, title, updateTool }: ToolProps) => {
   const active = currentTool.type === type
   return (
     <button
-      className={cx(css.toolButton, { [css.activeTool]: active })}
+      className={cx('button', css.toolButton, { [css.activeTool]: active })}
       type="button"
       aria-label={title}
       onClick={() => updateTool({ type })}
@@ -75,7 +75,7 @@ const SmallScreenToolbar = () => {
         </ul>
         <ColorPicker tool={tool} updateTool={updateTool} mini />
         <button
-          className={css.menuButton}
+          className={cx('button', css.menuButton)}
           type="button"
           aria-label="Show More"
           onClick={() => setShowExpandedToolbar(true)}
@@ -95,7 +95,7 @@ const SmallScreenToolbar = () => {
       {/* @todo: this is a bit gross, move it */}
       {showExpandedToolbar && (
         <button
-          className={cx(css.menuButton, css.closeMenuButton)}
+          className={cx('button', css.menuButton, css.closeMenuButton)}
           type="button"
           aria-label="Show More"
           onClick={() => setShowExpandedToolbar(false)}

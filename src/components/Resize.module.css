@@ -50,6 +50,8 @@
   color: inherit;
   background-color: var(--color1);
   border: 0;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .button:hover {

@@ -2,6 +2,7 @@
   --black: hsla(0, 0%, 11%, 1);
   --white: hsla(0, 0%, 98%, 1);
   --grey: hsla(0, 0%, 85%, 1);
+  --mid-grey: hsla(0, 0%, 75%, 1);
   --dark-grey: hsla(0, 0%, 50%, 1);
 
   --color1: hsla(163, 66%, 75%, 1);
@@ -72,6 +73,8 @@ a {
   color: var(--font-color);
   text-align: center;
   background-color: var(--background-color);
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .button:hover,

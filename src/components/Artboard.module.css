@@ -1,5 +1,14 @@
 .artboard {
   grid-area: artboard;
-  align-self: center;
-  justify-self: center;
+  overflow: auto;
+  display: flex;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 500px) {
+  .artboard {
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
 }
