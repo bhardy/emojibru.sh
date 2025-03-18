@@ -110,18 +110,20 @@ const Canvas = ({ grid, draw, width, height }: CanvasProps) => {
   }
 
   return (
-    <div className={css.wrapper}>
-      <canvas
-        id="emojibrush-canvas"
-        ref={canvasRef}
-        width={pixelSize.width}
-        height={pixelSize.height}
-        style={{ width: pixelSize.width / 2, height: pixelSize.height / 2 }}
-        onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
-        onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
-        onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
-        onTouchMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
-      />
+    <div className={css.center}>
+      <div className={css.wrapper}>
+        <canvas
+          id="emojibrush-canvas"
+          ref={canvasRef}
+          width={pixelSize.width}
+          height={pixelSize.height}
+          style={{ width: pixelSize.width / 2, height: pixelSize.height / 2 }}
+          onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
+          onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
+          onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
+          onTouchMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
+        />
+      </div>
     </div>
   )
 }

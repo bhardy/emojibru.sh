@@ -84,14 +84,12 @@ const Artboard = () => {
 
   return (
     <article className={css.artboard}>
-      <div className="canvas">
-        <Canvas
-          grid={painting.grid}
-          width={painting.width}
-          height={painting.height}
-          draw={(row: number, col: number) => paint(row, col)}
-        />
-      </div>
+      <Canvas
+        grid={painting.grid}
+        width={painting.width}
+        height={painting.height}
+        draw={(row: number, col: number) => paint(row, col)}
+      />
     </article>
   )
 }

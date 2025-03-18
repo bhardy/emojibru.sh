@@ -1,4 +1,4 @@
-import React from 'react'
+import cx from 'classnames'
 import useStore from '../store/store'
 import css from './History.module.css'
 
@@ -7,7 +7,11 @@ const Clear = () => {
 
   return (
     <div className={css.tool}>
-      <button type="button" onClick={handleClear} className={css.button}>
+      <button
+        type="button"
+        onClick={handleClear}
+        className={cx(css.button, 'button')}
+      >
         <span className={css.buttonLayout}>
           <span className={css.icon} role="img" aria-label="Clear">
             🧨

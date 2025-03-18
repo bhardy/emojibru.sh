@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 's-maxage=0',
+            value: 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0',
           },
         ],
       },
