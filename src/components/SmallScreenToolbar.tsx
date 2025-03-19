@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import { useEffect } from 'react'
 import useStore from '../store/store'
 import { Tool as ToolType } from '@/types'
 import ColorPicker from './ColorPicker'
@@ -74,10 +75,14 @@ const SmallScreenToolbar = () => {
           </li>
         </ul>
         <ColorPicker tool={tool} updateTool={updateTool} mini />
+        <PanOrDrawControl />
+      </nav>
+      {/* @todo: consider combining with below */}
+      {!showExpandedToolbar ? (
         <button
           className={cx('button', css.menuButton)}
           type="button"
-          aria-label="Show More"
+          aria-label="Show Menu"
           onClick={() => setShowExpandedToolbar(true)}
         >
           <div className={css.buttonFlexContainer}>
@@ -91,13 +96,11 @@ const SmallScreenToolbar = () => {
             <span className={css.title}>Menu</span>
           </div>
         </button>
-      </nav>
-      {/* @todo: this is a bit gross, move it */}
-      {showExpandedToolbar && (
+      ) : (
         <button
-          className={cx('button', css.menuButton, css.closeMenuButton)}
+          className={cx('button', css.menuButton)}
           type="button"
-          aria-label="Show More"
+          aria-label="Hide Menu"
           onClick={() => setShowExpandedToolbar(false)}
         >
           <div className={css.buttonFlexContainer}>
@@ -109,6 +112,58 @@ const SmallScreenToolbar = () => {
         </button>
       )}
     </>
+  )
+}
+
+const PanOrDrawControl = () => {
+  const touchPanning = useStore((state) => state.touchPanning)
+  const setTouchPanning = useStore((state) => state.setTouchPanning)
+
+  const handleModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isPanning = event.target.value === 'panning'
+    setTouchPanning(isPanning)
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTouchPanning(false)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [setTouchPanning])
+
+  return (
+    <fieldset className={css.panOrDrawControl}>
+      <legend>Mode:</legend>
+
+      <div>
+        <input
+          type="radio"
+          id="editing"
+          name="mode"
+          value="editing"
+          checked={!touchPanning}
+          onChange={handleModeChange}
+        />
+        <label htmlFor="editing">Edit</label>
+      </div>
+
+      <div>
+        <input
+          type="radio"
+          id="panning"
+          name="mode"
+          value="panning"
+          checked={touchPanning}
+          onChange={handleModeChange}
+        />
+        <label htmlFor="panning">Pan</label>
+      </div>
+    </fieldset>
   )
 }
 

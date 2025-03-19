@@ -68,18 +68,7 @@ const getRelativePosition = (canvasRef: CanvasRefType, e: DrawEventType) => {
   return { cx, cy }
 }
 
-const handleCanvasClick = (
-  canvasRef: CanvasRefType,
-  e: DrawEventType,
-  draw: DrawFunctionType,
-) => {
-  const { cx, cy } = getRelativePosition(canvasRef, e)
-  if (cx >= 0 && cy >= 0) {
-    draw(cy, cx)
-  }
-}
-
-const handleCanvasDrag = (
+const handleCanvasDraw = (
   canvasRef: CanvasRefType,
   e: DrawEventType,
   draw: DrawFunctionType,
@@ -118,10 +107,10 @@ const Canvas = ({ grid, draw, width, height }: CanvasProps) => {
           width={pixelSize.width}
           height={pixelSize.height}
           style={{ width: pixelSize.width / 2, height: pixelSize.height / 2 }}
-          onMouseDown={(e) => handleCanvasClick(canvasRef, e, draw)}
-          onTouchEnd={(e) => handleCanvasClick(canvasRef, e, draw)}
-          onMouseMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
-          onTouchMove={(e) => handleCanvasDrag(canvasRef, e, draw, isDrawing)}
+          onMouseDown={(e) => handleCanvasDraw(canvasRef, e, draw, isDrawing)}
+          onTouchEnd={(e) => handleCanvasDraw(canvasRef, e, draw, isDrawing)}
+          onMouseMove={(e) => handleCanvasDraw(canvasRef, e, draw, isDrawing)}
+          onTouchMove={(e) => handleCanvasDraw(canvasRef, e, draw, isDrawing)}
         />
       </div>
     </div>
