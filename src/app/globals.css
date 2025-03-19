@@ -75,6 +75,8 @@ a {
   background-color: var(--background-color);
   user-select: none;
   touch-action: manipulation;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .button:hover,

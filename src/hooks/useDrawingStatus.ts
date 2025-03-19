@@ -1,3 +1,4 @@
+import useStore from '@/store/store'
 import { useEffect, useState, RefObject } from 'react'
 
 export const useMouseStatus = <T extends HTMLElement>(
@@ -37,9 +38,15 @@ export const useTouchStatus = <T extends HTMLElement>(
     'touchstart' | 'touchend' | 'touchcancel'
   >('touchend')
 
+  // Touch screen panning state
+  const { touchPanning } = useStore()
+
   useEffect(() => {
     const container = containerRef?.current
     if (!container) return
+
+    console.log('touchPanning', touchPanning)
+    if (touchPanning) return setTouchStatus('touchcancel')
 
     const setTouchFromEvent = (event: TouchEvent) => {
       // prevent scrolling while drawing
@@ -58,7 +65,7 @@ export const useTouchStatus = <T extends HTMLElement>(
       container.removeEventListener('touchend', setTouchFromEvent)
       container.removeEventListener('touchcancel', setTouchFromEvent)
     }
-  }, [containerRef])
+  }, [containerRef, touchPanning])
 
   return touchStatus
 }

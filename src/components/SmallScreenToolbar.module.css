@@ -36,10 +36,10 @@
   border: none;
   font-weight: bold;
   padding: 4px;
-  user-select: none;
   border: 2px solid var(--mid-grey);
   filter: grayscale(75%);
   transition: filter 0.2s ease-in-out;
+  font-size: 12px;
 }
 
 .buttonFlexContainer {
@@ -62,6 +62,10 @@
 }
 
 .menuButton {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  min-width: 48px;
   color: var(--color4);
   background-color: var(--white);
   border: none;
@@ -70,18 +74,22 @@
   user-select: none;
   border: 2px solid var(--color3);
   box-shadow: 4px 4px 0 0 var(--color4);
-}
-
-.closeMenuButton {
-  position: fixed;
-  top: 8px;
-  right: 10px;
-  z-index: 2;
   font-size: 12px;
 }
 
 @media (min-width: 500px) {
-  .closeMenuButton {
+  .menuButton {
     display: none;
+  }
+}
+
+.panOrDrawControl {
+  display: none;
+  background-color: var(--white);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .panOrDrawControl {
+    display: block;
   }
 }
