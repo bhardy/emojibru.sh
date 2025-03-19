@@ -72,9 +72,17 @@ const SmallScreenToolbar = () => {
               updateTool={updateTool}
             />
           </li>
+          <li className={css.panTool}>
+            <Tool
+              type="pan"
+              icon="🤚"
+              title="Pan"
+              currentTool={tool}
+              updateTool={updateTool}
+            />
+          </li>
         </ul>
         <ColorPicker tool={tool} updateTool={updateTool} mini />
-        <PanOrDrawControl />
       </nav>
       {/* @todo: consider combining with below */}
       {!showExpandedToolbar ? (
@@ -111,46 +119,6 @@ const SmallScreenToolbar = () => {
         </button>
       )}
     </>
-  )
-}
-
-const PanOrDrawControl = () => {
-  const touchPanning = useStore((state) => state.touchPanning)
-  const setTouchPanning = useStore((state) => state.setTouchPanning)
-
-  const handleModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isPanning = event.target.value === 'panning'
-    setTouchPanning(isPanning)
-  }
-
-  return (
-    <fieldset className={css.panOrDrawControl}>
-      <legend>Mode:</legend>
-
-      <div>
-        <input
-          type="radio"
-          id="editing"
-          name="mode"
-          value="editing"
-          checked={!touchPanning}
-          onChange={handleModeChange}
-        />
-        <label htmlFor="editing">Edit</label>
-      </div>
-
-      <div>
-        <input
-          type="radio"
-          id="panning"
-          name="mode"
-          value="panning"
-          checked={touchPanning}
-          onChange={handleModeChange}
-        />
-        <label htmlFor="panning">Pan</label>
-      </div>
-    </fieldset>
   )
 }
 

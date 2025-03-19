@@ -22,6 +22,16 @@
   border-color: var(--color3);
 }
 
+.label-pan {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .label-pan {
+    display: grid;
+  }
+}
+
 .activeLabel,
 .activeLabel:hover,
 .activeLabel:focus {

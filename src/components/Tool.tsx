@@ -4,18 +4,18 @@ import useKey from 'react-use/lib/useKey'
 import { Tool as ToolType } from '@/types'
 import css from './Tool.module.css'
 
-interface BrushProps {
+interface ToolProps {
   currentTool: ToolType
   type: ToolType['type']
   updateTool: (update: Partial<ToolType>) => void
   icon: string
 }
 
-const Brush = ({ currentTool, type, updateTool, icon }: BrushProps) => {
+const Tool = ({ currentTool, type, updateTool, icon }: ToolProps) => {
   const active = currentTool.type === type
   return (
     <label
-      className={cx(css.label, {
+      className={cx(css.label, css[`label-${type}`], {
         [css.activeLabel]: active,
       })}
     >
@@ -35,15 +35,18 @@ const Brush = ({ currentTool, type, updateTool, icon }: BrushProps) => {
   )
 }
 
-interface ToolProps {
+interface ToolsProps {
   tool: ToolType
   updateTool: (update: Partial<ToolType>) => void
 }
 
-const Tool = ({ tool, updateTool }: ToolProps) => {
+const Tools = ({ tool, updateTool }: ToolsProps) => {
   useKey('d', () => updateTool({ type: 'draw' }), {}, [tool])
   useKey('f', () => updateTool({ type: 'fill' }), {}, [tool])
   useKey('e', () => updateTool({ type: 'erase' }), {}, [tool])
+  // @note: since we hide the pan tool in some cases we need better conditional
+  // logic before enabling the shortcut
+  // useKey(' ', () => updateTool({ type: 'pan' }), {}, [tool])
 
   return (
     <div className={css.tool}>
@@ -53,16 +56,12 @@ const Tool = ({ tool, updateTool }: ToolProps) => {
       >
         Current Tool: {tool.type}
       </span>
-      <Brush currentTool={tool} type="draw" updateTool={updateTool} icon="🖌" />
-      <Brush currentTool={tool} type="fill" updateTool={updateTool} icon="🌀" />
-      <Brush
-        currentTool={tool}
-        type="erase"
-        updateTool={updateTool}
-        icon="💨"
-      />
+      <Tool currentTool={tool} type="draw" updateTool={updateTool} icon="🖌" />
+      <Tool currentTool={tool} type="fill" updateTool={updateTool} icon="🌀" />
+      <Tool currentTool={tool} type="erase" updateTool={updateTool} icon="💨" />
+      <Tool currentTool={tool} type="pan" updateTool={updateTool} icon="🤚" />
     </div>
   )
 }
 
-export default Tool
+export default Tools
