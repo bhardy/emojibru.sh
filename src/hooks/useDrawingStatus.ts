@@ -39,14 +39,16 @@ export const useTouchStatus = <T extends HTMLElement>(
   >('touchend')
 
   // Touch screen panning state
-  const { touchPanning } = useStore()
+  const { tool } = useStore()
+
+  const isPanning = tool.type === 'pan'
 
   useEffect(() => {
     const container = containerRef?.current
     if (!container) return
 
-    console.log('touchPanning', touchPanning)
-    if (touchPanning) return setTouchStatus('touchcancel')
+    // if the user is panning, we don't want to draw
+    if (isPanning) return setTouchStatus('touchcancel')
 
     const setTouchFromEvent = (event: TouchEvent) => {
       // prevent scrolling while drawing
@@ -65,7 +67,7 @@ export const useTouchStatus = <T extends HTMLElement>(
       container.removeEventListener('touchend', setTouchFromEvent)
       container.removeEventListener('touchcancel', setTouchFromEvent)
     }
-  }, [containerRef, touchPanning])
+  }, [containerRef, isPanning])
 
   return touchStatus
 }

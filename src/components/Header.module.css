@@ -1,6 +1,5 @@
 .header {
   grid-area: header;
-  position: relative;
   padding-top: env(safe-area-inset-top);
   text-align: center;
 }
@@ -21,8 +20,8 @@
 
 .help {
   position: absolute;
-  top: 28px;
-  right: 0;
+  top: 14px;
+  right: 24px;
 
   font-size: 14px;
   padding: 5px 10px;
