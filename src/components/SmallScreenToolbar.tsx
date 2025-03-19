@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import { useEffect } from 'react'
 import useStore from '../store/store'
 import { Tool as ToolType } from '@/types'
 import ColorPicker from './ColorPicker'
@@ -123,18 +122,6 @@ const PanOrDrawControl = () => {
     const isPanning = event.target.value === 'panning'
     setTouchPanning(isPanning)
   }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setTouchPanning(false)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [setTouchPanning])
 
   return (
     <fieldset className={css.panOrDrawControl}>
