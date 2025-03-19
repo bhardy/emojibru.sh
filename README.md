@@ -37,9 +37,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - [x] add vercel analytics
 - [ ] add vercel speed insights
 - [ ] replace emoji-mart or update it once it supports react 19
-- [ ] fix scrolling when the artboard is bigger than the viewport
-- [ ] address scrolling on touch devices: add draw<->pan toggle for touch devices or enable scrolling/panning/zooming with multi-touch
-- [ ]
+- [x] fix scrolling when the artboard is bigger than the viewport
+- [x] address scrolling on touch devices: add draw<->pan toggle for touch devices
+- [ ] enable scrolling/panning/zooming with multi-touch
 
 ## Getting Started
 
