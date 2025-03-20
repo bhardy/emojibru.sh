@@ -93,3 +93,13 @@
     display: none;
   }
 }
+
+.picker {
+  --highlight: var(--color2);
+}
+
+@media (min-width: 500px) {
+  .picker {
+    display: none;
+  }
+}
