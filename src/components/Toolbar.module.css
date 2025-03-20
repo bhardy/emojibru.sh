@@ -5,9 +5,10 @@
 @media (max-width: 499px) {
   .toolbar.visible {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-column: 1 / -1;
-    grid-row: 2 / -1;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
     grid-template-areas:
       'primary-tools'
       'secondary-tools';

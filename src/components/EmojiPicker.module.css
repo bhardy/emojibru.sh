@@ -1,7 +1,7 @@
 /* @todo: move these container rules to the consuming components */
 .container {
   position: fixed;
-  top: 50px;
+  top: 72px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 101; /* this has to be above topLayer */
