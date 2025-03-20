@@ -3,6 +3,7 @@ import useStore from '../store/store'
 import { Tool as ToolType } from '@/types'
 import ColorPicker from './ColorPicker'
 import css from './SmallScreenToolbar.module.css'
+import EmojiPicker from './EmojiPicker'
 
 interface ToolProps {
   currentTool: ToolType
@@ -38,6 +39,9 @@ const SmallScreenToolbar = () => {
     (state) => state.setShowExpandedToolbar,
   )
   const showExpandedToolbar = useStore((state) => state.showExpandedToolbar)
+  const showPicker = useStore((state) => state.showPicker)
+  const setShowPicker = useStore((state) => state.setShowPicker)
+
   return (
     <>
       <nav
@@ -84,6 +88,14 @@ const SmallScreenToolbar = () => {
         </ul>
         <ColorPicker tool={tool} updateTool={updateTool} mini />
       </nav>
+      {showPicker && (
+        <div className={css.picker}>
+          <EmojiPicker
+            handleEmojiSelect={updateTool}
+            handleClickOutside={() => setShowPicker(false)}
+          />
+        </div>
+      )}
       {/* @todo: consider combining with below */}
       {!showExpandedToolbar ? (
         <button
