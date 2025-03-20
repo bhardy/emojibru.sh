@@ -1,6 +1,5 @@
 .footer {
   grid-area: footer;
-  padding: 16px;
   text-align: center;
 }
 
@@ -8,8 +7,16 @@
   font-size: 12px;
 }
 
+.footer p:nth-of-type(2) {
+  display: none;
+}
+
 @media (min-width: 500px) {
   .footer {
     padding: 24px;
+  }
+
+  .footer p:nth-of-type(2) {
+    display: block;
   }
 }
