@@ -6,6 +6,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'EmojiBrush',
   description: 'Make art for your friends (and enemies) with Emojis',
+  metadataBase: new URL('https://emojibru.sh'), // @todo: add env vars to handle this
 }
 
 export default function RootLayout({
