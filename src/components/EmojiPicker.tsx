@@ -26,6 +26,7 @@ const EmojiPicker = ({
       className={cx(css.container, css.emojiPicker, {
         [css.edit]: edit,
       })}
+      onClick={(e) => e.stopPropagation()}
     >
       <Picker
         data={data}
