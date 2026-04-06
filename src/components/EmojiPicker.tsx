@@ -27,17 +27,20 @@ const EmojiPicker = ({
     const el = containerRef.current
     if (!el) return
 
-    // Stop click events from bubbling past this container to document,
-    // where emoji-mart's onClickOutside listener lives. On iOS Safari,
-    // shadow DOM event retargeting is unreliable — clicks on search/tabs
-    // inside the picker get misidentified as "outside" clicks. This native
-    // listener fires before the event reaches document, while emoji-mart's
-    // internal handlers (emoji selection, etc.) still work because they're
-    // handled within the shadow DOM before the event crosses the boundary.
-    const stopPropagation = (e: Event) => e.stopPropagation()
-    el.addEventListener('click', stopPropagation)
-    return () => el.removeEventListener('click', stopPropagation)
-  }, [])
+    // Handle click-outside detection ourselves instead of relying on
+    // emoji-mart's onClickOutside, which breaks on iOS Safari due to
+    // unreliable shadow DOM event retargeting. Using contains() to check
+    // if the click target is inside our container works reliably across
+    // all browsers regardless of shadow DOM boundaries.
+    const onDocumentClick = (e: MouseEvent) => {
+      if (!el.contains(e.target as Node)) {
+        handleClickOutside(e)
+      }
+    }
+
+    document.addEventListener('click', onDocumentClick)
+    return () => document.removeEventListener('click', onDocumentClick)
+  }, [handleClickOutside])
 
   return (
     <div
@@ -54,7 +57,6 @@ const EmojiPicker = ({
         onEmojiSelect={(emoji: EmojiObject) =>
           handleEmojiSelect({ paint: emoji.native })
         }
-        onClickOutside={handleClickOutside}
         emojiButtonColors={['var(--color2)']}
         theme="light"
       />
