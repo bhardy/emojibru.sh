@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import Picker from '@emoji-mart/react'
 import data from '@emoji-mart/data'
@@ -16,35 +16,9 @@ interface EmojiObject {
   [key: string]: string
 }
 
-const EmojiPicker = ({
-  handleEmojiSelect,
-  handleClickOutside,
-  edit = false,
-}: EmojiPickerProps) => {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    // Handle click-outside detection ourselves instead of relying on
-    // emoji-mart's onClickOutside, which breaks on iOS Safari due to
-    // unreliable shadow DOM event retargeting. Using contains() to check
-    // if the click target is inside our container works reliably across
-    // all browsers regardless of shadow DOM boundaries.
-    const onDocumentClick = (e: MouseEvent) => {
-      if (!el.contains(e.target as Node)) {
-        handleClickOutside(e)
-      }
-    }
-
-    document.addEventListener('click', onDocumentClick)
-    return () => document.removeEventListener('click', onDocumentClick)
-  }, [handleClickOutside])
-
+const EmojiPicker = ({ handleEmojiSelect, edit = false }: EmojiPickerProps) => {
   return (
     <div
-      ref={containerRef}
       className={cx(css.container, css.emojiPicker, {
         [css.edit]: edit,
       })}
