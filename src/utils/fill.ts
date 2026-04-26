@@ -1,4 +1,3 @@
-import { uniqWith, differenceWith, isEqual } from 'lodash'
 import { Painting } from '../types'
 
 interface Point {
@@ -6,96 +5,82 @@ interface Point {
   y: number
 }
 
+/**
+ * Returns the set of cells that should change color when the user clicks
+ * `target` on `grid` while the active paint is `paint`.
+ *
+ * 4-connected flood fill (no diagonals). Iterative DFS using a typed-array
+ * visited mask, so each cell is examined at most once → O(width * height)
+ * time and memory. The previous implementation used lodash deep-equality
+ * dedup inside the BFS loop, which was effectively O(n^3) and froze the
+ * UI on medium-sized canvases.
+ */
 export default function cellsToFill(
   grid: Painting['grid'],
   target: Point,
   paint: string,
 ): Point[] {
-  return control(grid, target, paint)
-}
+  const height = grid.length
+  if (height === 0) return []
+  const width = grid[0].length
+  if (width === 0) return []
 
-const control = (
-  grid: Painting['grid'],
-  target: Point,
-  paint: string,
-): Point[] => {
-  const { x, y } = target
-
-  const fillTarget = grid[y][x]
-
-  // If no painting needs to be done return
-  if (fillTarget === paint) {
+  const { x: startX, y: startY } = target
+  if (startY < 0 || startY >= height || startX < 0 || startX >= width) {
     return []
   }
 
-  let matchedCells: Point[] = []
-  let cellsToCheck: Point[] = []
+  const fillTarget = grid[startY][startX]
+  if (fillTarget === paint) return []
 
-  cellsToCheck.push(target)
+  const visited = new Uint8Array(width * height)
+  const stack: number[] = []
+  const result: Point[] = []
 
-  while (cellsToCheck.length) {
-    const cell = cellsToCheck.pop()!
-    const adjacentCells = getAdjacent(grid, cell)
-    const matchingAdjacentCells = getMatches(grid, fillTarget, adjacentCells)
-    let uncheckedMatchingCells = differenceWith(
-      matchingAdjacentCells,
-      matchedCells,
-      isEqual,
-    )
-    uncheckedMatchingCells = differenceWith(
-      uncheckedMatchingCells,
-      [cell],
-      isEqual,
-    )
+  const startIdx = startY * width + startX
+  visited[startIdx] = 1
+  stack.push(startIdx)
 
-    // differenceWith(uncheckedMatchingCells, [cell], isEqual)
-    cellsToCheck = uniqWith(
-      [...cellsToCheck, ...uncheckedMatchingCells],
-      isEqual,
-    )
-    matchedCells = uniqWith(
-      [...matchedCells, ...matchingAdjacentCells],
-      isEqual,
-    )
-  }
+  while (stack.length > 0) {
+    const idx = stack.pop()!
+    const y = (idx / width) | 0
+    const x = idx - y * width
 
-  return matchedCells
-}
+    result.push({ x, y })
 
-export const getCellToCheck = (
-  matchedCells: Point[],
-  checkedCells: Point[],
-): Point | undefined => {
-  return differenceWith(matchedCells, checkedCells, isEqual)[0]
-}
-
-export const getAdjacent = (grid: Painting['grid'], target: Point): Point[] => {
-  const { x, y } = target
-  const edges: Point[] = [{ x, y }]
-  for (let dx = -1; dx <= 1; ++dx) {
-    for (let dy = -1; dy <= 1; ++dy) {
-      // the distance must not be 0 && the matched absolute vals remove the corners
-      if ((dx !== 0 || dy !== 0) && Math.abs(dy) !== Math.abs(dx)) {
-        try {
-          if (grid[y + dy][x + dx]) {
-            edges.push({
-              x: x + dx,
-              y: y + dy,
-            })
-          }
-        } catch {
-          // 😎 should probably refactor this
-        }
+    // West
+    if (x > 0) {
+      const n = idx - 1
+      if (!visited[n] && grid[y][x - 1] === fillTarget) {
+        visited[n] = 1
+        stack.push(n)
+      }
+    }
+    // East
+    if (x < width - 1) {
+      const n = idx + 1
+      if (!visited[n] && grid[y][x + 1] === fillTarget) {
+        visited[n] = 1
+        stack.push(n)
+      }
+    }
+    // North
+    if (y > 0) {
+      const n = idx - width
+      if (!visited[n] && grid[y - 1][x] === fillTarget) {
+        visited[n] = 1
+        stack.push(n)
+      }
+    }
+    // South
+    if (y < height - 1) {
+      const n = idx + width
+      if (!visited[n] && grid[y + 1][x] === fillTarget) {
+        visited[n] = 1
+        stack.push(n)
       }
     }
   }
-  return edges
-}
 
-export const getMatches = (
-  grid: Painting['grid'],
-  fillTarget: string,
-  adjacentCells: Point[],
-): Point[] => {
-  return adjacentCells.filter(({ x, y }) => grid[y][x] === fillTarget)
+  return result
 }
