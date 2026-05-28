@@ -1,5 +1,18 @@
-.center {
-  margin: auto;
+.viewport {
+  flex: 1;
+  align-self: stretch;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.viewport[data-pan='true'] {
+  cursor: grab;
+}
+
+.viewport[data-pan='true']:active {
+  cursor: grabbing;
 }
 
 .wrapper {
@@ -8,13 +21,10 @@
   background-color: var(--white);
   border-radius: 12px;
   box-shadow: 0 0 8px 8px var(--white);
-  /* @note: this offsets the box-shadow, if you change it, you should override the white variable with something easier to see */
-  margin: 16px;
 }
 
 @media (min-width: 500px) {
   .wrapper {
     box-shadow: 0 0 16px 16px var(--white);
-    margin: 32px;
   }
 }

@@ -43,16 +43,6 @@
   font-size: 12px;
 }
 
-.panTool {
-  display: none;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .panTool {
-    display: block;
-  }
-}
-
 .buttonFlexContainer {
   display: flex;
   flex-direction: column;

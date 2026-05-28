@@ -9,7 +9,6 @@ import css from './Artboard.module.css'
 const Artboard = () => {
   const painting = useStore((state) => state.painting)
   const setPainting = useStore((state) => state.setPainting)
-  const tool = useStore((state) => state.tool)
 
   const handleUpdatePainting = (update: Partial<Painting>) => {
     setPainting(update)
@@ -26,8 +25,13 @@ const Artboard = () => {
     }
   }, [painting, setPainting])
 
+  // Read the tool live at call time. A render-time closure over `tool` can be
+  // stale during fast iOS pinches: the temporary-pan setTool fires from a
+  // native touch listener but React 19 may not have flushed the re-render
+  // before the next touch event dispatches the synthetic onTouchEnd.
   const paint = (row: number, col: number) => {
-    switch (tool.type) {
+    const currentTool = useStore.getState().tool
+    switch (currentTool.type) {
       case 'draw':
         draw(row, col)
         break
@@ -43,7 +47,7 @@ const Artboard = () => {
   }
 
   const emojiChar = () => {
-    const paint = tool.paint
+    const paint = useStore.getState().tool.paint
     return `${paint}${String.fromCharCode(65039)}`
   }
 

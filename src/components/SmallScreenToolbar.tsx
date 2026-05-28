@@ -76,7 +76,7 @@ const SmallScreenToolbar = () => {
               updateTool={updateTool}
             />
           </li>
-          <li className={css.panTool}>
+          <li>
             <Tool
               type="pan"
               icon="🤚"
