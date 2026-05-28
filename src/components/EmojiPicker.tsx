@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import cx from 'classnames'
 import Picker from '@emoji-mart/react'
 import data from '@emoji-mart/data'
@@ -21,8 +21,32 @@ const EmojiPicker = ({
   handleClickOutside,
   edit = false,
 }: EmojiPickerProps) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    // On iOS Safari, clicks inside emoji-mart's shadow DOM produce
+    // unreliable e.target values at the document level, so contains()
+    // checks misfire. Instead, we stop inside clicks from reaching
+    // document, then treat any click that does reach document as an
+    // outside click — no e.target inspection needed.
+    const stopPropagation = (e: Event) => e.stopPropagation()
+    el.addEventListener('click', stopPropagation)
+
+    const onDocumentClick = (e: MouseEvent) => handleClickOutside(e)
+    document.addEventListener('click', onDocumentClick)
+
+    return () => {
+      el.removeEventListener('click', stopPropagation)
+      document.removeEventListener('click', onDocumentClick)
+    }
+  }, [handleClickOutside])
+
   return (
     <div
+      ref={containerRef}
       className={cx(css.container, css.emojiPicker, {
         [css.edit]: edit,
       })}
@@ -35,7 +59,6 @@ const EmojiPicker = ({
         onEmojiSelect={(emoji: EmojiObject) =>
           handleEmojiSelect({ paint: emoji.native })
         }
-        onClickOutside={handleClickOutside}
         emojiButtonColors={['var(--color2)']}
         theme="light"
       />

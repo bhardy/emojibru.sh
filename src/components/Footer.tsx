@@ -16,7 +16,7 @@ const Footer = () => (
       >
         Brant Hardy
       </a>
-      . Copyright &copy;&nbsp;{new Date().getFullYear()}
+      .
     </p>
     <p>
       File{' '}

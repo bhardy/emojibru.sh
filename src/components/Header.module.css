@@ -7,8 +7,21 @@
 .heading {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   color: var(--color4);
+  font-size: 20px;
+}
+
+@media (min-width: 500px) {
+  .heading {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 900px) {
+  .heading {
+    font-size: 32px;
+  }
 }
 
 .logo {

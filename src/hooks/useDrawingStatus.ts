@@ -38,19 +38,19 @@ export const useTouchStatus = <T extends HTMLElement>(
     'touchstart' | 'touchend' | 'touchcancel'
   >('touchend')
 
-  // Touch screen panning state
-  const { tool } = useStore()
-
-  const isPanning = tool.type === 'pan'
-
   useEffect(() => {
     const container = containerRef?.current
     if (!container) return
 
-    // if the user is panning, we don't want to draw
-    if (isPanning) return setTouchStatus('touchcancel')
-
+    // Read pan state live inside the listener — a closure over `tool.type`
+    // could be stale during fast pinches when React 19 has not yet flushed
+    // the temporary-pan setTool. Re-attaching on every isPanning change also
+    // had a window where touchstart fired before listeners were re-bound.
     const setTouchFromEvent = (event: TouchEvent) => {
+      if (useStore.getState().tool.type === 'pan') {
+        setTouchStatus('touchcancel')
+        return
+      }
       // prevent scrolling while drawing
       event.preventDefault()
       setTouchStatus(event.type as 'touchstart' | 'touchend' | 'touchcancel')
@@ -67,7 +67,7 @@ export const useTouchStatus = <T extends HTMLElement>(
       container.removeEventListener('touchend', setTouchFromEvent)
       container.removeEventListener('touchcancel', setTouchFromEvent)
     }
-  }, [containerRef, isPanning])
+  }, [containerRef])
 
   return touchStatus
 }
